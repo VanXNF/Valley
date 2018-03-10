@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">PhotoValley</string>
+    <!--toolbar menu string -->
+    <string name="search">搜索</string>
+    <string name="flowLayout">流布局</string>
+    <string name="staggeredGridLayout">瀑布流布局</string>
+    <!--nav menu string-->
+    <string name="home">主页</string>
+    <string name="collection">收藏</string>
+    <string name="download">下载</string>
+    <string name="setting">设置</string>
+    <string name="share">分享</string>
+    <string name="feedback">反馈</string>
+
 </resources>
