@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主页标签 -->
+    <string-array name="home_tabs">
+        <item>广场</item>
+        <item>推荐</item>
+        <item>滤镜</item>
+    </string-array>
+
+</resources>

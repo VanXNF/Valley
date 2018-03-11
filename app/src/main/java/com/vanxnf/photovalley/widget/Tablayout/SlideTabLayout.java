@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 
 import com.vanxnf.photovalley.R;
 
-// TODO: 2018/3/10 使选项卡平分空间，并居中 
+
 public class SlideTabLayout extends TabLayout implements ViewPager.OnPageChangeListener {
 
     private static final int DEFAULT_HEIGHT_DP = 6;
@@ -121,7 +121,6 @@ public class SlideTabLayout extends TabLayout implements ViewPager.OnPageChangeL
     public void setupWithViewPager(@Nullable final ViewPager viewPager, boolean autoRefresh) {
         super.setupWithViewPager(viewPager, autoRefresh);
 
-        //TODO
         if (viewPager != null) {
             if (viewPager != this.viewPager) {
                 viewPager.removeOnPageChangeListener(this);

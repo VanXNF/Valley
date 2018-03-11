@@ -28,9 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:IndicatorHeight="6dp"
-                app:IndicatorColor="?attr/colorAccent"
-                app:CenterAlign="true"
-                app:tabMode="scrollable"/>
+                app:IndicatorColor="?attr/colorAccent" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -45,11 +43,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/recycler_view"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
