@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="180dp"
     android:padding="10dp"
-    android:background="?attr/colorPrimary">
+    android:background="@drawable/pic3">
+
+    <com.vanxnf.photovalley.widget.CircleImageView.CircleImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/pic4"
+        app:BorderColor="#00000000"
+        app:BorderWidth="0dp" />
 
     <TextView
         android:id="@+id/account"
@@ -11,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="VanXNF@gmail.com"
-        android:textColor="#FFF"
+        android:textColor="?attr/colorPrimary"
         android:textSize="14sp" />
 
     <TextView
@@ -20,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/account"
         android:text="Van X"
-        android:textColor="#FFF"
-        android:textSize="14sp" />
+        android:textColor="?attr/colorPrimary"
+        android:textSize="16sp" />
 
 </RelativeLayout>

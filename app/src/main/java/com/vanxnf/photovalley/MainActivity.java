@@ -1,7 +1,10 @@
 package com.vanxnf.photovalley;
 
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -45,18 +48,28 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_dark);
         }
-        initData();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(R.id.nav_home);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mDrawerLayout.closeDrawers();
+                return true;
+            }
+        });
+
+        initFragmentData();
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setOffscreenPageLimit(fragments.size());
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), titles, fragments));
 
         tabLayout = (SlideTabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(TAB_RECOMMEND).select();
+        tabLayout.getTabAt(TAB_RECOMMEND).select();//默认显示推荐页
 
     }
 
-    private void initData() {
+    private void initFragmentData() {
 
         titles = new ArrayList<>();
         String[] tabs = getResources().getStringArray(R.array.home_tabs);
@@ -97,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
             case R.id.search:
                 break;
             case R.id.flow_layout:
@@ -107,36 +123,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
-
-
-//    private class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-//        private VerticalMovingStyle verticalMovingStyle = new VerticalMovingStyle();
-//        @Override
-//        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-//            View view = inflater.inflate(R.layout.recycler_item, parent, false);
-//            return new ViewHolder(view);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(ViewHolder holder, int position) {
-//            holder.iv.setParallaxStyles(verticalMovingStyle);
-
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return 25;
-//        }
-//
-//        class ViewHolder extends RecyclerView.ViewHolder {
-//            ScrollParallaxImageView iv;
-//            ViewHolder(View itemView) {
-//                super(itemView);
-//                iv = (ScrollParallaxImageView) itemView.findViewById(R.id.img);
-//            }
-//        }
-//    }
 
 }
