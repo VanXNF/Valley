@@ -53,9 +53,9 @@ public class SlideTabLayout extends TabLayout implements ViewPager.OnPageChangeL
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TabLayout);
 
-        this.indicatorHeight = a.getDimensionPixelSize(R.styleable.TabLayout_IndicatorHeight, HelperUtils.dpToPx(DEFAULT_HEIGHT_DP));
-        this.indicatorColor = a.getColor(R.styleable.TabLayout_IndicatorColor, Color.BLACK);
-        this.centerAlign = a.getBoolean(R.styleable.TabLayout_CenterAlign, false);
+        this.indicatorHeight = a.getDimensionPixelSize(R.styleable.TabLayout_indicator_height, HelperUtils.dpToPx(DEFAULT_HEIGHT_DP));
+        this.indicatorColor = a.getColor(R.styleable.TabLayout_indicator_color, Color.BLACK);
+        this.centerAlign = a.getBoolean(R.styleable.TabLayout_center_align, false);
         a.recycle();
     }
 

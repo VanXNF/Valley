@@ -8,14 +8,13 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
 import com.vanxnf.photovalley.widget.PageFragment.FilteerFragment;
+import com.vanxnf.photovalley.features.adapter.PagerAdapter;
 import com.vanxnf.photovalley.widget.PageFragment.RecommendFragment;
 import com.vanxnf.photovalley.widget.PageFragment.SquareFragment;
 import com.vanxnf.photovalley.widget.Tablayout.SlideTabLayout;
@@ -24,7 +23,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends BaseActivity {
 
     private static final int TAB_RECOMMEND = 0x01;
 
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_dark);
         }
+        //侧边栏显示
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_home);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -58,17 +59,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //加载主页tab fragments
         initFragmentData();
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setOffscreenPageLimit(fragments.size());
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), titles, fragments));
 
+        //绑定TabLayout 与 ViewPaper
         tabLayout = (SlideTabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(TAB_RECOMMEND).select();//默认显示推荐页
 
+
     }
 
+    /**创建fragment数据*/
     private void initFragmentData() {
 
         titles = new ArrayList<>();
@@ -106,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /** Toolbar 右上角 Menu Item 点击事件*/
+    /** Toolbar Menu Item 点击事件*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -118,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.flow_layout:
                 break;
             case R.id.sg_layout:
+
                 break;
             default:
         }

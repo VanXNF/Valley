@@ -8,8 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.widget.ScrollParallaxImageView.ScrollParallaxImageView;
-import com.vanxnf.photovalley.widget.ScrollParallaxImageView.parallaxstyle.VerticalMovingStyle;
+import com.vanxnf.photovalley.features.adapter.RecommendImageAdapter;
 
 /**
  * Created by VanXN on 2018/3/11.
@@ -21,10 +20,9 @@ public class RecommendFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_recommend);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new MyAdapter());
-
+        recyclerView.setAdapter(new RecommendImageAdapter());
         return view;
     }
 
@@ -37,38 +35,5 @@ public class RecommendFragment extends BaseFragment {
         // TODO: 2018/3/11 init data 
     }
 
-    private class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        private VerticalMovingStyle verticalMovingStyle = new VerticalMovingStyle();
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View view = inflater.inflate(R.layout.recommend_image_item, parent, false);
-            return new ViewHolder(view);
-        }
 
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.iv.setParallaxStyles(verticalMovingStyle);
-            switch (position % 5) {
-                case 0 : holder.iv.setImageResource(R.drawable.pic1); break;
-                case 1 : holder.iv.setImageResource(R.drawable.pic2); break;
-                case 2 : holder.iv.setImageResource(R.drawable.pic3); break;
-                case 3 : holder.iv.setImageResource(R.drawable.pic4); break;
-                case 4 : holder.iv.setImageResource(R.drawable.pic5); break;
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return 25;
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            ScrollParallaxImageView iv;
-            ViewHolder(View itemView) {
-                super(itemView);
-                iv = (ScrollParallaxImageView) itemView.findViewById(R.id.recommend_image);
-            }
-        }
-    }
 }

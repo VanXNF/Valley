@@ -6,11 +6,12 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -27,34 +28,22 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IndicatorHeight="6dp"
-                app:IndicatorColor="?attr/colorAccent" />
+                app:indicator_height="6dp"
+                app:indicator_color="?attr/colorAccent"
+                app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh"
+        <com.vanxnf.photovalley.widget.ParallaxViewPager.ParallaxViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        </android.support.v4.widget.SwipeRefreshLayout>
-
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:elevation="8dp"
-            android:src="@drawable/ic_done" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:interpolator="@anim/decelerate_interpolator"
+            app:mode="right_overlay"
+            app:outset="62%"
+            app:shadow_width="30dp"/>
+
 
     </android.support.design.widget.CoordinatorLayout>
 
