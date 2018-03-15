@@ -1,7 +1,6 @@
 package com.vanxnf.photovalley.ui.homefragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bm.library.PhotoView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.HomeSquareAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
+import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
+import com.vanxnf.photovalley.widget.Loading.LoadingView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class SquareFragment extends BaseFragment {
     private int mFrom;
     private RecyclerView mRecycler;
     private HomeSquareAdapter mHSAdapter;
+    private List<String> items = new ArrayList<>();
+    private View view;
 
     public static SquareFragment newInstance(int from) {
         Bundle args = new Bundle();
@@ -53,15 +57,15 @@ public class SquareFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_square, container, false);
+        view = inflater.inflate(R.layout.fragment_home_square, container, false);
         initView(view);
         return view;
     }
 
-    private void initView(View view) {
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         // TODO: 2018/3/14 初始化界面
-        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_square);
-        mHSAdapter = new HomeSquareAdapter(_mActivity);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
         mRecycler.setLayoutManager(manager);
         mRecycler.setAdapter(mHSAdapter);
@@ -69,10 +73,12 @@ public class SquareFragment extends BaseFragment {
         mHSAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                if (getParentFragment() instanceof HomeFragment) {
+                if (view instanceof CircleImageView) {
+                    // TODO: 2018/3/15 展示头像详情
+                    Toast.makeText(getContext(), "暂无法查看头像详情", Toast.LENGTH_SHORT).show();
+                } else if (view instanceof PhotoView) {
                     // TODO: 2018/3/14 展示图片详情
                     Toast.makeText(getContext(), "暂无法查看图片详情", Toast.LENGTH_SHORT).show();
-//                    ((HomeFragment) getParentFragment()).start(CycleFragment.newInstance(1));
                 }
             }
         });
@@ -81,13 +87,12 @@ public class SquareFragment extends BaseFragment {
             @Override
             public void run() {
                 // Init Datas
-                List<String> items = new ArrayList<>();
                 // TODO: 2018/3/14 调整获取图片数据方式
                 switch (mFrom) {
                     case 0:
                         String uri = new String("https://picsum.photos/800/600/?image=");
                         String item;
-                        for (int i = 75; i <= 100; i++) {
+                        for (int i = 20; i <= 50; i++) {
                             item = uri + i;
                             items.add(item);
                         }
@@ -97,6 +102,11 @@ public class SquareFragment extends BaseFragment {
                 mHSAdapter.setData(items);
             }
         });
+    }
+    //轻量级初始化
+    private void initView(View view) {
+        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_square);
+        mHSAdapter = new HomeSquareAdapter(_mActivity);
     }
 
 }

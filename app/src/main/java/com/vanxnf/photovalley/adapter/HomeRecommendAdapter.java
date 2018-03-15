@@ -15,6 +15,8 @@ import com.vanxnf.photovalley.listener.OnItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 /**
  * Created by VanXN on 2018/3/11.
  */
@@ -25,6 +27,7 @@ public class HomeRecommendAdapter extends RecyclerView.Adapter<HomeRecommendAdap
     private LayoutInflater mInflater;
     private View view;
     private OnItemClickListener mClickListener;
+
 
     public HomeRecommendAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
@@ -58,7 +61,10 @@ public class HomeRecommendAdapter extends RecyclerView.Adapter<HomeRecommendAdap
         holder.iv.post(new Runnable() {
             @Override
             public void run() {
-                Glide.with(view).load(Uri.parse(uri)).into(holder.iv);
+                Glide.with(view)
+                        .load(Uri.parse(uri))
+                        .transition(withCrossFade())
+                        .into(holder.iv);
             }
         });
     }
@@ -79,4 +85,5 @@ public class HomeRecommendAdapter extends RecyclerView.Adapter<HomeRecommendAdap
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
+
 }

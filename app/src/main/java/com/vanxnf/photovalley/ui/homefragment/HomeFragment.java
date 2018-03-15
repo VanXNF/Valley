@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.HomeFragmentAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
+import com.vanxnf.photovalley.widget.Loading.LoadingView;
 import com.vanxnf.photovalley.widget.ParallaxViewPager.ParallaxViewPager;
 import com.vanxnf.photovalley.widget.SlideTablayout.SlideTabLayout;
 
@@ -30,14 +31,15 @@ public class HomeFragment extends BaseMainFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initView(view);
-
         return view;
     }
 
     private void initView(View view) {
+        final LoadingView mLoadingView = (LoadingView) view.findViewById(R.id.load_view);
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         SlideTabLayout mTabLayout = (SlideTabLayout) view.findViewById(R.id.tab_layout);
         ParallaxViewPager mViewPager = (ParallaxViewPager) view.findViewById(R.id.view_pager);
+
 
         mToolbar.setTitle(R.string.home);
         mToolbar.inflateMenu(R.menu.toolbar_menu);
@@ -61,7 +63,6 @@ public class HomeFragment extends BaseMainFragment {
         });
         getActivity().openOptionsMenu();
         initToolbarNav(mToolbar);
-
 
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.square));
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.recommend));

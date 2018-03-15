@@ -1,6 +1,7 @@
 package com.vanxnf.photovalley.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * 展示自定制的SupportFragment，不继承SupportFragment
  */
 public class BaseFragment extends Fragment implements ISupportFragment {
+
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity;
 
@@ -37,9 +39,9 @@ public class BaseFragment extends Fragment implements ISupportFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mDelegate.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mDelegate.onAttach((Activity) context);
         _mActivity = mDelegate.getActivity();
     }
 

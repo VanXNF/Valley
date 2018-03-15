@@ -1,6 +1,7 @@
 package com.vanxnf.photovalley.ui.homefragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,9 +13,13 @@ import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.HomeRecommendAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
+import com.vanxnf.photovalley.listener.OnLoadingListener;
+import com.vanxnf.photovalley.widget.Loading.LoadingView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.security.auth.callback.Callback;
 
 
 /**
@@ -26,7 +31,7 @@ public class RecommendFragment extends BaseFragment {
     private static final String ARG_FROM = "arg_from";
 
     private int mFrom;
-
+    private List<String> items = new ArrayList<>();
     private RecyclerView mRecycler;
     private HomeRecommendAdapter mHRAdapter;
 
@@ -50,6 +55,12 @@ public class RecommendFragment extends BaseFragment {
     }
 
     @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        initLazyView();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_recommend, container, false);
@@ -57,9 +68,13 @@ public class RecommendFragment extends BaseFragment {
         return view;
     }
 
+    //简单初始化
     private void initView(View view) {
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_recommend);
         mHRAdapter = new HomeRecommendAdapter(_mActivity);
+    }
+
+    private void initLazyView() {
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
         mRecycler.setLayoutManager(manager);
         mRecycler.setAdapter(mHRAdapter);
@@ -79,7 +94,6 @@ public class RecommendFragment extends BaseFragment {
             @Override
             public void run() {
                 // Init Datas
-                List<String> items = new ArrayList<>();
                 // TODO: 2018/3/14 调整获取图片数据方式
                 switch (mFrom) {
                     case 0:

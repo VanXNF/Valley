@@ -18,6 +18,8 @@ import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 /**
  * Created by VanXN on 2018/3/12.
  */

@@ -19,6 +19,7 @@ import com.vanxnf.photovalley.base.BaseMainFragment;
 import com.vanxnf.photovalley.features.login.LoginFragment;
 import com.vanxnf.photovalley.ui.homefragment.HomeFragment;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
+import com.vanxnf.photovalley.widget.Loading.LoadingView;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;

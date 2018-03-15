@@ -30,13 +30,12 @@
     <com.vanxnf.photovalley.widget.ParallaxViewPager.ParallaxViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:interpolator="@anim/decelerate_interpolator"
         app:mode="right_overlay"
         app:outset="62%"
         app:shadow_width="30dp"/>
-
 
 </android.support.design.widget.CoordinatorLayout>
 
