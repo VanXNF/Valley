@@ -6,10 +6,10 @@
     android:layout_height="wrap_content"
     android:background="#ff000000">
 
-    <com.vanxnf.photovalley.widget.ScrollParallaxImageView.ScrollParallaxImageView
+    <com.bm.library.PhotoView
         android:id="@+id/recommend_image"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="230dp"
         android:src="@drawable/pic1"
         android:scaleType="centerCrop" />
 

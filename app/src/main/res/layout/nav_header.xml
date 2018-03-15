@@ -7,29 +7,22 @@
     android:background="@drawable/pic3">
 
     <com.vanxnf.photovalley.widget.CircleImageView.CircleImageView
+        android:id="@+id/civ_nav_avatar"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="24dp"
+        android:layout_centerVertical="true"
         android:src="@drawable/pic4"
         app:border_color="#00000000"
         app:border_width="0dp" />
 
     <TextView
-        android:id="@+id/account"
+        android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="VanXNF@gmail.com"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/account"
+        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@id/civ_nav_avatar"
         android:text="Van X"
         android:textColor="?attr/colorPrimary"
         android:textSize="16sp" />

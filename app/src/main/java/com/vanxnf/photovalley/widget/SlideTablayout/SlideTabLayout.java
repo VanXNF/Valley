@@ -1,4 +1,4 @@
-package com.vanxnf.photovalley.widget.Tablayout;
+package com.vanxnf.photovalley.widget.SlideTablayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;

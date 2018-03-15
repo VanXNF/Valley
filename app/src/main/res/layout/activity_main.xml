@@ -7,45 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:openDrawer="start">
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways|snap" />
-
-            <com.vanxnf.photovalley.widget.Tablayout.SlideTabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:indicator_height="6dp"
-                app:indicator_color="?attr/colorAccent"
-                app:layout_scrollFlags="scroll|enterAlways|snap"/>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <com.vanxnf.photovalley.widget.ParallaxViewPager.ParallaxViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:interpolator="@anim/decelerate_interpolator"
-            app:mode="right_overlay"
-            app:outset="62%"
-            app:shadow_width="30dp"/>
-
-
-    </android.support.design.widget.CoordinatorLayout>
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+    </FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

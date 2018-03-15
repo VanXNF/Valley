@@ -1,4 +1,4 @@
-package com.vanxnf.photovalley.widget.Tablayout;
+package com.vanxnf.photovalley.widget.SlideTablayout;
 
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
