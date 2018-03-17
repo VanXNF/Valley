@@ -13,13 +13,11 @@ import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.HomeRecommendAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
-import com.vanxnf.photovalley.listener.OnLoadingListener;
-import com.vanxnf.photovalley.widget.Loading.LoadingView;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.callback.Callback;
 
 
 /**
@@ -31,6 +29,7 @@ public class RecommendFragment extends BaseFragment {
     private static final String ARG_FROM = "arg_from";
 
     private int mFrom;
+    private View view;
     private List<String> items = new ArrayList<>();
     private RecyclerView mRecycler;
     private HomeRecommendAdapter mHRAdapter;
@@ -63,22 +62,21 @@ public class RecommendFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_recommend, container, false);
+        view = inflater.inflate(R.layout.fragment_home_recommend, container, false);
         initView(view);
         return view;
     }
 
     //简单初始化
     private void initView(View view) {
-        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_recommend);
         mHRAdapter = new HomeRecommendAdapter(_mActivity);
-    }
-
-    private void initLazyView() {
+        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_recommend);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
         mRecycler.setLayoutManager(manager);
         mRecycler.setAdapter(mHRAdapter);
+    }
 
+    private void initLazyView() {
         mHRAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {

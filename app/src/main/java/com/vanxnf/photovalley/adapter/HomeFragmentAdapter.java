@@ -29,7 +29,7 @@ public class HomeFragmentAdapter extends FragmentPagerAdapter {
         } else if (position == 1) {
             return RecommendFragment.newInstance(0);
         } else {
-            return FilterFragment.newInstance(0);
+            return FilterFragment.newInstance();
         }
     }
 

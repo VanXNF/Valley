@@ -66,9 +66,7 @@ public class SquareFragment extends BaseFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         // TODO: 2018/3/14 初始化界面
-        LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
-        mRecycler.setLayoutManager(manager);
-        mRecycler.setAdapter(mHSAdapter);
+
 
         mHSAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -105,8 +103,11 @@ public class SquareFragment extends BaseFragment {
     }
     //轻量级初始化
     private void initView(View view) {
-        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_square);
         mHSAdapter = new HomeSquareAdapter(_mActivity);
+        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_square);
+        LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
+        mRecycler.setLayoutManager(manager);
+        mRecycler.setAdapter(mHSAdapter);
     }
 
 }
