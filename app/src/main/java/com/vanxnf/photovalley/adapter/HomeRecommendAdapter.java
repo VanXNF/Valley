@@ -6,11 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +62,11 @@ public class HomeRecommendAdapter extends RecyclerView.Adapter<HomeRecommendAdap
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final String uri = mItems.get(position);
-        holder.iv.post(new Runnable() {
+        final String name = new String("第" + String.valueOf(position+1) + "张图片");
+        holder.itemView.post(new Runnable() {
             @Override
             public void run() {
+                holder.tvAuthorName.setText(name);
                 Glide.with(view)
                         .load(Uri.parse(uri))
                         .transition(withCrossFade())
@@ -76,9 +82,13 @@ public class HomeRecommendAdapter extends RecyclerView.Adapter<HomeRecommendAdap
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private PhotoView iv;
+        private TextView tvAuthorName;
+        private ImageView ivLikeIcon;
         ViewHolder(View itemView) {
             super(itemView);
             iv = (PhotoView) itemView.findViewById(R.id.recommend_image);
+            ivLikeIcon = (ImageView) itemView.findViewById(R.id.action_like_recommend);
+            tvAuthorName = (TextView) itemView.findViewById(R.id.author_name);
         }
     }
 

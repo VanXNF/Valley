@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bm.library.Info;
@@ -65,6 +66,16 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
                 }
             }
         });
+        //为喜欢按钮设置监听
+        holder.likeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                if (mClickListener != null) {
+                    mClickListener.onItemClick(position, v);
+                }
+            }
+        });
         return holder;
     }
 
@@ -77,7 +88,7 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
 //        holder.picture.animaFrom(info);
 //        holder.picture.setAnimaDuring(1);
         final String uri = mItems.get(position);
-        final String nameString = String.valueOf(position);
+        final String nameString = new String("第" + String.valueOf(position+1) + "位用户");
         holder.itemView.post(new Runnable() {
             @Override
             public void run() {
@@ -98,11 +109,13 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
         private CircleImageView avatar;
         private TextView name;
         private PhotoView picture;
+        private ImageView likeIcon;
         ViewHolder(View itemView) {
             super(itemView);
             avatar = (CircleImageView) itemView.findViewById(R.id.avatar_square);
             name = (TextView) itemView.findViewById(R.id.name_square);
             picture = (PhotoView) itemView.findViewById(R.id.display_image_square);
+            likeIcon = (ImageView) itemView.findViewById(R.id.action_like_square);
         }
     }
 

@@ -97,7 +97,7 @@ public class RecommendFragment extends BaseFragment {
                     case 0:
                         String uri = new String("https://picsum.photos/800/600/?image=");
                         String item;
-                        for (int i = 25; i <= 55; i++) {
+                        for (int i = 26; i <= 56; i++) {
                             item = uri + i;
                             items.add(item);
                         }
