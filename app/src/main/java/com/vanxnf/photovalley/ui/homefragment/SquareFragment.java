@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.bm.library.PhotoView;
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.adapter.HomeSquareAdapter;
+import com.vanxnf.photovalley.adapter.Home.HomeSquareAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;

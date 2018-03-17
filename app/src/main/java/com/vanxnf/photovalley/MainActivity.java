@@ -17,7 +17,10 @@ import com.vanxnf.photovalley.base.BaseActivity;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.base.BaseMainFragment;
 import com.vanxnf.photovalley.features.login.LoginFragment;
+import com.vanxnf.photovalley.ui.collectionfragment.CollectionFragment;
+import com.vanxnf.photovalley.ui.downloadfragment.DownloadFragment;
 import com.vanxnf.photovalley.ui.homefragment.HomeFragment;
+import com.vanxnf.photovalley.ui.settingfragment.SettingFragment;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
 import com.vanxnf.photovalley.widget.Loading.LoadingView;
 
@@ -42,7 +45,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         BaseFragment fragment = findFragment(HomeFragment.class);
         if (fragment == null) {
             loadRootFragment(R.id.fl_container, HomeFragment.newInstance());
@@ -77,7 +79,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         RelativeLayout rlNavHeader = (RelativeLayout) mNavigationView.getHeaderView(0);
         mTvName = (TextView) rlNavHeader.findViewById(R.id.tv_username);
         mImgNav = (CircleImageView) rlNavHeader.findViewById(R.id.civ_nav_avatar);
-        rlNavHeader.setOnClickListener(new View.OnClickListener() {
+        mImgNav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDrawer.closeDrawer(GravityCompat.START);
@@ -141,32 +143,35 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 if (id == R.id.nav_home) {
                     HomeFragment fragment = findFragment(HomeFragment.class);
+
                     Bundle newBundle = new Bundle();
                     newBundle.putString("from", "From:" + topFragment.getClass().getSimpleName());
                     fragment.putNewBundle(newBundle);
-
-                    myHome.start(fragment, BaseFragment.SINGLETASK);
+                    myHome.startWithPopTo(HomeFragment.newInstance(), HomeFragment.class, true);
                 } else if (id == R.id.nav_collection) {
                     // TODO: 2018/3/15 收藏界面
-//                    DiscoverFragment fragment = findFragment(DiscoverFragment.class);
-//                    if (fragment == null) {
-//                        myHome.startWithPopTo(DiscoverFragment.newInstance(), HomeFragment.class, false);
-//                    } else {
-//                        // 如果已经在栈内,则以SingleTask模式start
-//                        myHome.start(fragment, SupportFragment.SINGLETASK);
-//                    }
+                    CollectionFragment fragment = findFragment(CollectionFragment.class);
+                    if (fragment == null) {
+                        myHome.startWithPopTo(CollectionFragment.newInstance(), HomeFragment.class, false);
+                    } else {
+                        myHome.start(fragment, BaseFragment.SINGLETASK);
+                    }
                 } else if (id == R.id.nav_download) {
                     // TODO: 2018/3/15 下载界面
-//                    ShopFragment fragment = findFragment(ShopFragment.class);
-//                    if (fragment == null) {
-//                        myHome.startWithPopTo(ShopFragment.newInstance(), HomeFragment.class, false);
-//                    } else {
-//                        // 如果已经在栈内,则以SingleTask模式start,也可以用popTo
-////                        start(fragment, SupportFragment.SINGLETASK);
-//                        myHome.popTo(ShopFragment.class, false);
-//                    }
+                    DownloadFragment fragment = findFragment(DownloadFragment.class);
+                    if (fragment == null) {
+                        myHome.startWithPopTo(DownloadFragment.newInstance(), HomeFragment.class, false);
+                    } else {
+                        start(fragment, BaseFragment.SINGLETASK);
+                    }
                 } else if (id == R.id.nav_setting) {
                     // TODO: 2018/3/15 设置界面
+                    SettingFragment fragment = findFragment(SettingFragment.class);
+                    if (fragment == null) {
+                        myHome.startWithPopTo(SettingFragment.newInstance(), HomeFragment.class, false);
+                    } else {
+                        start(fragment, BaseFragment.SINGLETASK);
+                    }
                 } else if (id == R.id.nav_share) {
                     // TODO: 2018/3/15 分享本应用
                 } else if (id == R.id.nav_feedback) {

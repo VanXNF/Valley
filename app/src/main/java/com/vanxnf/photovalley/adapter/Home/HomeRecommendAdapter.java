@@ -1,4 +1,4 @@
-package com.vanxnf.photovalley.adapter;
+package com.vanxnf.photovalley.adapter.Home;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,8 +13,6 @@ import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +67,7 @@ public class HomeRecommendAdapter extends RecyclerView.Adapter<HomeRecommendAdap
                 holder.tvAuthorName.setText(name);
                 Glide.with(view)
                         .load(Uri.parse(uri))
-                        .transition(withCrossFade())
+                        .transition(withCrossFade(800))
                         .into(holder.iv);
             }
         });

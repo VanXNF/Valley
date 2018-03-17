@@ -7,10 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.adapter.HomeRecommendAdapter;
+import com.vanxnf.photovalley.adapter.Home.HomeRecommendAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
 
@@ -46,17 +47,10 @@ public class RecommendFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Bundle args = getArguments();
         if (args != null) {
             mFrom = args.getInt(ARG_FROM);
         }
-    }
-
-    @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
-        initLazyView();
     }
 
     @Override
@@ -67,16 +61,13 @@ public class RecommendFragment extends BaseFragment {
         return view;
     }
 
-    //简单初始化
+    //初始化
     private void initView(View view) {
         mHRAdapter = new HomeRecommendAdapter(_mActivity);
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_recommend);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
         mRecycler.setLayoutManager(manager);
         mRecycler.setAdapter(mHRAdapter);
-    }
-
-    private void initLazyView() {
         mHRAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
@@ -108,5 +99,4 @@ public class RecommendFragment extends BaseFragment {
             }
         });
     }
-
 }

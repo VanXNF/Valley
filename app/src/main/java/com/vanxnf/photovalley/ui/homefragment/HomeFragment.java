@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.adapter.HomeFragmentAdapter;
+import com.vanxnf.photovalley.adapter.Home.HomeFragmentAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
 import com.vanxnf.photovalley.widget.Loading.LoadingView;
 import com.vanxnf.photovalley.widget.ParallaxViewPager.ParallaxViewPager;
@@ -40,27 +38,21 @@ public class HomeFragment extends BaseMainFragment {
         SlideTabLayout mTabLayout = (SlideTabLayout) view.findViewById(R.id.tab_layout);
         ParallaxViewPager mViewPager = (ParallaxViewPager) view.findViewById(R.id.view_pager);
 
-
         mToolbar.setTitle(R.string.home);
-        mToolbar.inflateMenu(R.menu.toolbar_menu);
-        /** Toolbar Menu Item 点击事件*/
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.search:
-                        // TODO: 2018/3/15 搜索
-                        Toast.makeText(getContext(), "暂不支持搜索", Toast.LENGTH_SHORT).show();
-                        break;
-//                    case R.id.flow_layout:
+//        mToolbar.inflateMenu(R.menu.toolbar_menu);
+//        /** Toolbar Menu Item 点击事件*/
+//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.search:
+//                        Toast.makeText(getContext(), "暂不支持搜索", Toast.LENGTH_SHORT).show();
 //                        break;
-//                    case R.id.sg_layout:
-//                        break;
-                    default:
-                }
-                return true;
-            }
-        });
+//                    default:
+//                }
+//                return true;
+//            }
+//        });
         getActivity().openOptionsMenu();
         initToolbarNav(mToolbar);
 
@@ -71,10 +63,9 @@ public class HomeFragment extends BaseMainFragment {
                 getString(R.string.square),
                 getString(R.string.recommend),
                 getString(R.string.filter)));
+        mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.getTabAt(1).select();//默认显示推荐页
     }
-
-
 
 }

@@ -1,4 +1,4 @@
-package com.vanxnf.photovalley.adapter;
+package com.vanxnf.photovalley.adapter.Home;
 
 import android.content.Context;
 import android.net.Uri;

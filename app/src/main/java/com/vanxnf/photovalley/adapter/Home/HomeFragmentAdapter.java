@@ -1,4 +1,4 @@
-package com.vanxnf.photovalley.adapter;
+package com.vanxnf.photovalley.adapter.Home;
 
 
 import android.support.v4.app.Fragment;

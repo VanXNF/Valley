@@ -1,4 +1,4 @@
-package com.vanxnf.photovalley.adapter;
+package com.vanxnf.photovalley.adapter.Home;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bm.library.Info;
 import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
 import com.vanxnf.photovalley.R;
@@ -95,7 +94,7 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
                 // TODO: 2018/3/14 增加获取头像与用户名的数据集
                 holder.name.setText(nameString);
                 Glide.with(view).load(Uri.parse(uri)).into(holder.avatar);
-                Glide.with(view).load(Uri.parse(uri)).into(holder.picture);
+                Glide.with(view).load(Uri.parse(uri)).transition(withCrossFade(600)).into(holder.picture);
             }
         });
     }
