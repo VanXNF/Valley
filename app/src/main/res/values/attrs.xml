@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="TabLayout">
         <attr name="indicator_height" format="dimension" />
         <attr name="indicator_color" format="color" />
         <attr name="center_align" format="boolean" />
     </declare-styleable>
+
     <declare-styleable name="CircleImageView">
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />
     </declare-styleable>
+
     <declare-styleable name="ParallaxViewPager">
         <attr name="mode">
             <enum name="left_overlay" value="0" />
@@ -21,4 +24,8 @@
         <attr name="left_shadow" format="reference" />
         <attr name="right_shadow" format="reference" />
     </declare-styleable>
+
+    <!--用于tab中未选择时字体颜色-->
+    <attr name="colorAccentLight" format="color" />
+
 </resources>

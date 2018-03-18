@@ -3,6 +3,7 @@ package com.vanxnf.photovalley.ui.homefragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.Home.HomeFilterAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
 public class FilterFragment extends BaseFragment {
 
     private View view;
-    private SwipeMenuRecyclerView mRecycler;
+    private RecyclerView mRecycler;
     private List<String> items = new ArrayList<>();
     private HomeFilterAdapter mHFAdapter;
 
@@ -73,7 +73,7 @@ public class FilterFragment extends BaseFragment {
 
     private void initView(View view) {
         // TODO: 2018/3/14 初始化界面
-        mRecycler = (SwipeMenuRecyclerView) view.findViewById(R.id.recycler_view_filter);
+        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_filter);
         mHFAdapter = new HomeFilterAdapter(_mActivity);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
         mRecycler.setLayoutManager(manager);

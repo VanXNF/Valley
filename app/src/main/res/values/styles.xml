@@ -1,24 +1,48 @@
 <resources>
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="ValleyTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="actionOverflowMenuStyle">@style/OverFlowMenuStyle</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <!--日间模式-->
+    <style name="ValleyTheme.Day" >
+        <item name="colorPrimary">@color/colorPrimary_day</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_day</item>
+        <item name="colorAccent">@color/colorAccent_day</item>
+        <item name="colorAccentLight">@color/colorAccentLight_day</item>
+    </style>
+    <!--夜间模式-->
+    <style name="ValleyTheme.Night" >
+        <item name="colorAccent">@color/colorAccent_night</item>
+        <item name="colorPrimary">@color/colorPrimary_night</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_night</item>
+        <item name="colorAccentLight">@color/colorAccentLight_night</item>
+    </style>
 
-    <style name="AppTheme.NoActionBar.AppBarOverlay"
-        parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <!--调整toolbar弹出菜单样式-->
+    <style name="OverFlowMenuStyle" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
+        <!--是否覆盖toolbar-->
+        <item name="overlapAnchor">false</item>
+        <!--弹出背景颜色-->
+        <item name="android:popupBackground">?attr/colorPrimary</item>
+        <!--弹出层垂直方向上的偏移,为负则盖住toolbar-->
+        <item name="android:dropDownVerticalOffset">5dp</item>
+        <!--弹出层水平方向上的偏移，为负则右边出现空隙-->
+        <item name="android:dropDownHorizontalOffset">0dp</item>
+        <!--弹出层菜单字体颜色-->
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
 
-    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-
-    <style name="Toolbar_TextAppearance_Dark">
+    <style name="ToolbarTextAppearance">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="TabLayoutTextAppearance">
+        <item name="android:textSize">15sp</item>
     </style>
 
 </resources>

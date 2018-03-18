@@ -3,27 +3,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/nav_home_dark"
+            android:icon="@drawable/nav_home_light"
             android:title="@string/home" />
         <item
             android:id="@+id/nav_collection"
-            android:icon="@drawable/nav_collection_dark"
+            android:icon="@drawable/nav_collection_light"
             android:title="@string/collection" />
         <item
             android:id="@+id/nav_download"
-            android:icon="@drawable/nav_download_dark"
+            android:icon="@drawable/nav_download_light"
             android:title="@string/download" />
         <item
             android:id="@+id/nav_setting"
-            android:icon="@drawable/nav_setting_dark"
+            android:icon="@drawable/nav_setting_light"
             android:title="@string/setting" />
         <item
             android:id="@+id/nav_share"
-            android:icon="@drawable/nav_share_dark"
+            android:icon="@drawable/nav_share_light"
             android:title="@string/share" />
         <item
             android:id="@+id/nav_feedback"
-            android:icon="@drawable/nav_feedback_dark"
+            android:icon="@drawable/nav_feedback_light"
             android:title="@string/feedback" />
     </group>
 </menu>

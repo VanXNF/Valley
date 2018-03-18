@@ -1,15 +1,22 @@
 package com.vanxnf.photovalley.ui.homefragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.Home.HomeFragmentAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
+import com.vanxnf.photovalley.utils.Utility;
 import com.vanxnf.photovalley.widget.Loading.LoadingView;
 import com.vanxnf.photovalley.widget.ParallaxViewPager.ParallaxViewPager;
 import com.vanxnf.photovalley.widget.SlideTablayout.SlideTabLayout;
@@ -19,6 +26,8 @@ import com.vanxnf.photovalley.widget.SlideTablayout.SlideTabLayout;
  */
 
 public class HomeFragment extends BaseMainFragment {
+
+    private Toolbar mToolbar;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -34,25 +43,37 @@ public class HomeFragment extends BaseMainFragment {
 
     private void initView(View view) {
         final LoadingView mLoadingView = (LoadingView) view.findViewById(R.id.load_view);
-        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         SlideTabLayout mTabLayout = (SlideTabLayout) view.findViewById(R.id.tab_layout);
         ParallaxViewPager mViewPager = (ParallaxViewPager) view.findViewById(R.id.view_pager);
-
         mToolbar.setTitle(R.string.home);
-//        mToolbar.inflateMenu(R.menu.toolbar_menu);
-//        /** Toolbar Menu Item 点击事件*/
-//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.search:
-//                        Toast.makeText(getContext(), "暂不支持搜索", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    default:
-//                }
-//                return true;
-//            }
-//        });
+        mToolbar.inflateMenu(R.menu.toolbar_menu);
+        if (Utility.getThemeTag(getContext()) == -1) {
+            mToolbar.getMenu().findItem(R.id.action_switch_light).setIcon(R.drawable.ic_bulb_light);
+        }
+        /** Toolbar Menu Item 点击事件*/
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_switch_light:
+                        if (getThemeTag() == 1) {
+                            setThemeTag(-1);
+                        } else {
+                            setThemeTag(1);
+                        }
+                        //重启Activity
+                        Intent intent = getActivity().getIntent();
+                        getActivity().overridePendingTransition(0, 0);
+                        getActivity().finish();
+                        getActivity().overridePendingTransition(0, 0);
+                        startActivity(intent);
+                        break;
+                    default:
+                }
+                return true;
+            }
+        });
         getActivity().openOptionsMenu();
         initToolbarNav(mToolbar);
 

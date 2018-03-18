@@ -11,7 +11,7 @@ import com.vanxnf.photovalley.R;
 public class BaseBackFragment extends BaseFragment {
 
     protected void initToolbarNav(Toolbar toolbar) {
-        toolbar.setNavigationIcon(R.drawable.ic_menu_dark);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_light);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

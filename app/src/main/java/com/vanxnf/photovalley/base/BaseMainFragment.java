@@ -7,26 +7,31 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.vanxnf.photovalley.R;
+import com.vanxnf.photovalley.utils.Utility;
 
 /**
  * Created by YoKeyword on 16/2/3.
  */
 public class BaseMainFragment extends BaseFragment {
 
-    protected OnFragmentOpenDrawerListener mOpenDraweListener;
+    protected OnFragmentOpenDrawerListener mOpenDrawerListener;
 
     protected void initToolbarNav(Toolbar toolbar) {
         initToolbarNav(toolbar, false);
     }
 
     protected void initToolbarNav(Toolbar toolbar, boolean isHome) {
-        toolbar.setNavigationIcon(R.drawable.ic_menu_dark);
-        toolbar.setOverflowIcon(getContext().getDrawable(R.drawable.ic_layout_manager_dark));
+        if (Utility.getThemeTag(getContext()) == 1) {
+            toolbar.setNavigationIcon(R.drawable.ic_menu_dark);
+        } else {
+            toolbar.setNavigationIcon(R.drawable.ic_menu_light);
+        }
+        // TODO: 2018/3/18 改变图标颜色
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOpenDraweListener != null) {
-                    mOpenDraweListener.onOpenDrawer();
+                if (mOpenDrawerListener != null) {
+                    mOpenDrawerListener.onOpenDrawer();
                 }
             }
         });
@@ -36,7 +41,7 @@ public class BaseMainFragment extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentOpenDrawerListener) {
-            mOpenDraweListener = (OnFragmentOpenDrawerListener) context;
+            mOpenDrawerListener = (OnFragmentOpenDrawerListener) context;
         } else {
 //            throw new RuntimeException(context.toString()
 //                    + " must implement OnFragmentOpenDrawerListener");
@@ -46,7 +51,7 @@ public class BaseMainFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mOpenDraweListener = null;
+        mOpenDrawerListener = null;
     }
 
     public interface OnFragmentOpenDrawerListener {

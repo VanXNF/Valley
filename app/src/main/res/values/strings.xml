@@ -5,6 +5,7 @@
     <string name="navigation_drawer_close">关闭侧边栏</string>
     <string name="press_again_exit">再按一次退出</string>
     <!--toolbar menu string -->
+    <string name="light_switch">开关</string>
     <string name="search">搜索</string>
     <string name="flowLayout">流布局</string>
     <string name="staggeredGridLayout">瀑布流布局</string>

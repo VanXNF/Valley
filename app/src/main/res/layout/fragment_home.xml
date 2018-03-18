@@ -13,8 +13,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:titleTextAppearance="@style/Toolbar_TextAppearance_Dark"
-            android:background="@color/colorPrimary"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/OverFlowMenuStyle"
+            app:titleTextAppearance="@style/ToolbarTextAppearance"
             app:layout_scrollFlags="scroll|enterAlways|snap" />
 
 
@@ -22,7 +23,12 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:indicator_height="6dp"
+            android:background="?attr/colorPrimary"
+            app:tabTextAppearance="@style/TabLayoutTextAppearance"
+            app:tabBackground="?attr/colorPrimary"
+            app:tabTextColor="?attr/colorAccentLight"
+            app:tabSelectedTextColor="?attr/colorAccent"
+            app:indicator_height="5dp"
             app:indicator_color="?attr/colorAccent"
             app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
@@ -32,6 +38,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorPrimaryDark"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:interpolator="@anim/decelerate_interpolator"
         app:mode="right_overlay"

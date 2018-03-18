@@ -3,6 +3,7 @@ package com.vanxnf.photovalley.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ public class BaseFragment extends Fragment implements ISupportFragment {
 
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity;
+    private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
 
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
@@ -357,5 +359,17 @@ public class BaseFragment extends Fragment implements ISupportFragment {
      */
     public <T extends ISupportFragment> T findChildFragment(Class<T> fragmentClass) {
         return SupportHelper.findFragment(getChildFragmentManager(), fragmentClass);
+    }
+
+    public int getThemeTag() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        return preferences.getInt(KEY_VALLEY_CACHE_THEME_TAG, 1);
+    }
+
+    public void setThemeTag(int tag) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putInt(KEY_VALLEY_CACHE_THEME_TAG, tag);
+        edit.commit();
     }
 }

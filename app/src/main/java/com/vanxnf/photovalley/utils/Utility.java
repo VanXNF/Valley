@@ -4,16 +4,21 @@ package com.vanxnf.photovalley.utils;
 
 import android.content.Context;
 
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,8 +49,7 @@ public class Utility {
                 | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.TRANSPARENT);
         window.setNavigationBarColor(Color.TRANSPARENT);
@@ -111,5 +115,20 @@ public class Utility {
             e.printStackTrace();
         }
         return false;
+    }
+
+    //drawable 着色
+    public static void setImageViewColor(ImageView view, int colorResId) {
+        //mutate()
+        Drawable modeDrawable = view.getDrawable().mutate();
+        Drawable temp = DrawableCompat.wrap(modeDrawable);
+        ColorStateList colorStateList =     ColorStateList.valueOf(view.getResources().getColor(colorResId));
+        DrawableCompat.setTintList(temp, colorStateList);
+        view.setImageDrawable(temp);
+    }
+
+    public static int getThemeTag(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        return preferences.getInt("ValleyCache_themeTag", 1);
     }
 }

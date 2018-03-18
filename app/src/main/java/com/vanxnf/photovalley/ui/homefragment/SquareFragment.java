@@ -77,8 +77,9 @@ public class SquareFragment extends BaseFragment {
                     // TODO: 2018/3/14 展示图片详情
                     Toast.makeText(getContext(), "暂无法查看图片详情", Toast.LENGTH_SHORT).show();
                 } else if (view instanceof ImageView) {
-                    // TODO: 2018/3/17 收藏图片 
-                    Toast.makeText(getContext(), "你喜欢了第"+position+"张图片", Toast.LENGTH_SHORT).show();
+                    // TODO: 2018/3/17 收藏图片
+
+                    Toast.makeText(getContext(), "你喜欢了第"+(position+1)+"张图片", Toast.LENGTH_SHORT).show();
                 }
             }
         });

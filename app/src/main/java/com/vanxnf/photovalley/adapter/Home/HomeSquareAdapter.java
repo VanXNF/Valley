@@ -1,6 +1,8 @@
 package com.vanxnf.photovalley.adapter.Home;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
+import com.vanxnf.photovalley.utils.Utility;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
 
 import java.util.ArrayList;
@@ -29,10 +32,12 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
     private List<String> mItems = new ArrayList<>();
     private LayoutInflater mInflater;
     private View view;
+    private Context context;
     private OnItemClickListener mClickListener;
 
     public HomeSquareAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     public void setData(List<String> uriList) {
@@ -95,6 +100,12 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
                 holder.name.setText(nameString);
                 Glide.with(view).load(Uri.parse(uri)).into(holder.avatar);
                 Glide.with(view).load(Uri.parse(uri)).transition(withCrossFade(600)).into(holder.picture);
+                //调整图片下图标适应主题
+                if (Utility.getThemeTag(context) == -1) {
+                    Utility.setImageViewColor(holder.likeIcon, R.color.white);
+                    Utility.setImageViewColor(holder.commentIcon, R.color.white);
+                    Utility.setImageViewColor(holder.shareIcon, R.color.white);
+                }
             }
         });
     }
@@ -109,12 +120,16 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
         private TextView name;
         private PhotoView picture;
         private ImageView likeIcon;
+        private ImageView commentIcon;
+        private ImageView shareIcon;
         ViewHolder(View itemView) {
             super(itemView);
             avatar = (CircleImageView) itemView.findViewById(R.id.avatar_square);
             name = (TextView) itemView.findViewById(R.id.name_square);
             picture = (PhotoView) itemView.findViewById(R.id.display_image_square);
             likeIcon = (ImageView) itemView.findViewById(R.id.action_like_square);
+            shareIcon = (ImageView) itemView.findViewById(R.id.action_share_square);
+            commentIcon = (ImageView) itemView.findViewById(R.id.action_comment_square);
         }
     }
 

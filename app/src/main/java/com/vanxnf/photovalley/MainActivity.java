@@ -1,6 +1,8 @@
 package com.vanxnf.photovalley;
 
 
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +23,7 @@ import com.vanxnf.photovalley.ui.collectionfragment.CollectionFragment;
 import com.vanxnf.photovalley.ui.downloadfragment.DownloadFragment;
 import com.vanxnf.photovalley.ui.homefragment.HomeFragment;
 import com.vanxnf.photovalley.ui.settingfragment.SettingFragment;
+import com.vanxnf.photovalley.utils.Utility;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
 import com.vanxnf.photovalley.widget.Loading.LoadingView;
 
@@ -44,6 +47,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utility.setStatusBarTransparent(getWindow());
         setContentView(R.layout.activity_main);
         BaseFragment fragment = findFragment(HomeFragment.class);
         if (fragment == null) {
@@ -69,12 +73,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        mDrawer.setDrawerListener(toggle);
         toggle.syncState();
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
         mNavigationView.setCheckedItem(R.id.nav_home);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        /**设置MenuItem的字体颜色**/
+        Resources resource = (Resources)getBaseContext().getResources();
+        ColorStateList csl;
+        if (getThemeTag() == 1) {
+            csl = (ColorStateList) resource.getColorStateList(R.color.navigation_menu_text_color_day);
+        } else {
+            csl = (ColorStateList) resource.getColorStateList(R.color.navigation_menu_text_color_night);
+        }
+        navigationView.setItemTextColor(csl);
+        navigationView.setItemIconTintList(csl);
 
         RelativeLayout rlNavHeader = (RelativeLayout) mNavigationView.getHeaderView(0);
         mTvName = (TextView) rlNavHeader.findViewById(R.id.tv_username);

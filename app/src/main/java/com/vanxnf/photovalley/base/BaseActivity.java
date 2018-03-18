@@ -1,11 +1,14 @@
 package com.vanxnf.photovalley.base;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 
+import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.utils.Utility;
 
 import me.yokeyword.fragmentation.ExtraTransaction;
@@ -21,6 +24,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public class BaseActivity extends AppCompatActivity implements ISupportActivity{
 
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
+    private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
 
     @Override
     public SupportActivityDelegate getSupportDelegate() {
@@ -38,6 +42,7 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        loadingCurrentTheme();
         super.onCreate(savedInstanceState);
         mDelegate.onCreate(savedInstanceState);
     }
@@ -193,5 +198,28 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
      */
     public <T extends ISupportFragment> T findFragment(Class<T> fragmentClass) {
         return SupportHelper.findFragment(getSupportFragmentManager(), fragmentClass);
+    }
+
+    public int getThemeTag() {
+        SharedPreferences preferences = getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        return preferences.getInt(KEY_VALLEY_CACHE_THEME_TAG, 1);
+    }
+
+    public void setThemeTag(int tag) {
+        SharedPreferences preferences = getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putInt(KEY_VALLEY_CACHE_THEME_TAG, tag);
+        edit.commit();
+    }
+
+    protected void loadingCurrentTheme() {
+        switch (getThemeTag()) {
+            case  1:
+                setTheme(R.style.ValleyTheme_Day);
+                break;
+            case -1:
+                setTheme(R.style.ValleyTheme_Night);
+                break;
+        }
     }
 }
