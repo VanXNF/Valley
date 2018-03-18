@@ -22,6 +22,7 @@ import com.vanxnf.photovalley.features.login.LoginFragment;
 import com.vanxnf.photovalley.ui.collectionfragment.CollectionFragment;
 import com.vanxnf.photovalley.ui.downloadfragment.DownloadFragment;
 import com.vanxnf.photovalley.ui.homefragment.HomeFragment;
+import com.vanxnf.photovalley.ui.homefragment.RecommendFragment;
 import com.vanxnf.photovalley.ui.settingfragment.SettingFragment;
 import com.vanxnf.photovalley.utils.Utility;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
@@ -116,11 +117,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             ISupportFragment topFragment = getTopFragment();
 
-            // 主页的Fragment
-            if (topFragment instanceof BaseMainFragment) {
-                mNavigationView.setCheckedItem(R.id.nav_home);
-            }
-
             if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
                 pop();
             } else {
@@ -154,20 +150,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 int id = item.getItemId();
 
                 final ISupportFragment topFragment = getTopFragment();
-                BaseFragment myHome = (BaseFragment) topFragment;
+                final BaseFragment myHome = (BaseFragment) topFragment;
 
                 if (id == R.id.nav_home) {
-                    HomeFragment fragment = findFragment(HomeFragment.class);
-
-                    Bundle newBundle = new Bundle();
-                    newBundle.putString("from", "From:" + topFragment.getClass().getSimpleName());
-                    fragment.putNewBundle(newBundle);
-                    myHome.startWithPopTo(HomeFragment.newInstance(), HomeFragment.class, true);
+                    myHome.startWithPopTo(HomeFragment.newInstance(), topFragment.getClass(), true);
                 } else if (id == R.id.nav_collection) {
                     // TODO: 2018/3/15 收藏界面
                     CollectionFragment fragment = findFragment(CollectionFragment.class);
                     if (fragment == null) {
-                        myHome.startWithPopTo(CollectionFragment.newInstance(), HomeFragment.class, false);
+                        myHome.startWithPopTo(CollectionFragment.newInstance(), HomeFragment.class, true);
                     } else {
                         myHome.start(fragment, BaseFragment.SINGLETASK);
                     }
@@ -175,7 +166,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     // TODO: 2018/3/15 下载界面
                     DownloadFragment fragment = findFragment(DownloadFragment.class);
                     if (fragment == null) {
-                        myHome.startWithPopTo(DownloadFragment.newInstance(), HomeFragment.class, false);
+                        myHome.startWithPopTo(DownloadFragment.newInstance(), HomeFragment.class, true);
                     } else {
                         start(fragment, BaseFragment.SINGLETASK);
                     }
@@ -183,7 +174,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     // TODO: 2018/3/15 设置界面
                     SettingFragment fragment = findFragment(SettingFragment.class);
                     if (fragment == null) {
-                        myHome.startWithPopTo(SettingFragment.newInstance(), HomeFragment.class, false);
+                        myHome.startWithPopTo(SettingFragment.newInstance(), HomeFragment.class, true);
                     } else {
                         start(fragment, BaseFragment.SINGLETASK);
                     }
@@ -197,6 +188,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         return true;
     }
+
+
 
     private void goLogin() {
         start(LoginFragment.newInstance());

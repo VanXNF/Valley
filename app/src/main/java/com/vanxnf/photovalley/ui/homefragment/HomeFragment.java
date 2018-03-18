@@ -27,23 +27,26 @@ import com.vanxnf.photovalley.widget.SlideTablayout.SlideTabLayout;
 
 public class HomeFragment extends BaseMainFragment {
 
-    private Toolbar mToolbar;
-
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
-
+    private View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        initView(view);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
         return view;
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        initView(view);
     }
 
     private void initView(View view) {
         final LoadingView mLoadingView = (LoadingView) view.findViewById(R.id.load_view);
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         SlideTabLayout mTabLayout = (SlideTabLayout) view.findViewById(R.id.tab_layout);
         ParallaxViewPager mViewPager = (ParallaxViewPager) view.findViewById(R.id.view_pager);
         mToolbar.setTitle(R.string.home);
@@ -88,5 +91,7 @@ public class HomeFragment extends BaseMainFragment {
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.getTabAt(1).select();//默认显示推荐页
     }
+
+
 
 }
