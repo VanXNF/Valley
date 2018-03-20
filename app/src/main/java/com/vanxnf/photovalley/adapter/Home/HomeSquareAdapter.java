@@ -1,8 +1,7 @@
 package com.vanxnf.photovalley.adapter.Home;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,17 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bm.library.PhotoView;
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
 import com.vanxnf.photovalley.utils.Utility;
-import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by VanXN on 2018/3/12.
@@ -85,12 +80,6 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
 
     @Override
     public void onBindViewHolder(final HomeSquareAdapter.ViewHolder holder, final int position) {
-        // TODO: 2018/3/14  photoview 调整
-//        holder.picture.enable();
-//        holder.picture.setMaxScale(3.0f);
-//        Info info = holder.picture.getInfo();
-//        holder.picture.animaFrom(info);
-//        holder.picture.setAnimaDuring(1);
         final String uri = mItems.get(position);
         final String nameString = new String("第" + String.valueOf(position+1) + "位用户");
         holder.itemView.post(new Runnable() {
@@ -98,8 +87,12 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
             public void run() {
                 // TODO: 2018/3/14 增加获取头像与用户名的数据集
                 holder.name.setText(nameString);
-                Glide.with(view).load(Uri.parse(uri)).into(holder.avatar);
-                Glide.with(view).load(Uri.parse(uri)).transition(withCrossFade(600)).into(holder.picture);
+                holder.picture.setImageURI(Uri.parse(uri));
+                holder.avatar.setImageURI(Uri.parse(uri));
+                //展示会员图标
+                if (position % 5 == 1) {
+                    holder.memberIcon.setVisibility(View.VISIBLE);
+                }
                 //调整图片下图标适应主题
                 if (Utility.getThemeTag(context) == -1) {
                     Utility.setImageViewColor(holder.likeIcon, R.color.white);
@@ -116,20 +109,22 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private CircleImageView avatar;
+        private SimpleDraweeView avatar;
         private TextView name;
-        private PhotoView picture;
+        private SimpleDraweeView picture;
         private ImageView likeIcon;
         private ImageView commentIcon;
         private ImageView shareIcon;
+        private ImageView memberIcon;
         ViewHolder(View itemView) {
             super(itemView);
-            avatar = (CircleImageView) itemView.findViewById(R.id.avatar_square);
+            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_square);
             name = (TextView) itemView.findViewById(R.id.name_square);
-            picture = (PhotoView) itemView.findViewById(R.id.display_image_square);
+            picture = (SimpleDraweeView) itemView.findViewById(R.id.display_image_square);
             likeIcon = (ImageView) itemView.findViewById(R.id.action_like_square);
             shareIcon = (ImageView) itemView.findViewById(R.id.action_share_square);
             commentIcon = (ImageView) itemView.findViewById(R.id.action_comment_square);
+            memberIcon = (ImageView) itemView.findViewById(R.id.member_square);
         }
     }
 

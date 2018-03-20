@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bm.library.PhotoView;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.Home.HomeSquareAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
@@ -27,32 +27,14 @@ import java.util.List;
 
 public class SquareFragment extends BaseFragment {
 
-    private static final String ARG_FROM = "arg_from";
-
-    private int mFrom;
     private RecyclerView mRecycler;
     private HomeSquareAdapter mHSAdapter;
     private List<String> items = new ArrayList<>();
     private View view;
 
 
-    public static SquareFragment newInstance(int from) {
-        Bundle args = new Bundle();
-        args.putInt(ARG_FROM, from);
-
-        SquareFragment fragment = new SquareFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Bundle args = getArguments();
-        if (args != null) {
-            mFrom = args.getInt(ARG_FROM);
-        }
+    public static SquareFragment newInstance() {
+        return new SquareFragment();
     }
 
     @Override
@@ -73,12 +55,11 @@ public class SquareFragment extends BaseFragment {
                 if (view instanceof CircleImageView) {
                     // TODO: 2018/3/15 展示头像详情
                     Toast.makeText(getContext(), "暂无法查看头像详情", Toast.LENGTH_SHORT).show();
-                } else if (view instanceof PhotoView) {
+                } else if (view instanceof SimpleDraweeView) {
                     // TODO: 2018/3/14 展示图片详情
                     Toast.makeText(getContext(), "暂无法查看图片详情", Toast.LENGTH_SHORT).show();
                 } else if (view instanceof ImageView) {
                     // TODO: 2018/3/17 收藏图片
-
                     Toast.makeText(getContext(), "你喜欢了第"+(position+1)+"张图片", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -89,16 +70,11 @@ public class SquareFragment extends BaseFragment {
             public void run() {
                 // Init Datas
                 // TODO: 2018/3/14 调整获取图片数据方式
-                switch (mFrom) {
-                    case 0:
-                        String uri = new String("https://picsum.photos/800/600/?image=");
-                        String item;
-                        for (int i = 20; i <= 50; i++) {
-                            item = uri + i;
-                            items.add(item);
-                        }
-                        break;
-                    default:
+                String uri = new String("https://picsum.photos/800/600/?image=");
+                String item;
+                for (int i = 100; i <= 115; i++) {
+                    item = uri + i;
+                    items.add(item);
                 }
                 mHSAdapter.setData(items);
             }

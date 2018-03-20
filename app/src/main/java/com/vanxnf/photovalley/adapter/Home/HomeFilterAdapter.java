@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by VanXN on 2018/3/17.
@@ -58,15 +56,7 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
     @Override
     public void onBindViewHolder(final HomeFilterAdapter.ViewHolder holder, int position) {
         final String uri = mItems.get(position);
-        holder.iv.post(new Runnable() {
-            @Override
-            public void run() {
-                Glide.with(view)
-                        .load(Uri.parse(uri))
-                        .transition(withCrossFade())
-                        .into(holder.iv);
-            }
-        });
+        holder.iv.setImageURI(Uri.parse(uri));
     }
 
     @Override
@@ -75,10 +65,10 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView iv;
+        private SimpleDraweeView iv;
         ViewHolder(View itemView) {
             super(itemView);
-            iv = (ImageView) itemView.findViewById(R.id.filter_image);
+            iv = (SimpleDraweeView) itemView.findViewById(R.id.filter_image);
         }
     }
 

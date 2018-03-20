@@ -25,9 +25,9 @@ public class HomeFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return SquareFragment.newInstance(0);
+            return SquareFragment.newInstance();
         } else if (position == 1) {
-            return RecommendFragment.newInstance(0);
+            return RecommendFragment.newInstance();
         } else {
             return FilterFragment.newInstance();
         }

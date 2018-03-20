@@ -41,9 +41,13 @@ public class FilterFragment extends BaseFragment {
         return view;
     }
 
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    private void initView(View view) {
+        // TODO: 2018/3/14 初始化界面
+        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_filter);
+        mHFAdapter = new HomeFilterAdapter(_mActivity);
+        LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
+        mRecycler.setLayoutManager(manager);
+        mRecycler.setAdapter(mHFAdapter);
         mHFAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
@@ -62,22 +66,13 @@ public class FilterFragment extends BaseFragment {
                 // TODO: 2018/3/14 调整获取图片数据方式
                 String uri = new String("https://picsum.photos/800/600/?image=");
                 String item;
-                for (int i = 60; i <= 70; i++) {
+                for (int i = 60; i < 70; i++) {
                     item = uri + i;
                     items.add(item);
                 }
                 mHFAdapter.setData(items);
             }
         });
-    }
-
-    private void initView(View view) {
-        // TODO: 2018/3/14 初始化界面
-        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_filter);
-        mHFAdapter = new HomeFilterAdapter(_mActivity);
-        LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
-        mRecycler.setLayoutManager(manager);
-        mRecycler.setAdapter(mHFAdapter);
     }
 
 }

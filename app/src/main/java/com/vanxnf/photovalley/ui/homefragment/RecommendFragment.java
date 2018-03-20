@@ -1,13 +1,11 @@
 package com.vanxnf.photovalley.ui.homefragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.vanxnf.photovalley.R;
@@ -27,30 +25,13 @@ import java.util.List;
 
 public class RecommendFragment extends BaseFragment {
 
-    private static final String ARG_FROM = "arg_from";
-
-    private int mFrom;
     private View view;
     private List<String> items = new ArrayList<>();
     private RecyclerView mRecycler;
     private HomeRecommendAdapter mHRAdapter;
 
-    public static RecommendFragment newInstance(int from) {
-        Bundle args = new Bundle();
-        args.putInt(ARG_FROM, from);
-
-        RecommendFragment fragment = new RecommendFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null) {
-            mFrom = args.getInt(ARG_FROM);
-        }
+    public static RecommendFragment newInstance() {
+        return new RecommendFragment();
     }
 
     @Override
@@ -84,16 +65,11 @@ public class RecommendFragment extends BaseFragment {
             public void run() {
                 // Init Datas
                 // TODO: 2018/3/14 调整获取图片数据方式
-                switch (mFrom) {
-                    case 0:
-                        String uri = new String("https://picsum.photos/800/600/?image=");
-                        String item;
-                        for (int i = 26; i <= 56; i++) {
-                            item = uri + i;
-                            items.add(item);
-                        }
-                        break;
-                    default:
+                String uri = new String("https://picsum.photos/800/600/?image=");
+                String item;
+                for (int i = 26; i <= 35; i++) {
+                    item = uri + i;
+                    items.add(item);
                 }
                 mHRAdapter.setData(items);
             }
