@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.vanxnf.photovalley.base.BaseActivity;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.base.BaseMainFragment;
-import com.vanxnf.photovalley.features.login.LoginFragment;
+import com.vanxnf.photovalley.ui.accountfragment.LoginFragment;
 import com.vanxnf.photovalley.ui.collectionfragment.CollectionFragment;
 import com.vanxnf.photovalley.ui.downloadfragment.DownloadFragment;
 import com.vanxnf.photovalley.ui.homefragment.HomeFragment;
@@ -31,8 +31,6 @@ import me.yokeyword.fragmentation.ISupportFragment;
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, BaseMainFragment.OnFragmentOpenDrawerListener
         , LoginFragment.OnLoginSuccessListener {
 
-    public static final String TAG = MainActivity.class.getSimpleName();
-
     // 再点一次退出程序时间设置
     private static final long WAIT_TIME = 2000L;
     private long TOUCH_TIME = 0;
@@ -41,12 +39,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private NavigationView mNavigationView;
     private TextView mTvName;   // NavigationView上的名字
     private CircleImageView mImgNav;  // NavigationView上的头像
+    private boolean isLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utility.setStatusBarTransparent(getWindow());
         setContentView(R.layout.activity_main);
+        isLogin = getAccountStatus();
         HomeFragment fragment = findFragment(HomeFragment.class);
         if (fragment == null) {
             loadRootFragment(R.id.fl_container, HomeFragment.newInstance());
@@ -79,6 +79,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         RelativeLayout rlNavHeader = (RelativeLayout) mNavigationView.getHeaderView(0);
         mTvName = (TextView) rlNavHeader.findViewById(R.id.tv_username);
         mImgNav = (CircleImageView) rlNavHeader.findViewById(R.id.civ_nav_avatar);
+        if (isLogin) {
+            mTvName.setText(getAccountName());
+        }
         mImgNav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +89,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 mDrawer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO: 2018/3/15 增加登录判断
                         goLogin();
                     }
                 }, 250);
@@ -170,8 +172,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                 } else if (id == R.id.nav_share) {
                     // TODO: 2018/3/15 分享本应用
-                } else if (id == R.id.nav_feedback) {
-                    // TODO: 2018/3/15 反馈界面
+                } else if (id == R.id.nav_about) {
+                    // TODO: 2018/3/15 关于界面
+                } else if (id == R.id.nav_quit_login) {
+                    setAccountStatus(false);
+                    setAccountName(getString(R.string.app_name));
+                    mTvName.setText(R.string.app_name);
+                    mNavigationView.setCheckedItem(R.id.nav_home);
+                    Toast.makeText(MainActivity.this, getString(R.string.already_log_out), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -179,15 +187,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void goLogin() {
-        // TODO: 2018/3/22 调整配色方案 
-        start(LoginFragment.newInstance());
+        // TODO: 2018/3/22 调整配色方案
+        if (getAccountStatus()) {
+            Toast.makeText(this, getString(R.string.already_login), Toast.LENGTH_SHORT).show();
+        } else {
+            start(LoginFragment.newInstance());
+        }
     }
 
     @Override
     public void onLoginSuccess(String account) {
         mTvName.setText(account);
+        setAccountName(account);
 //        mImgNav.setImageResource(R.drawable.pic1);
-        Toast.makeText(this, account + getString(R.string.sign_in_success), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, account + " " + getString(R.string.sign_in_success), Toast.LENGTH_SHORT).show();
     }
 
 }

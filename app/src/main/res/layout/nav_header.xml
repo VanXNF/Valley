@@ -23,7 +23,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignLeft="@id/civ_nav_avatar"
-        android:text="Photo Valley"
+        android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="16sp" />
 

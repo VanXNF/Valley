@@ -131,4 +131,9 @@ public class Utility {
         SharedPreferences preferences = context.getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
         return preferences.getInt("ValleyCache_themeTag", 1);
     }
+
+    public static boolean getAccountStatus(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getBoolean("AccountCache_statusTag", false);
+    }
 }

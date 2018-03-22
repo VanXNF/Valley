@@ -25,6 +25,8 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
 
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
     private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
+    private final String KEY_VALLEY_CACHE_ACCOUNT_TAG = "AccountCache_statusTag";
+    private final String KEY_VALLEY_CACHE_ACCOUNT_NAME_TAG = "AccountCache_nameTag";
 
     @Override
     public SupportActivityDelegate getSupportDelegate() {
@@ -200,11 +202,17 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
         return SupportHelper.findFragment(getSupportFragmentManager(), fragmentClass);
     }
 
+    /**
+     * 获取主题标记
+     */
     public int getThemeTag() {
         SharedPreferences preferences = getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
         return preferences.getInt(KEY_VALLEY_CACHE_THEME_TAG, 1);
     }
 
+    /**
+     * 设置主题标记
+     */
     public void setThemeTag(int tag) {
         SharedPreferences preferences = getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
@@ -212,6 +220,9 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
         edit.commit();
     }
 
+    /**
+     * 加载主题
+     */
     protected void loadingCurrentTheme() {
         switch (getThemeTag()) {
             case  1:
@@ -221,5 +232,39 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
                 setTheme(R.style.ValleyTheme_Night);
                 break;
         }
+    }
+    /**
+     * 获取账号标记
+     */
+    public boolean getAccountStatus() {
+        SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getBoolean(KEY_VALLEY_CACHE_ACCOUNT_TAG, false);
+    }
+    /**
+     * 设置账号标记
+     */
+    public void setAccountStatus(boolean tag) {
+        SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putBoolean(KEY_VALLEY_CACHE_ACCOUNT_TAG, tag);
+        edit.commit();
+    }
+
+    /**
+     * 获取用户名
+     */
+    public String getAccountName() {
+        SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getString(KEY_VALLEY_CACHE_ACCOUNT_NAME_TAG, getString(R.string.app_name));
+    }
+
+    /**
+     *设置用户名标记
+     */
+    public void setAccountName(String name) {
+        SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString(KEY_VALLEY_CACHE_ACCOUNT_NAME_TAG, name);
+        edit.commit();
     }
 }

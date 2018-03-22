@@ -1,4 +1,5 @@
-package com.vanxnf.photovalley.features.login;
+package com.vanxnf.photovalley.ui.accountfragment;
+
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,7 +8,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vanxnf.photovalley.R;
@@ -15,20 +15,22 @@ import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.widget.Button.SubmitButton;
 import com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText;
 
-
 /**
  * Created by VanXN on 18/3/22.
  */
-public class LoginFragment extends BaseFragment {
+public class RegisterFragment extends BaseFragment {
     private ExtendedEditText mEtAccount;
     private ExtendedEditText mEtPassword;
-    private SubmitButton mBtnLogin;
-    private TextView mTvRegister;
-    private boolean isLoginSuccess;
-    private OnLoginSuccessListener mOnLoginSuccessListener;
-    public static LoginFragment newInstance() {
+    private ExtendedEditText mEtRepeatPwd;
+    private SubmitButton mBtnRegister;
+    private boolean isRegisterSuccess;
+    private LoginFragment.OnLoginSuccessListener mOnLoginSuccessListener;
+
+    public static RegisterFragment newInstance() {
+
         Bundle args = new Bundle();
-        LoginFragment fragment = new LoginFragment();
+
+        RegisterFragment fragment = new RegisterFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,8 +38,8 @@ public class LoginFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnLoginSuccessListener) {
-            mOnLoginSuccessListener = (OnLoginSuccessListener) context;
+        if (context instanceof LoginFragment.OnLoginSuccessListener) {
+            mOnLoginSuccessListener = (LoginFragment.OnLoginSuccessListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnLoginSuccessListener");
@@ -47,70 +49,67 @@ public class LoginFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
         initView(view);
-        isLoginSuccess = false;
+        isRegisterSuccess = false;
         return view;
     }
 
-    private void initView(final View view) {
+    private void initView(View view) {
         mEtAccount = (ExtendedEditText) view.findViewById(R.id.et_account);
         mEtPassword = (ExtendedEditText) view.findViewById(R.id.et_password);
-        mBtnLogin = (SubmitButton) view.findViewById(R.id.btn_login);
-        mTvRegister = (TextView) view.findViewById(R.id.tv_register);
+        mEtRepeatPwd = (ExtendedEditText) view.findViewById(R.id.et_repeat_password);
+        mBtnRegister = (SubmitButton) view.findViewById(R.id.btn_register);
+        showSoftInput(mEtAccount);
 
-        mBtnLogin.setOnClickListener(new View.OnClickListener() {
+        mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String strAccount = mEtAccount.getText().toString();
                 String strPassword = mEtPassword.getText().toString();
+                String strPasswordConfirm = mEtRepeatPwd.getText().toString();
                 if (TextUtils.isEmpty(strAccount.trim())) {
                     Toast.makeText(_mActivity, R.string.error_username, Toast.LENGTH_SHORT).show();
-                    mBtnLogin.reset();
+                    mBtnRegister.reset();
                     return;
                 }
-                if (TextUtils.isEmpty(strPassword.trim())) {
+                if (TextUtils.isEmpty(strPassword.trim()) || TextUtils.isEmpty(strPasswordConfirm.trim())) {
                     Toast.makeText(_mActivity, R.string.error_pwd, Toast.LENGTH_SHORT).show();
-                    mBtnLogin.reset();
+                    mBtnRegister.reset();
                     return;
                 }
-                // 登录成功
-                isLoginSuccess = true;
-                mBtnLogin.doResult(true);
-                mOnLoginSuccessListener.onLoginSuccess(strAccount);
+                if (!strPassword.trim().equals(strPasswordConfirm.trim())) {
+                    Toast.makeText(_mActivity, R.string.confirm_pwd_error, Toast.LENGTH_SHORT).show();
+                    mBtnRegister.reset();
+                    return;
+                }
 
+                // 注册成功
+                mOnLoginSuccessListener.onLoginSuccess(strAccount);
+                isRegisterSuccess = true;
+                setAccountStatus(true);
+                mBtnRegister.doResult(true);
             }
         });
-        mBtnLogin.setOnResultEndListener(new SubmitButton.OnResultEndListener() {
+        mBtnRegister.setOnResultEndListener(new SubmitButton.OnResultEndListener() {
             @Override
             public void onResultEnd() {
-                if (isLoginSuccess) {
-                    pop();
+                if (isRegisterSuccess) {
+                    popTo(LoginFragment.class, true);
                 }
             }
         });
-
-        mTvRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                start(RegisterFragment.newInstance());
-            }
-        });
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mOnLoginSuccessListener = null;
-    }
-
-    public interface OnLoginSuccessListener {
-        void onLoginSuccess(String account);
     }
 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
         hideSoftInput();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mOnLoginSuccessListener = null;
     }
 }

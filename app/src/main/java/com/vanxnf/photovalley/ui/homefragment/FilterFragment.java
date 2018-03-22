@@ -1,7 +1,6 @@
 package com.vanxnf.photovalley.ui.homefragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.Home.HomeFilterAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
@@ -42,7 +42,6 @@ public class FilterFragment extends BaseFragment {
     }
 
     private void initView(View view) {
-        // TODO: 2018/3/14 初始化界面
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_filter);
         mHFAdapter = new HomeFilterAdapter(_mActivity);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
@@ -51,9 +50,14 @@ public class FilterFragment extends BaseFragment {
         mHFAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                if (getParentFragment() instanceof HomeFragment) {
-                    // TODO: 2018/3/14 展示图片详情
-                    Toast.makeText(getContext(), "暂无法查看图片详情", Toast.LENGTH_SHORT).show();
+                if (view instanceof SimpleDraweeView) {
+                    if (!getAccountStatus(_mActivity)) {
+                        Toast.makeText(getContext(), "请登录后使用", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (position == mHFAdapter.getItemCount()-2 || position == mHFAdapter.getItemCount()-1) {
+                            Toast.makeText(getContext(), "本滤镜由会员专享", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 //                    ((HomeFragment) getParentFragment()).start(CycleFragment.newInstance(1));
                 }
             }

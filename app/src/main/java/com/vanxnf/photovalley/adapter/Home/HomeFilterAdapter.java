@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
+import com.vanxnf.photovalley.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -70,23 +70,6 @@
 
             </com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes>
 
-            <com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:visibility="gone"
-                app:labelText="@string/repeat_password"
-                app:maxCharacters="10"
-                app:hasClearButton="true">
-
-                <com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText
-                    android:id="@+id/et_repeat_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
-
-            </com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,8 +77,8 @@
 
                 <com.vanxnf.photovalley.widget.Button.SubmitButton
                     android:id="@+id/btn_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="160dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
@@ -103,19 +86,6 @@
                     android:layout_marginEnd="60dp"
                     app:buttonTextSize="16sp"
                     app:buttonText="@string/login" />
-
-                <com.vanxnf.photovalley.widget.Button.SubmitButton
-                    android:id="@+id/btn_register"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginEnd="60dp"
-                    android:visibility="gone"
-                    app:buttonTextSize="16sp"
-                    app:buttonText="@string/register" />
 
             </LinearLayout>
 

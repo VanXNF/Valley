@@ -24,7 +24,9 @@ public class BaseFragment extends Fragment implements ISupportFragment {
 
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity;
+
     private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
+    private final String KEY_VALLEY_CACHE_ACCOUNT_TAG = "AccountCache_statusTag";
 
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
@@ -361,15 +363,36 @@ public class BaseFragment extends Fragment implements ISupportFragment {
         return SupportHelper.findFragment(getChildFragmentManager(), fragmentClass);
     }
 
+    /**
+     * 获取主题标记
+     */
     public int getThemeTag() {
         SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
         return preferences.getInt(KEY_VALLEY_CACHE_THEME_TAG, 1);
     }
-
+    /**
+     * 设置主题标记
+     */
     public void setThemeTag(int tag) {
         SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.putInt(KEY_VALLEY_CACHE_THEME_TAG, tag);
+        edit.commit();
+    }
+    /**
+     * 获取账号标记
+     */
+    public boolean getAccountStatus(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getBoolean(KEY_VALLEY_CACHE_ACCOUNT_TAG, false);
+    }
+    /**
+     * 设置账号标记
+     */
+    public void setAccountStatus(boolean tag) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putBoolean(KEY_VALLEY_CACHE_ACCOUNT_TAG, tag);
         edit.commit();
     }
 }
