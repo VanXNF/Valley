@@ -117,7 +117,9 @@ public class Utility {
         return false;
     }
 
-    //drawable 着色
+    /**
+     * 对ImageView着色
+     */
     public static void setImageViewColor(ImageView view, int colorResId) {
         //mutate()
         Drawable modeDrawable = view.getDrawable().mutate();
@@ -127,11 +129,17 @@ public class Utility {
         view.setImageDrawable(temp);
     }
 
+    /**
+     * 获取主题标记
+     */
     public static int getThemeTag(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
         return preferences.getInt("ValleyCache_themeTag", 1);
     }
 
+    /**
+     * 获取登录状态
+     */
     public static boolean getAccountStatus(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
         return preferences.getBoolean("AccountCache_statusTag", false);

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
+import com.vanxnf.photovalley.utils.ImageRandomData;
 import com.vanxnf.photovalley.utils.Utility;
 
 import java.util.ArrayList;
@@ -81,12 +82,11 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
     @Override
     public void onBindViewHolder(final HomeSquareAdapter.ViewHolder holder, final int position) {
         final String uri = mItems.get(position);
-        final String nameString = new String("第" + String.valueOf(position+1) + "位用户");
         holder.itemView.post(new Runnable() {
             @Override
             public void run() {
                 // TODO: 2018/3/14 增加获取头像与用户名的数据集
-                holder.name.setText(nameString);
+                holder.name.setText(ImageRandomData.getRandomName());
                 holder.picture.setImageURI(Uri.parse(uri));
                 holder.avatar.setImageURI(Uri.parse(uri));
                 //展示会员图标

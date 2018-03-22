@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.Home.HomeRecommendAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
@@ -52,7 +53,7 @@ public class RecommendFragment extends BaseFragment {
         mHRAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                if (getParentFragment() instanceof HomeFragment) {
+                if (view instanceof SimpleDraweeView) {
                     // TODO: 2018/3/14 展示图片详情
                     Toast.makeText(getContext(), "暂无法查看图片详情", Toast.LENGTH_SHORT).show();
 //                    ((HomeFragment) getParentFragment()).start(CycleFragment.newInstance(1));
