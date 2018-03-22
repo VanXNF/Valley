@@ -23,7 +23,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignLeft="@id/civ_nav_avatar"
-        android:text="Van X"
+        android:text="Photo Valley"
         android:textColor="@color/white"
         android:textSize="16sp" />
 

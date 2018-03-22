@@ -1,78 +1,157 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:background="?attr/colorPrimaryDark">
 
-    <include layout="@layout/toolbar"/>
-
-    <ScrollView
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="20dp"
+        app:cardBackgroundColor="@color/grey">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="?attr/colorAccent">
 
-                <EditText
+                <com.vanxnf.photovalley.widget.CircleImageView.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/pic4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:elevation="5dp"
+                    app:border_color="?attr/colorAccent"
+                    app:border_width="0dp"/>
+
+            </RelativeLayout>
+
+            <com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:labelText="@string/account"
+                app:maxCharacters="10"
+                app:hasClearButton="true">
+
+                <com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText
                     android:id="@+id/et_account"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/account"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:layout_height="wrap_content" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes>
 
-            <android.support.design.widget.TextInputLayout
+            <com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                app:labelText="@string/password"
+                app:maxCharacters="10"
+                app:hasClearButton="true">
 
-                <EditText
+                <com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:imeActionId="@integer/action_sign_in"
-                    android:imeOptions="actionUnspecified" />
+                    android:inputType="textPassword"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes>
+
+            <com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"
+                app:labelText="@string/repeat_password"
+                app:maxCharacters="10"
+                app:hasClearButton="true">
+
+                <com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText
+                    android:id="@+id/et_repeat_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"/>
+
+            </com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_register"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/register"
-                    android:textAllCaps="false"
-                    android:textStyle="bold"/>
-
-                <Button
+                <com.vanxnf.photovalley.widget.Button.SubmitButton
                     android:id="@+id/btn_login"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/login"
-                    android:textAllCaps="false"
-                    android:textStyle="bold"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
+                    app:buttonTextSize="16sp"
+                    app:buttonText="@string/login" />
+
+                <com.vanxnf.photovalley.widget.Button.SubmitButton
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
+                    android:visibility="gone"
+                    app:buttonTextSize="16sp"
+                    app:buttonText="@string/register" />
+
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:id="@+id/tv_register"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/register"
+                        android:textSize="14sp"
+                        android:clickable="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/forgot_your_password"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</FrameLayout>

@@ -3,32 +3,31 @@ package com.vanxnf.photovalley.features.login;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.base.BaseBackFragment;
+import com.vanxnf.photovalley.base.BaseFragment;
+import com.vanxnf.photovalley.widget.Button.SubmitButton;
+import com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText;
 
 
 /**
- * Created by YoKeyword on 16/2/14.
+ * Created by VanXN on 18/3/22.
  */
-public class LoginFragment extends BaseBackFragment {
-    private EditText mEtAccount, mEtPassword;
-    private Button mBtnLogin, mBtnRegister;
-
+public class LoginFragment extends BaseFragment {
+    private ExtendedEditText mEtAccount;
+    private ExtendedEditText mEtPassword;
+    private SubmitButton mBtnLogin;
+    private TextView mTvRegister;
+    private boolean isLoginSuccess;
     private OnLoginSuccessListener mOnLoginSuccessListener;
-
     public static LoginFragment newInstance() {
-
         Bundle args = new Bundle();
-
         LoginFragment fragment = new LoginFragment();
         fragment.setArguments(args);
         return fragment;
@@ -49,21 +48,16 @@ public class LoginFragment extends BaseBackFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-
         initView(view);
-
+        isLoginSuccess = false;
         return view;
     }
 
-    private void initView(View view) {
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mEtAccount = (EditText) view.findViewById(R.id.et_account);
-        mEtPassword = (EditText) view.findViewById(R.id.et_password);
-        mBtnLogin = (Button) view.findViewById(R.id.btn_login);
-        mBtnRegister = (Button) view.findViewById(R.id.btn_register);
-
-        toolbar.setTitle(R.string.login);
-        initToolbarNav(toolbar);
+    private void initView(final View view) {
+        mEtAccount = (ExtendedEditText) view.findViewById(R.id.et_account);
+        mEtPassword = (ExtendedEditText) view.findViewById(R.id.et_password);
+        mBtnLogin = (SubmitButton) view.findViewById(R.id.btn_login);
+        mTvRegister = (TextView) view.findViewById(R.id.tv_register);
 
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,20 +66,31 @@ public class LoginFragment extends BaseBackFragment {
                 String strPassword = mEtPassword.getText().toString();
                 if (TextUtils.isEmpty(strAccount.trim())) {
                     Toast.makeText(_mActivity, R.string.error_username, Toast.LENGTH_SHORT).show();
+                    mBtnLogin.reset();
                     return;
                 }
                 if (TextUtils.isEmpty(strPassword.trim())) {
                     Toast.makeText(_mActivity, R.string.error_pwd, Toast.LENGTH_SHORT).show();
+                    mBtnLogin.reset();
                     return;
                 }
-
                 // 登录成功
+                isLoginSuccess = true;
+                mBtnLogin.doResult(true);
                 mOnLoginSuccessListener.onLoginSuccess(strAccount);
-                pop();
+
+            }
+        });
+        mBtnLogin.setOnResultEndListener(new SubmitButton.OnResultEndListener() {
+            @Override
+            public void onResultEnd() {
+                if (isLoginSuccess) {
+                    pop();
+                }
             }
         });
 
-        mBtnRegister.setOnClickListener(new View.OnClickListener() {
+        mTvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 start(RegisterFragment.newInstance());

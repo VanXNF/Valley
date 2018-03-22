@@ -4,6 +4,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.vanxnf.photovalley.R;
+import com.vanxnf.photovalley.utils.Utility;
 
 /**
  * Created by YoKeyword on 16/2/7.
@@ -11,7 +12,12 @@ import com.vanxnf.photovalley.R;
 public class BaseBackFragment extends BaseFragment {
 
     protected void initToolbarNav(Toolbar toolbar) {
-        toolbar.setNavigationIcon(R.drawable.ic_menu_light);
+        if (Utility.getThemeTag(getContext()) == -1) {
+            toolbar.setNavigationIcon(R.drawable.ic_menu_light);
+        } else {
+            toolbar.setNavigationIcon(R.drawable.ic_menu_dark);
+        }
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

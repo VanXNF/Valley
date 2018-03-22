@@ -28,4 +28,58 @@
     <!--用于tab中未选择时字体颜色-->
     <attr name="colorAccentLight" format="color" />
 
+    <declare-styleable name="SubmitButton">
+        <attr name="buttonText" format="string" />
+        <attr name="buttonColor" format="color" />
+        <attr name="succeedColor" format="color" />
+        <attr name="failedColor" format="color" />
+        <attr name="buttonTextSize" format="dimension" />
+        <attr name="progressStyle" format="enum">
+            <enum name="loading" value="0" />
+            <enum name="progress" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TextFieldBoxes">
+
+        <!--Texts-->
+        <attr name="labelText" format="string" />
+        <attr name="helperText" format="string" />
+
+        <!--Colors-->
+        <attr name="helperTextColor" format="color" />
+        <attr name="counterTextColor" format="color" />
+        <attr name="errorColor" format="color" />
+        <attr name="primaryColor" format="color" />
+        <attr name="secondaryColor" format="color" />
+        <attr name="panelBackgroundColor" format="color" />
+
+        <!--Characters counter-->
+        <attr name="maxCharacters" format="integer" />
+        <attr name="minCharacters" format="integer" />
+
+        <!--Others-->
+        <attr name="enabled" format="boolean" />
+        <attr name="iconSignifier" format="reference" />
+        <attr name="endIcon" format="reference" />
+        <attr name="isResponsiveIconColor" format="boolean" />
+        <attr name="hasClearButton" format="boolean" />
+        <attr name="hasFocus" format="boolean" />
+        <attr name="alwaysShowHint" format="boolean" />
+        <attr name="useDenseSpacing" format="boolean" />
+
+    </declare-styleable>
+
+    <declare-styleable name="ExtendedEditText">
+
+        <!--Texts-->
+        <attr name="prefix" format="string" />
+        <attr name="suffix" format="string" />
+
+        <!--Colors-->
+        <attr name="prefixTextColor" format="color" />
+        <attr name="suffixTextColor" format="color" />
+
+    </declare-styleable>
+
 </resources>

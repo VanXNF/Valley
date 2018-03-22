@@ -179,14 +179,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void goLogin() {
+        // TODO: 2018/3/22 调整配色方案 
         start(LoginFragment.newInstance());
     }
 
     @Override
     public void onLoginSuccess(String account) {
         mTvName.setText(account);
-        mImgNav.setImageResource(R.drawable.pic1);
-        Toast.makeText(this, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
+//        mImgNav.setImageResource(R.drawable.pic1);
+        Toast.makeText(this, account + getString(R.string.sign_in_success), Toast.LENGTH_SHORT).show();
     }
 
 }

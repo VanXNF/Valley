@@ -72,7 +72,8 @@ public class SquareFragment extends BaseFragment {
                 // TODO: 2018/3/14 调整获取图片数据方式
                 String uri = new String("https://picsum.photos/800/600/?image=");
                 String item;
-                for (int i = 100; i <= 115; i++) {
+                for (int i = 100; i <= 116; i++) {
+                    if (i == 105) continue;
                     item = uri + i;
                     items.add(item);
                 }

@@ -1,27 +1,29 @@
 package com.vanxnf.photovalley.features.login;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.base.BaseBackFragment;
-
+import com.vanxnf.photovalley.base.BaseFragment;
+import com.vanxnf.photovalley.widget.Button.SubmitButton;
+import com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText;
 
 /**
- * Created by YoKeyword on 16/2/14.
+ * Created by VanXN on 18/3/22.
  */
-public class RegisterFragment extends BaseBackFragment {
-    private EditText mEtAccount, mEtPassword, mEtPasswordConfirm;
-    private Button mBtnRegister;
+public class RegisterFragment extends BaseFragment {
+    private ExtendedEditText mEtAccount;
+    private ExtendedEditText mEtPassword;
+    private ExtendedEditText mEtRepeatPwd;
+    private SubmitButton mBtnRegister;
+    private boolean isRegisterSuccess;
     private LoginFragment.OnLoginSuccessListener mOnLoginSuccessListener;
 
     public static RegisterFragment newInstance() {
@@ -49,39 +51,51 @@ public class RegisterFragment extends BaseBackFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         initView(view);
+        isRegisterSuccess = false;
         return view;
     }
 
     private void initView(View view) {
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mEtAccount = (EditText) view.findViewById(R.id.et_account);
-        mEtPassword = (EditText) view.findViewById(R.id.et_password);
-        mEtPasswordConfirm = (EditText) view.findViewById(R.id.et_password_confirm);
-        mBtnRegister = (Button) view.findViewById(R.id.btn_register);
-
+        mEtAccount = (ExtendedEditText) view.findViewById(R.id.et_account);
+        mEtPassword = (ExtendedEditText) view.findViewById(R.id.et_password);
+        mEtRepeatPwd = (ExtendedEditText) view.findViewById(R.id.et_repeat_password);
+        mBtnRegister = (SubmitButton) view.findViewById(R.id.btn_register);
         showSoftInput(mEtAccount);
-
-        toolbar.setTitle(R.string.register);
-        initToolbarNav(toolbar);
 
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String strAccount = mEtAccount.getText().toString();
                 String strPassword = mEtPassword.getText().toString();
-                String strPasswordConfirm = mEtPasswordConfirm.getText().toString();
+                String strPasswordConfirm = mEtRepeatPwd.getText().toString();
                 if (TextUtils.isEmpty(strAccount.trim())) {
                     Toast.makeText(_mActivity, R.string.error_username, Toast.LENGTH_SHORT).show();
+                    mBtnRegister.reset();
                     return;
                 }
                 if (TextUtils.isEmpty(strPassword.trim()) || TextUtils.isEmpty(strPasswordConfirm.trim())) {
                     Toast.makeText(_mActivity, R.string.error_pwd, Toast.LENGTH_SHORT).show();
+                    mBtnRegister.reset();
+                    return;
+                }
+                if (!strPassword.trim().equals(strPasswordConfirm.trim())) {
+                    Toast.makeText(_mActivity, R.string.confirm_pwd_error, Toast.LENGTH_SHORT).show();
+                    mBtnRegister.reset();
                     return;
                 }
 
                 // 注册成功
                 mOnLoginSuccessListener.onLoginSuccess(strAccount);
-                popTo(LoginFragment.class, true);
+                isRegisterSuccess = true;
+                mBtnRegister.doResult(true);
+            }
+        });
+        mBtnRegister.setOnResultEndListener(new SubmitButton.OnResultEndListener() {
+            @Override
+            public void onResultEnd() {
+                if (isRegisterSuccess) {
+                    popTo(LoginFragment.class, true);
+                }
             }
         });
     }

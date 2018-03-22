@@ -13,4 +13,15 @@
     <color name="grey">#9e9e9e</color>
     <color name="black">#000000</color>
 
+    <!--ExtendedTextField-->
+    <color name="default_error_color">#ff1744</color>
+    <!--ExtendedTextField Light Theme-->
+    <color name="per54black">#72000000</color>
+    <color name="per42black">#2a000000</color>
+    <color name="per06black">#06000000</color>
+    <!--ExtendedTextField Dark Theme-->
+    <color name="per70white">#46ffffff</color>
+    <color name="per50white">#32ffffff</color>
+    <color name="per10white">#0affffff</color>
+
 </resources>
