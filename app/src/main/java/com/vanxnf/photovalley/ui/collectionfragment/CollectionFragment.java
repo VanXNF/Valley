@@ -14,6 +14,8 @@ import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.Collection.CollectionAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
+import com.vanxnf.photovalley.ui.homefragment.HomeFragment;
+import com.vanxnf.photovalley.ui.previewfragment.PreviewFragment;
 import com.vanxnf.photovalley.utils.ImageRandomData;
 
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public class CollectionFragment extends BaseMainFragment {
             @Override
             public void onItemClick(int position, View view) {
                 Toast.makeText(getContext(), ImageRandomData.getRandomPlace(), Toast.LENGTH_SHORT).show();
+                start(PreviewFragment.newInstance(items.get(position)));
             }
         });
 

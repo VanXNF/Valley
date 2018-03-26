@@ -10,10 +10,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.vanxnf.photovalley.widget.Loading.LoadingView
-        android:id="@+id/load_view"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"/>
-
 </FrameLayout>

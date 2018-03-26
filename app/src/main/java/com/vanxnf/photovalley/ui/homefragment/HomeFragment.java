@@ -5,19 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.Home.HomeFragmentAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
 import com.vanxnf.photovalley.utils.Utility;
-import com.vanxnf.photovalley.widget.Loading.LoadingView;
 import com.vanxnf.photovalley.widget.ParallaxViewPager.ParallaxViewPager;
 import com.vanxnf.photovalley.widget.SlideTablayout.SlideTabLayout;
 
@@ -45,7 +39,6 @@ public class HomeFragment extends BaseMainFragment {
     }
 
     private void initView(View view) {
-        final LoadingView mLoadingView = (LoadingView) view.findViewById(R.id.load_view);
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         SlideTabLayout mTabLayout = (SlideTabLayout) view.findViewById(R.id.tab_layout);
         ParallaxViewPager mViewPager = (ParallaxViewPager) view.findViewById(R.id.view_pager);

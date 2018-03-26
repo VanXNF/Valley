@@ -13,6 +13,7 @@ import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.Home.HomeRecommendAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
+import com.vanxnf.photovalley.ui.previewfragment.PreviewFragment;
 
 
 import java.util.ArrayList;
@@ -54,9 +55,7 @@ public class RecommendFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, View view) {
                 if (view instanceof SimpleDraweeView) {
-                    // TODO: 2018/3/14 展示图片详情
-                    Toast.makeText(getContext(), "暂无法查看图片详情", Toast.LENGTH_SHORT).show();
-//                    ((HomeFragment) getParentFragment()).start(CycleFragment.newInstance(1));
+                    ((HomeFragment) getParentFragment()).start(PreviewFragment.newInstance(items.get(position)));
                 }
             }
         });

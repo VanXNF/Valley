@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.adapter.Home.HomeSquareAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
+import com.vanxnf.photovalley.ui.previewfragment.PreviewFragment;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
 
 import java.util.ArrayList;
@@ -48,16 +48,14 @@ public class SquareFragment extends BaseFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        // TODO: 2018/3/14 初始化界面
         mHSAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
                 if (view instanceof CircleImageView) {
                     // TODO: 2018/3/15 展示头像详情
                     Toast.makeText(getContext(), "暂无法查看头像详情", Toast.LENGTH_SHORT).show();
-                } else if (view instanceof SimpleDraweeView) {
-                    // TODO: 2018/3/14 展示图片详情
-                    Toast.makeText(getContext(), "暂无法查看图片详情", Toast.LENGTH_SHORT).show();
+                } else if (view instanceof ImageView) {
+                    ((HomeFragment) getParentFragment()).start(PreviewFragment.newInstance(items.get(position)));
                 } else if (view instanceof ImageView) {
                     // TODO: 2018/3/17 收藏图片
                     Toast.makeText(getContext(), "你喜欢了第"+(position+1)+"张图片", Toast.LENGTH_SHORT).show();
