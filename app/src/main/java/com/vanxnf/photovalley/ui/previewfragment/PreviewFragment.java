@@ -1,5 +1,6 @@
 package com.vanxnf.photovalley.ui.previewfragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,10 +8,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.shizhefei.view.largeimage.LargeImageView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by VanXN on 2018/3/26.
@@ -56,8 +63,18 @@ public class PreviewFragment extends BaseFragment {
     }
 
     private void loadPreviewImage(View view) {
-        ImageView imageView = view.findViewById(R.id.preview_image);
-        Glide.with(view).load(uri).into(imageView);
-
+        final LargeImageView imageView = view.findViewById(R.id.preview_image);
+        RequestOptions options = new RequestOptions()
+                .fitCenter();
+        Glide.with(view)
+                .load(uri)
+                .apply(options)
+                .transition(withCrossFade(800))
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        imageView.setImage(resource);
+                    }
+                });
     }
 }

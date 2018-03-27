@@ -33,4 +33,5 @@ public class PhotoValley extends Application {
                 })
                 .install();
     }
+
 }
