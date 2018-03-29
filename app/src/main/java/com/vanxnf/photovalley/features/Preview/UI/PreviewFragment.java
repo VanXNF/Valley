@@ -59,16 +59,17 @@ public class PreviewFragment extends BaseFragment {
         FloatingActionButton btnShare = view.findViewById(R.id.preview_share);
         FloatingActionButton btnDelete = view.findViewById(R.id.preview_delete);
         // TODO: 2018/3/26 增加判断机制 当从服务器返回时显示button
+        btnSave.setVisibility(View.VISIBLE);
+        btnShare.setVisibility(View.VISIBLE);
+        btnDelete.setVisibility(View.VISIBLE);
+        //加载图片
         loadPreviewImage(view);
     }
 
     private void loadPreviewImage(View view) {
         final LargeImageView imageView = view.findViewById(R.id.preview_image);
-        RequestOptions options = new RequestOptions()
-                .fitCenter();
         Glide.with(view)
                 .load(uri)
-                .apply(options)
                 .transition(withCrossFade(800))
                 .into(new SimpleTarget<Drawable>() {
                     @Override
