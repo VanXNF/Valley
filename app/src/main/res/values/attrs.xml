@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--用于tab中未选择时字体颜色-->
+    <attr name="colorAccentLight" format="color" />
 
     <declare-styleable name="TabLayout">
         <attr name="indicator_height" format="dimension" />
@@ -25,9 +27,6 @@
         <attr name="right_shadow" format="reference" />
     </declare-styleable>
 
-    <!--用于tab中未选择时字体颜色-->
-    <attr name="colorAccentLight" format="color" />
-
     <declare-styleable name="SubmitButton">
         <attr name="buttonText" format="string" />
         <attr name="buttonColor" format="color" />
@@ -41,11 +40,9 @@
     </declare-styleable>
 
     <declare-styleable name="TextFieldBoxes">
-
         <!--Texts-->
         <attr name="labelText" format="string" />
         <attr name="helperText" format="string" />
-
         <!--Colors-->
         <attr name="helperTextColor" format="color" />
         <attr name="counterTextColor" format="color" />
@@ -53,11 +50,9 @@
         <attr name="primaryColor" format="color" />
         <attr name="secondaryColor" format="color" />
         <attr name="panelBackgroundColor" format="color" />
-
         <!--Characters counter-->
         <attr name="maxCharacters" format="integer" />
         <attr name="minCharacters" format="integer" />
-
         <!--Others-->
         <attr name="enabled" format="boolean" />
         <attr name="iconSignifier" format="reference" />
@@ -67,19 +62,16 @@
         <attr name="hasFocus" format="boolean" />
         <attr name="alwaysShowHint" format="boolean" />
         <attr name="useDenseSpacing" format="boolean" />
-
     </declare-styleable>
 
     <declare-styleable name="ExtendedEditText">
-
         <!--Texts-->
         <attr name="prefix" format="string" />
         <attr name="suffix" format="string" />
-
         <!--Colors-->
         <attr name="prefixTextColor" format="color" />
         <attr name="suffixTextColor" format="color" />
-
     </declare-styleable>
+
 
 </resources>

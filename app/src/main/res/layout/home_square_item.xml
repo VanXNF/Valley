@@ -29,7 +29,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="8dp"
                     app:roundAsCircle="true"
-                    app:placeholderImage="@drawable/ic_favorite_red"/>
+                    app:placeholderImage="@drawable/square_like_red"/>
 
                 <TextView
                     android:id="@+id/name_square"
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="18dp"
-                    android:src="@drawable/ic_medal"
+                    android:src="@drawable/square_medal"
                     android:visibility="gone"/>
 
             </LinearLayout>
@@ -60,13 +60,14 @@
                 android:layout_below="@id/linear_layout"
                 android:layout_marginTop="5dp"
                 android:scaleType="centerCrop"
-                app:placeholderImage="@drawable/ic_favorite_red"
+                app:placeholderImage="@drawable/square_like_red"
                 app:fadeDuration="800"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
                 android:layout_below="@id/display_image_square"
                 android:layout_marginBottom="15dp">
 
@@ -74,20 +75,24 @@
                     android:id="@+id/action_like_square"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
-                    android:src="@drawable/ic_favorite_border"/>
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/square_like_red_border"/>
                 <ImageView
                     android:id="@+id/action_comment_square"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
-                    android:src="@drawable/ic_comment_dark"/>
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:tint="?attr/colorAccent"
+                    android:src="@drawable/square_comment"/>
                 <ImageView
                     android:id="@+id/action_share_square"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
-                    android:src="@drawable/ic_share_dark"/>
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:tint="?attr/colorAccent"
+                    android:src="@drawable/square_share"/>
 
             </LinearLayout>
 

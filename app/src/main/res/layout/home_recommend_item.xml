@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:scaleType="centerCrop"
-            app:placeholderImage="@drawable/ic_favorite_red"
+            app:placeholderImage="@drawable/square_like_red"
             app:fadeDuration="800" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/ic_favorite_border_small"/>
+            android:src="@drawable/recommend_border_small"/>
 
     </FrameLayout>
 

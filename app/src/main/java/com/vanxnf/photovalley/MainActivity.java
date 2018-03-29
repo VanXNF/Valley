@@ -18,11 +18,12 @@ import android.widget.Toast;
 import com.vanxnf.photovalley.base.BaseActivity;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.base.BaseMainFragment;
-import com.vanxnf.photovalley.ui.accountfragment.LoginFragment;
-import com.vanxnf.photovalley.ui.collectionfragment.CollectionFragment;
-import com.vanxnf.photovalley.ui.downloadfragment.DownloadFragment;
-import com.vanxnf.photovalley.ui.homefragment.HomeFragment;
-import com.vanxnf.photovalley.ui.settingfragment.SettingFragment;
+import com.vanxnf.photovalley.features.About.UI.AboutFragment;
+import com.vanxnf.photovalley.features.Account.UI.LoginFragment;
+import com.vanxnf.photovalley.features.Collection.UI.CollectionFragment;
+import com.vanxnf.photovalley.features.Download.UI.DownloadFragment;
+import com.vanxnf.photovalley.features.Home.UI.HomeFragment;
+import com.vanxnf.photovalley.features.Setting.UI.SettingFragment;
 import com.vanxnf.photovalley.utils.Utility;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
 
@@ -44,7 +45,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utility.setStatusBarTransparent(getWindow());
+        Utility.setStatusBarTransparent(getWindow(), getThemeTag());
         setContentView(R.layout.activity_main);
         isLogin = getAccountStatus();
         HomeFragment fragment = findFragment(HomeFragment.class);
@@ -63,8 +64,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
         mNavigationView.setCheckedItem(R.id.nav_home);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
         /**设置MenuItem的字体颜色**/
         Resources resource = (Resources)getBaseContext().getResources();
         ColorStateList csl;
@@ -73,8 +72,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             csl = (ColorStateList) resource.getColorStateList(R.color.navigation_menu_text_color_night);
         }
-        navigationView.setItemTextColor(csl);
-        navigationView.setItemIconTintList(csl);
+        mNavigationView.setItemTextColor(csl);
+        mNavigationView.setItemIconTintList(csl);
 
         RelativeLayout rlNavHeader = (RelativeLayout) mNavigationView.getHeaderView(0);
         mTvName = (TextView) rlNavHeader.findViewById(R.id.tv_username);
@@ -147,7 +146,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     HomeFragment fragment = findFragment(HomeFragment.class);
                     myHome.start(fragment, BaseFragment.SINGLETASK);
                 } else if (id == R.id.nav_collection) {
-                    // TODO: 2018/3/15 收藏界面
                     CollectionFragment fragment = findFragment(CollectionFragment.class);
                     if (fragment == null) {
                         myHome.startWithPopTo(CollectionFragment.newInstance(), HomeFragment.class, false);
@@ -170,16 +168,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     } else {
                         start(fragment, BaseFragment.SINGLETASK);
                     }
-                } else if (id == R.id.nav_share) {
-                    // TODO: 2018/3/15 分享本应用
                 } else if (id == R.id.nav_about) {
-                    // TODO: 2018/3/15 关于界面
+                    AboutFragment fragment = findFragment(AboutFragment.class);
+                    if (fragment == null) {
+                        myHome.startWithPopTo(AboutFragment.newInstance(), HomeFragment.class, false);
+                    } else {
+                        start(fragment, BaseFragment.SINGLETASK);
+                    }
                 } else if (id == R.id.nav_quit_login) {
-                    setAccountStatus(false);
-                    setAccountName(getString(R.string.app_name));
-                    mTvName.setText(R.string.app_name);
-                    mNavigationView.setCheckedItem(R.id.nav_home);
-                    Toast.makeText(MainActivity.this, getString(R.string.already_log_out), Toast.LENGTH_SHORT).show();
+                    goLogout();
                 }
             }
         });
@@ -187,7 +184,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void goLogin() {
-        // TODO: 2018/3/22 调整配色方案
         if (getAccountStatus()) {
             Toast.makeText(this, getString(R.string.already_login), Toast.LENGTH_SHORT).show();
         } else {
@@ -195,10 +191,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
+    private void goLogout() {
+        if (getAccountStatus()) {
+            setAccountStatus(false);
+            setAccountName(getString(R.string.app_name));
+            mTvName.setText(R.string.app_name);
+            Toast.makeText(MainActivity.this, getString(R.string.already_log_out), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.none_account), Toast.LENGTH_SHORT).show();
+        }
+        mNavigationView.setCheckedItem(R.id.nav_home);
+    }
+
     @Override
     public void onLoginSuccess(String account) {
         mTvName.setText(account);
         setAccountName(account);
+        // TODO: 2018/3/29 头像选择 
 //        mImgNav.setImageResource(R.drawable.pic1);
         Toast.makeText(this, account + " " + getString(R.string.sign_in_success), Toast.LENGTH_SHORT).show();
     }

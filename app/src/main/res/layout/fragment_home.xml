@@ -40,7 +40,7 @@
         android:layout_height="match_parent"
         android:background="?attr/colorPrimaryDark"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:interpolator="@anim/decelerate_interpolator"
+        app:interpolator="@anim/parallax_view_pager_decelerate_interpolator"
         app:mode="right_overlay"
         app:outset="62%"
         app:shadow_width="30dp"/>

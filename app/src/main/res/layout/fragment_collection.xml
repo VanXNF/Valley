@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar"
+        app:layout_scrollFlags="enterAlways|snap|scroll"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_collection"

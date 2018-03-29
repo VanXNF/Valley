@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="280dp"
             app:fadeDuration="500"
-            app:placeholderImage="@drawable/ic_favorite_red"/>
+            app:placeholderImage="@drawable/square_like_red"/>
 
     </android.support.v7.widget.CardView>
 
