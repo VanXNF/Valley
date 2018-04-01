@@ -59,14 +59,14 @@ public class CollectionFragment extends BaseMainFragment {
             @Override
             public void onItemClick(int position, View view) {
                 Toast.makeText(getContext(), CollectionDataUtil.getRandomPlace(), Toast.LENGTH_SHORT).show();
-                start(PreviewFragment.newInstance(items.get(position)));
+                start(PreviewFragment.newInstance(items.get(position), false));
             }
         });
 
         mRecycler.post(new Runnable() {
             @Override
             public void run() {
-                Collections.addAll(items, CollectionDataUtil.urls);
+                Collections.addAll(items, CollectionDataUtil.uris);
                 mCAdapter.setData(items);
             }
         });

@@ -54,7 +54,7 @@ public class SquareFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, View view) {
                 if (view instanceof SimpleDraweeView) {
-                    ((HomeFragment) getParentFragment()).start(PreviewFragment.newInstance(items.get(position)));
+                    ((HomeFragment) getParentFragment()).start(PreviewFragment.newInstance(items.get(position), false));
                 } else if (view instanceof ImageView) {
                     // TODO: 2018/3/17 收藏图片
                     ((ImageView) view).setImageResource(R.drawable.square_like_red);

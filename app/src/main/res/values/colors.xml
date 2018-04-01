@@ -23,5 +23,6 @@
     <color name="per70white">#46ffffff</color>
     <color name="per50white">#32ffffff</color>
     <color name="per10white">#0affffff</color>
-
+    <!--recommend name bg-->
+    <color name="name_ng">#108e8e8e</color>
 </resources>

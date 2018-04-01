@@ -10,12 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.gson.Gson;
 import com.shizhefei.view.largeimage.LargeImageView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
+import com.vanxnf.photovalley.features.Preview.Gson.Download;
+import com.vanxnf.photovalley.features.Preview.Util.HttpUtil;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -25,25 +32,35 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class PreviewFragment extends BaseFragment {
 
-    private static final String URI_FORM = "uri_form";
+    private static final String DATA_FORM = "data_form";
+    private static final String IS_LOAD_FROM_JSON = "is_load_from_json";
+    private boolean isLoadFromJson;
     private String uri;
+    private String json;
 
-    public static PreviewFragment newInstance(String uri) {
-        Bundle uris = new Bundle();
-        uris.putString(URI_FORM, uri);
+    public static PreviewFragment newInstance(String data, boolean isLoadFromJson) {
+        Bundle args = new Bundle();
+        args.putBoolean(IS_LOAD_FROM_JSON, isLoadFromJson);
+        args.putString(DATA_FORM, data);
         PreviewFragment fragment = new PreviewFragment();
-        fragment.setArguments(uris);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Bundle args = getArguments();
         if (args != null) {
-            uri = args.getString(URI_FORM);
+            isLoadFromJson = args.getBoolean(IS_LOAD_FROM_JSON);
+            if (isLoadFromJson) {
+                json = args.getString(DATA_FORM);
+            } else {
+                uri = args.getString(DATA_FORM);
+            }
         }
+
+
     }
 
     @Nullable
@@ -54,19 +71,40 @@ public class PreviewFragment extends BaseFragment {
         return view;
     }
 
-    private void initView(View view) {
+    private void initView(final View view) {
         FloatingActionButton btnSave = view.findViewById(R.id.preview_save);
         FloatingActionButton btnShare = view.findViewById(R.id.preview_share);
         FloatingActionButton btnDelete = view.findViewById(R.id.preview_delete);
-        // TODO: 2018/3/26 增加判断机制 当从服务器返回时显示button
-        btnSave.setVisibility(View.VISIBLE);
-        btnShare.setVisibility(View.VISIBLE);
-        btnDelete.setVisibility(View.VISIBLE);
-        //加载图片
-        loadPreviewImage(view);
+
+        if (isLoadFromJson && json != null) {
+            btnSave.setVisibility(View.VISIBLE);
+            btnShare.setVisibility(View.VISIBLE);
+            btnDelete.setVisibility(View.VISIBLE);
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    HttpUtil.sendOkHttpRequest("http://192.168.4.7:8080/", json, new okhttp3.Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String responseData = new String(response.body().string());
+                            Gson gson = new Gson();
+                            Download download = gson.fromJson(responseData, Download.class);
+                            loadPreviewImage(view, download.getDownloadUri());
+                        }
+                    });
+                }
+            });
+        } else {
+            //直接加载图片
+            loadPreviewImage(view, uri);
+        }
     }
 
-    private void loadPreviewImage(View view) {
+    private void loadPreviewImage(View view, String uri) {
         final LargeImageView imageView = view.findViewById(R.id.preview_image);
         Glide.with(view)
                 .load(uri)

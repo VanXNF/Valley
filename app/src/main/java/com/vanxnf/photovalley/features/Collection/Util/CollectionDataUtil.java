@@ -1,26 +1,11 @@
 package com.vanxnf.photovalley.features.Collection.Util;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class CollectionDataUtil {
 
-    public static String getRandomName() {
-        return names[new Random().nextInt(names.length)];
-    }
-
-    public static String getImageUrl(String place) {
-        int index = toList(places).indexOf(place);
-        return urls[index];
-    }
-
     public static String getRandomPlace() {
         return places[new Random().nextInt(places.length)];
-    }
-
-    private static List<String> toList(String... list) {
-        return Arrays.asList(list);
     }
 
     public static final String[] names = {"Andrea", "Luca", "Marco", "Francesco", "Matteo",
@@ -70,35 +55,43 @@ public class CollectionDataUtil {
             "The Palm Jumeirah, Dubai, United Arab Emirates"
     };
 
-    public static final String[] urls = {
-            "https://twistedsifter.files.wordpress.com/2015/08/akjoujt.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/sun-lakes-united-states.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/waddan-libya.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/noumea-new-caldeonia.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/paris-france-2.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/pyin-hpyu-gyi-myanmar.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/sanlucar-la-mayor.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/clayton-county-united-states.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/male-maldives.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/liberty-island-new-york.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/columbiers-france.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/isla-cristina-spain.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/yellowstone-national-park-united-states.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/grimaud-france.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/ayers-rock-australia.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/calabasas-united-states.jpg",
-            "https://twistedsifter.files.wordpress.com/2015/08/mauritania.jpg",
-            "http://www.thisiscolossal.com/wp-content/uploads/2015/08/google-7.jpg",
-            "http://www.thisiscolossal.com/wp-content/uploads/2015/08/google-6.jpg",
-            "http://www.thisiscolossal.com/wp-content/uploads/2015/08/google-5.jpg",
-            "http://www.thisiscolossal.com/wp-content/uploads/2015/08/google-2.jpg",
-            "http://www.thisiscolossal.com/wp-content/uploads/2015/08/google-4.jpg",
-            "http://www.thisiscolossal.com/wp-content/uploads/2015/08/google-8.jpg",
-            "http://www.thisiscolossal.com/wp-content/uploads/2015/08/google-1.jpg",
-            "http://www.thisiscolossal.com/wp-content/uploads/2015/08/google-9.jpg",
-            "http://twistedsifter.files.wordpress.com/2014/06/venice-italy-from-above-aerial-satellite.jpg?w=400&h=225",
-            "http://twistedsifter.files.wordpress.com/2014/06/seaweed-farm-indonesia-from-above-aerial-satellite.jpg?w=400&h=225",
-            "http://twistedsifter.files.wordpress.com/2014/06/the-palm-jumeirah-dubai-uae-from-above-aerial-satellite.jpg?w=400&h=218"
+    public static final String[] uris = {
+
+            "https://s1.ax1x.com/2018/03/30/9vxr1H.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxocj.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxyjA.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxscd.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxHun.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxgBt.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxcnI.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vx2HP.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxWAf.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxfN8.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxh4S.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vx59g.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxTjs.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxI3Q.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxj4U.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxbBq.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxqH0.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxxCF.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxOEV.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxz34.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vxXNT.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzpv9.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzSgJ.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzCuR.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzkE6.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vziHx.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzPD1.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzZCD.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzE4O.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzAUK.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vze8e.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzKKA.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vznvd.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzmgH.jpg",
+            "https://s1.ax1x.com/2018/03/30/9vzMDI.jpg"
     };
 
 }

@@ -26,9 +26,18 @@
             android:layout_gravity="start|bottom"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
-            android:background="#108e8e8e"
+            android:background="@color/name_ng"
             android:textSize="14sp"
             android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/action_download_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/recommend_download"/>
 
         <ImageView
             android:id="@+id/action_like_recommend"
