@@ -35,6 +35,7 @@ import com.vanxnf.photovalley.listener.OnItemClickListener;
 
 import com.vanxnf.photovalley.utils.Luban.Luban;
 import com.vanxnf.photovalley.utils.Luban.OnCompressListener;
+import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
 
 import java.io.File;
 
@@ -135,46 +136,45 @@ public class FilterFragment extends BaseFragment {
 
             //裁剪图片
             Luban.with(_mActivity)
-                    .ignoreBy(100)
-                    .load(PathUtils.getPath(_mActivity, uri))
-                    .setTargetDir(getCompressedImagePath())
-                    .setCompressListener(new OnCompressListener() {
-                        @Override
-                        public void onStart() {
-                            //可播放loading动画
-                        }
+                .ignoreBy(100)
+                .load(PathUtils.getPath(_mActivity, uri))
+                .setTargetDir(getCompressedImagePath())
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        //可播放loading动画
+                    }
 
-                        @Override
-                        public void onSuccess(File file) {
+                    @Override
+                    public void onSuccess(File file) {
 
-                            //获取图片宽高(不加载)
-                            BitmapFactory.Options options = new BitmapFactory.Options();
-                            options.inJustDecodeBounds = true;
-                            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
-                            int width = options.outWidth;
-                            int height = options.outHeight;
+                        //获取图片宽高(不加载)
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inJustDecodeBounds = true;
+                        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                        int width = options.outWidth;
+                        int height = options.outHeight;
 
-                            //创建JSON数据
-                            Gson filterRequest = new Gson();
-                            Filter filter = new Filter();
-                            filter.setFilterName(FilterUtil.getFilterNameByPosition(filterId));
-                            filter.setUserName("Test");
-                            filter.setImageWidth(String.valueOf(width));
-                            filter.setImageHeight(String.valueOf(height));
-                            filter.setImageBase64(FilterUtil.encode(file.getAbsolutePath()));
-                            json = filterRequest.toJson(filter);
-                        }
+                        //创建JSON数据
+                        Gson filterRequest = new Gson();
+                        Filter filter = new Filter();
+                        filter.setFilterName(FilterUtil.getFilterNameByPosition(filterId));
+                        filter.setUserName(SharedPreferencesUtil.getAccountName(getContext()));
+                        filter.setImageWidth(String.valueOf(width));
+                        filter.setImageHeight(String.valueOf(height));
+                        filter.setImageBase64(FilterUtil.encode(file.getAbsolutePath()));
 
-                        @Override
-                        public void onError(Throwable e) {
+                        //删除压缩后的图片
+                        json = filterRequest.toJson(filter);
+                        file.delete();
+                        ((HomeFragment) getParentFragment()).start(PreviewFragment.newInstance(json, true));
+                    }
 
-                        }
-                    }).launch();
+                    @Override
+                    public void onError(Throwable e) {
 
-            if (json != null) {
-                //传递json数据传递至PreviewFragment
-                ((HomeFragment) getParentFragment()).start(PreviewFragment.newInstance(json, true));
-            }
+                    }
+                }).launch();
         }
     }
 

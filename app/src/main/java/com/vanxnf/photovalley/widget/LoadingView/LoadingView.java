@@ -1,4 +1,4 @@
-package com.vanxnf.photovalley.widget.Loading;
+package com.vanxnf.photovalley.widget.LoadingView;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.Home.Adapter.HomeFragmentAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
+import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
 import com.vanxnf.photovalley.utils.Utility;
 import com.vanxnf.photovalley.widget.ParallaxViewPager.ParallaxViewPager;
 import com.vanxnf.photovalley.widget.SlideTablayout.SlideTabLayout;
@@ -45,7 +46,7 @@ public class HomeFragment extends BaseMainFragment {
         ParallaxViewPager mViewPager = (ParallaxViewPager) view.findViewById(R.id.view_pager);
         mToolbar.setTitle(R.string.home);
         mToolbar.inflateMenu(R.menu.toolbar_menu);
-        if (Utility.getThemeTag(getContext()) == -1) {
+        if (SharedPreferencesUtil.getThemeTag(getContext()) == -1) {
             mToolbar.getMenu().findItem(R.id.action_switch_light).getIcon().setTint(Color.WHITE);
         } else {
             mToolbar.getMenu().findItem(R.id.action_switch_light).getIcon().setTint(Color.BLACK);

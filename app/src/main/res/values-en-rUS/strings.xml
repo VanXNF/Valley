@@ -1,0 +1,57 @@
+<resources>
+    <!--main DrawerLayout-->
+    <string name="navigation_drawer_open">Open Drawer</string>
+    <string name="navigation_drawer_close">Close Drawer</string>
+    <string name="press_again_exit">Press again exit</string>
+    <!--toolbar menu string -->
+    <string name="light_switch">Light Switch</string>
+    <string name="search">Search</string>
+    <!--nav menu string-->
+    <string name="home">Home</string>
+    <string name="collection">Collection</string>
+    <string name="download">Download</string>
+    <string name="setting">Setting</string>
+    <string name="about">About</string>
+    <string name="quit">Sign out</string>
+    <!--tab title string-->
+    <string name="square">Square</string>
+    <string name="recommend">Collection</string>
+    <string name="filter">Filter</string>
+    <!--login & register-->
+    <string name="account">Account</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="register">Register</string>
+    <string name="login">Sign in</string>
+    <string name="already_login">Already sign in</string>
+    <string name="sign_in_success">sign in success</string>
+    <string name="error_username">wrong in username</string>
+    <string name="confirm_pwd_error">wrong in confirm password</string>
+    <string name="error_pwd">wrong password</string>
+    <string name="forgot_your_password">Forgot password?</string>
+    <string name="none_account">None Account</string>
+    <string name="already_log_out">sign out success</string>
+    <!--home filter-->
+    <string name="please_login_first">please sign in first</string>
+    <string name="members_only">members only</string>
+    <!--ExtendedEditText-->
+    <string name="icon">icon</string>
+    <string name="counter_label_text_constructor" formatted="false">%s%s%s%s</string>
+    <!--about -->
+    <string name="app_name">Photo Valley</string>
+    <string name="app_develop_date">2018</string>
+    <string name="version">Version</string>
+    <string name="version_code">1.0.0</string>
+    <string name="author">Author</string>
+    <string name="author_name">VanXNF</string>
+    <string name="author_place">China</string>
+    <string name="follow_on_git_hub">Follow me on GitHub</string>
+    <string name="email">Email</string>
+    <string name="email_address">PhotoValley@163.com</string>
+    <string name="share_feedback">Share &amp; Feedback</string>
+    <string name="share_to_your_friends">Share to your friends</string>
+    <string name="rate_or_comment_in_market">Rate or comment in market</string>
+    <string name="feedback">Feedback</string>
+    <!--preview-->
+    <string name="load_failed">Load failed</string>
+</resources>

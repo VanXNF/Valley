@@ -1,5 +1,6 @@
 package com.vanxnf.photovalley.features.Home.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,6 +60,13 @@ public class SquareFragment extends BaseFragment {
                     // TODO: 2018/3/17 收藏图片
                     ((ImageView) view).setImageResource(R.drawable.square_like_red);
                     Toast.makeText(getContext(), "你喜欢了第"+(position+1)+"张图片", Toast.LENGTH_SHORT).show();
+                } else if (view.getId() == R.id.action_share_square) {
+                    // TODO: 2018/4/1 分享
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, items.get(position));
+                    shareIntent.setType("image/*");
+                    startActivity(Intent.createChooser(shareIntent, "分享到"));
                 }
             }
         });
@@ -77,5 +85,4 @@ public class SquareFragment extends BaseFragment {
         mRecycler.setLayoutManager(manager);
         mRecycler.setAdapter(mHSAdapter);
     }
-
 }

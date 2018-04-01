@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Setting"
+        android:text="@string/setting"
         android:textColor="?attr/colorAccent"
         android:textSize="60sp"/>
 

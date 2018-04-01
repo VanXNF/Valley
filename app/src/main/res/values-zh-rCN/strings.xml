@@ -37,10 +37,6 @@
     <!--ExtendedEditText-->
     <string name="icon">图标</string>
     <string name="counter_label_text_constructor" formatted="false">%s%s%s%s</string>
-    <!--download-->
-
-    <!--setting-->
-
     <!--about -->
     <string name="app_name">Photo Valley</string>
     <string name="app_develop_date">2018</string>

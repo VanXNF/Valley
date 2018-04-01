@@ -173,20 +173,4 @@ public class Utility {
         DrawableCompat.setTintList(temp, colorStateList);
         view.setImageDrawable(temp);
     }
-
-    /**
-     * 获取主题标记
-     */
-    public static int getThemeTag(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
-        return preferences.getInt("ValleyCache_themeTag", 1);
-    }
-
-    /**
-     * 获取登录状态
-     */
-    public static boolean getAccountStatus(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
-        return preferences.getBoolean("AccountCache_statusTag", false);
-    }
 }

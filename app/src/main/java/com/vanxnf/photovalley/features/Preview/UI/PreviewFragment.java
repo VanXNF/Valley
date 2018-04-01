@@ -1,5 +1,7 @@
 package com.vanxnf.photovalley.features.Preview.UI;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +20,8 @@ import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.features.Preview.Gson.Download;
 import com.vanxnf.photovalley.features.Preview.Util.HttpUtil;
+import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
+import com.vanxnf.photovalley.widget.LoadingView.LoadingView;
 
 import java.io.IOException;
 
@@ -30,11 +34,13 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
  * Created by VanXN on 2018/3/26.
  */
 
-public class PreviewFragment extends BaseFragment {
+public class PreviewFragment extends BaseFragment implements View.OnClickListener{
 
     private static final String DATA_FORM = "data_form";
     private static final String IS_LOAD_FROM_JSON = "is_load_from_json";
     private boolean isLoadFromJson;
+    private LoadingView loadingView;
+    private View view;
     private String uri;
     private String json;
 
@@ -66,45 +72,87 @@ public class PreviewFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_preview, container, false);
-        initView(view);
+        view = inflater.inflate(R.layout.fragment_preview, container, false);
+        initView();
         return view;
     }
 
-    private void initView(final View view) {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.preview_save:
+                // TODO: 2018/4/1 保存原图到文件夹 
+                break;
+            case R.id.preview_share:
+                if (uri != null) {
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                    shareIntent.setType("image/*");
+                    startActivity(Intent.createChooser(shareIntent, "分享到"));
+                } else {
+                    SnackbarUtils.Short(view, "图片未加载").warning().show();
+                }
+                break;
+        }
+    }
+
+    private void initView() {
+        loadingView = (LoadingView) view.findViewById(R.id.loading_view_preview);
         FloatingActionButton btnSave = view.findViewById(R.id.preview_save);
         FloatingActionButton btnShare = view.findViewById(R.id.preview_share);
-        FloatingActionButton btnDelete = view.findViewById(R.id.preview_delete);
+        btnSave.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
 
         if (isLoadFromJson && json != null) {
             btnSave.setVisibility(View.VISIBLE);
             btnShare.setVisibility(View.VISIBLE);
-            btnDelete.setVisibility(View.VISIBLE);
+
             post(new Runnable() {
                 @Override
                 public void run() {
-                    HttpUtil.sendOkHttpRequest("http://192.168.4.7:8080/", json, new okhttp3.Callback() {
+                    loadingView.setColor(Color.WHITE);
+                    loadingView.startAnim();
+                }
+            });
+            HttpUtil.sendOkHttpRequest("http://192.168.4.7:8080/", json, new okhttp3.Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
-                        public void onFailure(Call call, IOException e) {
+                        public void run() {
+                            loadingView.stopAnim();
+                            SnackbarUtils.Long(view, getString(R.string.load_failed)).warning().show();
+                            pop();
                         }
-
+                    });
+                }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String responseData = response.body().string();
+                    getJsonByGSON(responseData);
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            String responseData = new String(response.body().string());
-                            Gson gson = new Gson();
-                            Download download = gson.fromJson(responseData, Download.class);
-                            loadPreviewImage(view, download.getDownloadUri());
+                        public void run() {
+                            loadingView.stopAnim();
+                            loadPreviewImage(uri);
                         }
                     });
                 }
             });
         } else {
-            //直接加载图片
-            loadPreviewImage(view, uri);
+            loadPreviewImage(uri);
         }
+
     }
 
-    private void loadPreviewImage(View view, String uri) {
+    private void getJsonByGSON(String data) {
+        Gson gson = new Gson();
+        Download download = gson.fromJson(data, Download.class);
+        uri = download.getDownloadUri();
+    }
+
+    private void loadPreviewImage(String uri) {
         final LargeImageView imageView = view.findViewById(R.id.preview_image);
         Glide.with(view)
                 .load(uri)

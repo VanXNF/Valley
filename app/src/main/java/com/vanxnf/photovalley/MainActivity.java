@@ -3,6 +3,7 @@ package com.vanxnf.photovalley;
 
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.vanxnf.photovalley.base.BaseActivity;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.base.BaseMainFragment;
@@ -24,6 +26,8 @@ import com.vanxnf.photovalley.features.Collection.UI.CollectionFragment;
 import com.vanxnf.photovalley.features.Download.UI.DownloadFragment;
 import com.vanxnf.photovalley.features.Home.UI.HomeFragment;
 import com.vanxnf.photovalley.features.Setting.UI.SettingFragment;
+import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
+import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
 import com.vanxnf.photovalley.utils.Utility;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
 
@@ -35,6 +39,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     // 再点一次退出程序时间设置
     private static final long WAIT_TIME = 2000L;
     private long TOUCH_TIME = 0;
+    private int ThemeTag = 1;
 
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
@@ -48,6 +53,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Utility.setStatusBarTransparent(getWindow(), getThemeTag());
         setContentView(R.layout.activity_main);
         isLogin = getAccountStatus();
+        ThemeTag = SharedPreferencesUtil.getThemeTag(this);
         HomeFragment fragment = findFragment(HomeFragment.class);
         if (fragment == null) {
             loadRootFragment(R.id.fl_container, HomeFragment.newInstance());
@@ -74,7 +80,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         mNavigationView.setItemTextColor(csl);
         mNavigationView.setItemIconTintList(csl);
-
+        if (isLogin) {
+            mNavigationView.getMenu().getItem(5).setVisible(true);
+        } else {
+            mNavigationView.getMenu().getItem(5).setVisible(false);
+        }
         RelativeLayout rlNavHeader = (RelativeLayout) mNavigationView.getHeaderView(0);
         mTvName = (TextView) rlNavHeader.findViewById(R.id.tv_username);
         mImgNav = (CircleImageView) rlNavHeader.findViewById(R.id.civ_nav_avatar);
@@ -114,7 +124,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     finish();
                 } else {
                     TOUCH_TIME = System.currentTimeMillis();
-                    Toast.makeText(this, R.string.press_again_exit, Toast.LENGTH_SHORT).show();
+                    if (ThemeTag == 1) {
+                        SnackbarUtils.Short(mDrawer, getString(R.string.press_again_exit))
+                                .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
+                    } else {
+                        SnackbarUtils.Short(mDrawer, getString(R.string.press_again_exit))
+                                .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
+                    }
                 }
             }
         }
@@ -177,6 +193,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                 } else if (id == R.id.nav_quit_login) {
                     goLogout();
+                    item.setVisible(false);
                 }
             }
         });
@@ -185,7 +202,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void goLogin() {
         if (getAccountStatus()) {
-            Toast.makeText(this, getString(R.string.already_login), Toast.LENGTH_SHORT).show();
+            if (ThemeTag == 1) {
+                SnackbarUtils.Short(mDrawer, getString(R.string.already_login))
+                        .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
+            } else {
+                SnackbarUtils.Short(mDrawer, getString(R.string.already_login))
+                        .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
+            }
         } else {
             start(LoginFragment.newInstance());
         }
@@ -196,11 +219,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             setAccountStatus(false);
             setAccountName(getString(R.string.app_name));
             mTvName.setText(R.string.app_name);
-            Toast.makeText(MainActivity.this, getString(R.string.already_log_out), Toast.LENGTH_SHORT).show();
+
+            if (ThemeTag == 1) {
+                SnackbarUtils.Short(mDrawer, getString(R.string.already_log_out))
+                        .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
+            } else {
+                SnackbarUtils.Short(mDrawer, getString(R.string.already_log_out))
+                        .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
+            }
         } else {
-            Toast.makeText(this, getString(R.string.none_account), Toast.LENGTH_SHORT).show();
+            if (ThemeTag == 1) {
+                SnackbarUtils.Short(mDrawer, getString(R.string.none_account))
+                        .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
+            } else {
+                SnackbarUtils.Short(mDrawer, getString(R.string.none_account))
+                        .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
+            }
+
         }
-        mNavigationView.setCheckedItem(R.id.nav_home);
     }
 
     @Override
@@ -209,7 +245,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setAccountName(account);
         // TODO: 2018/3/29 头像选择 
 //        mImgNav.setImageResource(R.drawable.pic1);
-        Toast.makeText(this, account + " " + getString(R.string.sign_in_success), Toast.LENGTH_SHORT).show();
+        if (ThemeTag == 1) {
+            SnackbarUtils.Short(mDrawer, account +  " " + getString(R.string.sign_in_success))
+                    .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
+        } else {
+            SnackbarUtils.Short(mDrawer, account +  " " + getString(R.string.sign_in_success))
+                    .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
+        }
+        //使Sign out 可见
+        mNavigationView.getMenu().getItem(5).setVisible(true);
     }
 
 }

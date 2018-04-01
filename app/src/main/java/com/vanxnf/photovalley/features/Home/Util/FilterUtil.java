@@ -24,7 +24,8 @@ public class FilterUtil {
 
     public static final String[] FilterName = {
             "wave",
-            "cubist"
+            "cubist",
+            "water"
     };
 
     public static String getFilterNameByPosition(int position) {
