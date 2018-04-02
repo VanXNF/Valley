@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,10 @@ import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.Home.Adapter.HomeFilterAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
 
+import com.vanxnf.photovalley.features.Home.Gson.Filter;
 import com.vanxnf.photovalley.features.Home.Util.FilterUtil;
 import com.vanxnf.photovalley.features.Home.Util.HomeDataUtil;
 
-import com.vanxnf.photovalley.features.Home.Gson.Filter;
 import com.vanxnf.photovalley.features.Home.Util.PathUtils;
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
@@ -154,6 +155,7 @@ public class FilterFragment extends BaseFragment {
                         Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
                         int width = options.outWidth;
                         int height = options.outHeight;
+                        String type = options.outMimeType;
 
                         //创建JSON数据
                         Gson filterRequest = new Gson();
@@ -162,7 +164,7 @@ public class FilterFragment extends BaseFragment {
                         filter.setUserName(SharedPreferencesUtil.getAccountName(getContext()));
                         filter.setImageWidth(String.valueOf(width));
                         filter.setImageHeight(String.valueOf(height));
-                        filter.setImageBase64(FilterUtil.encode(file.getAbsolutePath()));
+                        filter.setImageBase64(FilterUtil.encode(file.getAbsolutePath(), type.substring(6, type.length())));
 
                         //删除压缩后的图片
                         json = filterRequest.toJson(filter);
