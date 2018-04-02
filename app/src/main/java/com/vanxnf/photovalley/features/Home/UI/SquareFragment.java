@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class SquareFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home_square, container, false);
-        initView(view);
+        initView();
         return view;
     }
 
@@ -54,14 +55,15 @@ public class SquareFragment extends BaseFragment {
         mHSAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                if (view instanceof SimpleDraweeView) {
+                if (view.getId() == R.id.display_image_square) {
                     ((HomeFragment) getParentFragment()).start(PreviewFragment.newInstance(items.get(position), false));
-                } else if (view instanceof ImageView) {
+                } else if (view.getId() == R.id.action_like_square) {
                     // TODO: 2018/3/17 收藏图片
                     ((ImageView) view).setImageResource(R.drawable.square_like_red);
-                    Toast.makeText(getContext(), "你喜欢了第"+(position+1)+"张图片", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), String.valueOf(view.getId()), Toast.LENGTH_SHORT).show();
+                } else if (view.getId() == R.id.action_comment_square) {
+
                 } else if (view.getId() == R.id.action_share_square) {
-                    // TODO: 2018/4/1 分享
                     Intent shareIntent = new Intent();
                     shareIntent.setAction(Intent.ACTION_SEND);
                     shareIntent.putExtra(Intent.EXTRA_STREAM, items.get(position));
@@ -78,7 +80,7 @@ public class SquareFragment extends BaseFragment {
         });
     }
     //轻量级初始化
-    private void initView(View view) {
+    private void initView() {
         mHSAdapter = new HomeSquareAdapter(_mActivity);
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_square);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);

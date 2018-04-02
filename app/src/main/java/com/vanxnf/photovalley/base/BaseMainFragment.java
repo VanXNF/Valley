@@ -22,7 +22,7 @@ public class BaseMainFragment extends BaseFragment {
 
     protected void initToolbarNav(Toolbar toolbar, boolean isHome) {
         toolbar.setNavigationIcon(R.drawable.toolbar_menu);
-        if (SharedPreferencesUtil.getThemeTag(getContext()) == 1) {
+        if (getThemeTag() == 0) {
             toolbar.getNavigationIcon().setTint(Color.BLACK);
         } else {
             toolbar.getNavigationIcon().setTint(Color.WHITE);

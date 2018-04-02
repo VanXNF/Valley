@@ -31,4 +31,19 @@ public class SharedPreferencesUtil {
         return preferences.getString("AccountCache_nameTag", context.getString(R.string.app_name));
     }
 
+    /**
+     * 获取语言标记
+     */
+    public int getLanguageTag(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        return preferences.getInt("ValleyCache_languageTag", 0);//0为跟随系统
+    }
+
+    /**
+     * 获取语言标记
+     */
+    public int getStartPageTag(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        return preferences.getInt("ValleyCache_start_pageTag", 1);
+    }
 }

@@ -75,25 +75,40 @@ public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.Vi
                 }
             }
         });
+        //为评论设置监听
+        holder.commentIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                if (mClickListener != null) {
+                    mClickListener.onItemClick(position, v);
+                }
+            }
+        });
+        //为分享设置监听
+        holder.shareIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                if (mClickListener != null) {
+                    mClickListener.onItemClick(position, v);
+                }
+            }
+        });
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final HomeSquareAdapter.ViewHolder holder, final int position) {
         final String uri = mItems.get(position);
-        holder.itemView.post(new Runnable() {
-            @Override
-            public void run() {
-                // TODO: 2018/3/14 增加获取头像与用户名的数据集
-                holder.name.setText(HomeDataUtil.getRandomName());
-                holder.picture.setImageURI(Uri.parse(uri));
-                holder.avatar.setImageURI(Uri.parse(uri));
-                //展示会员图标
-                if (position % 5 == 1) {
-                    holder.memberIcon.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+        // TODO: 2018/3/14 增加获取头像与用户名的数据集
+        holder.name.setText(HomeDataUtil.getRandomName());
+        holder.picture.setImageURI(Uri.parse(uri));
+        holder.avatar.setImageURI(Uri.parse(uri));
+        //展示会员图标
+        if (position % 5 == 1) {
+            holder.memberIcon.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

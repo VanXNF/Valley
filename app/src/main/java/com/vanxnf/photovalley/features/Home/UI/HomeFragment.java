@@ -46,7 +46,7 @@ public class HomeFragment extends BaseMainFragment {
         ParallaxViewPager mViewPager = (ParallaxViewPager) view.findViewById(R.id.view_pager);
         mToolbar.setTitle(R.string.home);
         mToolbar.inflateMenu(R.menu.toolbar_menu);
-        if (SharedPreferencesUtil.getThemeTag(getContext()) == -1) {
+        if (getThemeTag() == 1) {
             mToolbar.getMenu().findItem(R.id.action_switch_light).getIcon().setTint(Color.WHITE);
         } else {
             mToolbar.getMenu().findItem(R.id.action_switch_light).getIcon().setTint(Color.BLACK);
@@ -57,10 +57,10 @@ public class HomeFragment extends BaseMainFragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_switch_light:
-                        if (getThemeTag() == 1) {
-                            setThemeTag(-1);
-                        } else {
+                        if (getThemeTag() == 0) {
                             setThemeTag(1);
+                        } else {
+                            setThemeTag(0);
                         }
                         //重启Activity
                         Intent intent = getActivity().getIntent();
@@ -74,7 +74,7 @@ public class HomeFragment extends BaseMainFragment {
                 return true;
             }
         });
-        getActivity().openOptionsMenu();
+//        getActivity().openOptionsMenu();
         initToolbarNav(mToolbar);
 
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.square));
@@ -86,7 +86,7 @@ public class HomeFragment extends BaseMainFragment {
                 getString(R.string.filter)));
         mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.getTabAt(1).select();//默认显示推荐页
+        mTabLayout.getTabAt(getStartPageTag()).select();//默认显示推荐页
     }
 
 

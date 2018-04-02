@@ -31,7 +31,7 @@ public class DownloadFragment extends BaseMainFragment {
     private void initView(View view) {
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.download);
-        getActivity().openOptionsMenu();
+//        getActivity().openOptionsMenu();
         initToolbarNav(mToolbar);
     }
 }

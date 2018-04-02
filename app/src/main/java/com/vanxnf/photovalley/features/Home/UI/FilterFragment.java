@@ -84,7 +84,7 @@ public class FilterFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, View view) {
                 if (view instanceof SimpleDraweeView) {
-                    if (!getAccountStatus(_mActivity)) {
+                    if (!getAccountStatus()) {
                         Toast.makeText(getContext(), getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
                     } else {
                         if (position == mHFAdapter.getItemCount()-2 || position == mHFAdapter.getItemCount()-1) {

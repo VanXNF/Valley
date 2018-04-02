@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     // 再点一次退出程序时间设置
     private static final long WAIT_TIME = 2000L;
     private long TOUCH_TIME = 0;
-    private int ThemeTag = 1;
+    private int ThemeTag = 0;
 
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Utility.setStatusBarTransparent(getWindow(), getThemeTag());
         setContentView(R.layout.activity_main);
         isLogin = getAccountStatus();
-        ThemeTag = SharedPreferencesUtil.getThemeTag(this);
+        ThemeTag = getThemeTag();
         HomeFragment fragment = findFragment(HomeFragment.class);
         if (fragment == null) {
             loadRootFragment(R.id.fl_container, HomeFragment.newInstance());
@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         /**设置MenuItem的字体颜色**/
         Resources resource = (Resources)getBaseContext().getResources();
         ColorStateList csl;
-        if (getThemeTag() == 1) {
+        if (ThemeTag == 0) {
             csl = (ColorStateList) resource.getColorStateList(R.color.navigation_menu_text_color_day);
         } else {
             csl = (ColorStateList) resource.getColorStateList(R.color.navigation_menu_text_color_night);
@@ -124,7 +124,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     finish();
                 } else {
                     TOUCH_TIME = System.currentTimeMillis();
-                    if (ThemeTag == 1) {
+                    if (ThemeTag == 0) {
                         SnackbarUtils.Short(mDrawer, getString(R.string.press_again_exit))
                                 .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
                     } else {
@@ -177,7 +177,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         start(fragment, BaseFragment.SINGLETASK);
                     }
                 } else if (id == R.id.nav_setting) {
-                    // TODO: 2018/3/15 设置界面
                     SettingFragment fragment = findFragment(SettingFragment.class);
                     if (fragment == null) {
                         myHome.startWithPopTo(SettingFragment.newInstance(), HomeFragment.class, false);
@@ -202,7 +201,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void goLogin() {
         if (getAccountStatus()) {
-            if (ThemeTag == 1) {
+            if (ThemeTag == 0) {
                 SnackbarUtils.Short(mDrawer, getString(R.string.already_login))
                         .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
             } else {
@@ -220,22 +219,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             setAccountName(getString(R.string.app_name));
             mTvName.setText(R.string.app_name);
 
-            if (ThemeTag == 1) {
+            if (ThemeTag == 0) {
                 SnackbarUtils.Short(mDrawer, getString(R.string.already_log_out))
                         .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
             } else {
                 SnackbarUtils.Short(mDrawer, getString(R.string.already_log_out))
                         .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
             }
-        } else {
-            if (ThemeTag == 1) {
-                SnackbarUtils.Short(mDrawer, getString(R.string.none_account))
-                        .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
-            } else {
-                SnackbarUtils.Short(mDrawer, getString(R.string.none_account))
-                        .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
-            }
-
+//        } else {
+//            if (ThemeTag == 1) {
+//                SnackbarUtils.Short(mDrawer, getString(R.string.none_account))
+//                        .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
+//            } else {
+//                SnackbarUtils.Short(mDrawer, getString(R.string.none_account))
+//                        .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
+//            }
+//
         }
     }
 
@@ -245,7 +244,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setAccountName(account);
         // TODO: 2018/3/29 头像选择 
 //        mImgNav.setImageResource(R.drawable.pic1);
-        if (ThemeTag == 1) {
+        if (ThemeTag == 0) {
             SnackbarUtils.Short(mDrawer, account +  " " + getString(R.string.sign_in_success))
                     .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
         } else {

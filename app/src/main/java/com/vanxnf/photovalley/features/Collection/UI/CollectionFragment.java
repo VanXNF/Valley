@@ -48,7 +48,7 @@ public class CollectionFragment extends BaseMainFragment {
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_collection);
         mToolbar.setTitle(R.string.collection);
-        getActivity().openOptionsMenu();
+//        getActivity().openOptionsMenu();
         initToolbarNav(mToolbar);
         mCAdapter = new CollectionAdapter(_mActivity);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);

@@ -52,7 +52,6 @@ public class AboutFragment extends BaseMainFragment {
         mListRecycler = view.findViewById(R.id.about_recycler_view);
         //toolbar
         mToolbar.setTitle(R.string.about);
-        getActivity().openOptionsMenu();
         initToolbarNav(mToolbar);
 
         //List view item

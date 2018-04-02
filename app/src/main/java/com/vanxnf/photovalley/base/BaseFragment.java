@@ -29,7 +29,8 @@ public class BaseFragment extends Fragment implements ISupportFragment {
 
     private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
     private final String KEY_VALLEY_CACHE_ACCOUNT_TAG = "AccountCache_statusTag";
-
+    private final String KEY_VALLEY_CACHE_LANGUAGE_TAG = "ValleyCache_languageTag";
+    private final String KEY_VALLEY_CACHE_START_PAGE_TAG = "ValleyCache_start_pageTag";
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
         return mDelegate;
@@ -370,7 +371,7 @@ public class BaseFragment extends Fragment implements ISupportFragment {
      */
     public int getThemeTag() {
         SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
-        return preferences.getInt(KEY_VALLEY_CACHE_THEME_TAG, 1);
+        return preferences.getInt(KEY_VALLEY_CACHE_THEME_TAG, 0);
     }
     /**
      * 设置主题标记
@@ -384,8 +385,8 @@ public class BaseFragment extends Fragment implements ISupportFragment {
     /**
      * 获取账号标记
      */
-    public boolean getAccountStatus(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+    public boolean getAccountStatus() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
         return preferences.getBoolean(KEY_VALLEY_CACHE_ACCOUNT_TAG, false);
     }
     /**
@@ -396,5 +397,41 @@ public class BaseFragment extends Fragment implements ISupportFragment {
         SharedPreferences.Editor edit = preferences.edit();
         edit.putBoolean(KEY_VALLEY_CACHE_ACCOUNT_TAG, tag);
         edit.commit();
+    }
+
+    /**
+     * 获取语言标记
+     */
+    public int getLanguageTag() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        return preferences.getInt(KEY_VALLEY_CACHE_LANGUAGE_TAG, 0);//0为跟随系统
+    }
+
+    /**
+     * 设置语言标记
+     */
+    public void setLanguageTag(int tag) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putInt(KEY_VALLEY_CACHE_LANGUAGE_TAG, tag);
+        edit.commit();
+    }
+
+    /**
+     * 设置启动页标记
+     */
+    public void setStartPageTag(int tag) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putInt(KEY_VALLEY_CACHE_START_PAGE_TAG, tag);
+        edit.commit();
+    }
+
+    /**
+     * 获取语言标记
+     */
+    public int getStartPageTag() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
+        return preferences.getInt(KEY_VALLEY_CACHE_START_PAGE_TAG, 1);
     }
 }
