@@ -14,7 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +28,13 @@ import com.vanxnf.photovalley.base.BaseFragment;
 
 import com.vanxnf.photovalley.features.Home.Gson.Filter;
 import com.vanxnf.photovalley.features.Home.Util.FilterUtil;
-import com.vanxnf.photovalley.features.Home.Util.HomeDataUtil;
+
 
 import com.vanxnf.photovalley.features.Home.Util.PathUtils;
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
 
+import com.vanxnf.photovalley.utils.DataUtil;
 import com.vanxnf.photovalley.utils.Luban.Luban;
 import com.vanxnf.photovalley.utils.Luban.OnCompressListener;
 import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
@@ -74,7 +75,7 @@ public class FilterFragment extends BaseFragment {
 
     private void initView(View view) {
         // Init Datas
-        items.addAll(HomeDataUtil.getImageUri(60, 69));
+        items.addAll(DataUtil.getImageUri(103, 105));
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_filter);
         mHFAdapter = new HomeFilterAdapter(_mActivity);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);

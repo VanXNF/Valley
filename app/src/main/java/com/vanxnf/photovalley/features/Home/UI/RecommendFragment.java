@@ -11,9 +11,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.Home.Adapter.HomeRecommendAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
-import com.vanxnf.photovalley.features.Home.Util.HomeDataUtil;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
+import com.vanxnf.photovalley.utils.DataUtil;
 
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class RecommendFragment extends BaseFragment {
 
     //初始化
     private void initView(View view) {
-        items.addAll(HomeDataUtil.getImageUri(26, 35));
+        items.addAll(DataUtil.getImageUri(26, 35));
         mHRAdapter = new HomeRecommendAdapter(_mActivity);
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_recommend);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);

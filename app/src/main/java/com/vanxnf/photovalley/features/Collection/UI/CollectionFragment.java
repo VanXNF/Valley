@@ -8,17 +8,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.Collection.Adapter.CollectionAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
-import com.vanxnf.photovalley.features.Collection.Util.CollectionDataUtil;
+import com.vanxnf.photovalley.utils.DataUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -58,7 +56,6 @@ public class CollectionFragment extends BaseMainFragment {
         mCAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                Toast.makeText(getContext(), CollectionDataUtil.getRandomPlace(), Toast.LENGTH_SHORT).show();
                 start(PreviewFragment.newInstance(items.get(position), false));
             }
         });
@@ -66,7 +63,7 @@ public class CollectionFragment extends BaseMainFragment {
         mRecycler.post(new Runnable() {
             @Override
             public void run() {
-                Collections.addAll(items, CollectionDataUtil.uris);
+                items.addAll(DataUtil.getImageUri(0, 15));
                 mCAdapter.setData(items);
             }
         });

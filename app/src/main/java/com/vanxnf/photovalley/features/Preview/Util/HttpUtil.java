@@ -2,6 +2,7 @@ package com.vanxnf.photovalley.features.Preview.Util;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -10,7 +11,7 @@ import okhttp3.RequestBody;
 
 public class HttpUtil {
 
-    public static void sendOkHttpRequest(String address, String json , okhttp3.Callback callback) {
+    public static Call sendOkHttpRequest(String address, String json , okhttp3.Callback callback) {
 
         //MediaType  设置Content-Type 标头中包含的媒体类型值
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"), json);
@@ -26,6 +27,9 @@ public class HttpUtil {
                 .post(requestBody)
                 .build();
 
-        client.newCall(request).enqueue(callback);
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+
+        return call;
     }
 }

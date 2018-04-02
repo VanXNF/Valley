@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.features.Home.Util.HomeDataUtil;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
-import com.vanxnf.photovalley.features.Collection.Util.CollectionDataUtil;
+import com.vanxnf.photovalley.utils.DataUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +58,7 @@ public class HomeRecommendAdapter extends RecyclerView.Adapter<HomeRecommendAdap
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final String uri = mItems.get(position);
-        holder.tvAuthorName.setText(HomeDataUtil.getRandomName());
+        holder.tvAuthorName.setText(DataUtil.getRandomName());
         holder.iv.setImageURI(Uri.parse(uri));
     }
 

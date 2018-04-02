@@ -5,20 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.Home.Adapter.HomeSquareAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
-import com.vanxnf.photovalley.features.Home.Util.HomeDataUtil;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
+import com.vanxnf.photovalley.utils.DataUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class SquareFragment extends BaseFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         //init data
-        items.addAll(HomeDataUtil.getImageUri(100, 116, 105));
+        items.addAll(DataUtil.getImageUri(100, 116));
         mHSAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {

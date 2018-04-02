@@ -26,6 +26,7 @@ import com.vanxnf.photovalley.widget.LoadingView.LoadingView;
 import java.io.IOException;
 
 import okhttp3.Call;
+import okhttp3.Request;
 import okhttp3.Response;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -40,6 +41,7 @@ public class PreviewFragment extends BaseFragment implements View.OnClickListene
     private static final String IS_LOAD_FROM_JSON = "is_load_from_json";
     private boolean isLoadFromJson;
     private LoadingView loadingView;
+    private Call call;
     private View view;
     private String uri;
     private String json;
@@ -115,7 +117,7 @@ public class PreviewFragment extends BaseFragment implements View.OnClickListene
                     loadingView.startAnim();
                 }
             });
-            HttpUtil.sendOkHttpRequest("http://192.168.4.7:8080/", json, new okhttp3.Callback() {
+            call = HttpUtil.sendOkHttpRequest("http://192.168.4.7:8080/", json, new okhttp3.Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     getActivity().runOnUiThread(new Runnable() {
@@ -123,9 +125,9 @@ public class PreviewFragment extends BaseFragment implements View.OnClickListene
                         public void run() {
                             loadingView.stopAnim();
                             SnackbarUtils.Long(view, getString(R.string.load_failed)).warning().show();
-                            pop();
                         }
                     });
+                    pop();
                 }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
@@ -163,5 +165,11 @@ public class PreviewFragment extends BaseFragment implements View.OnClickListene
                         imageView.setImage(resource);
                     }
                 });
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        call.cancel();
+        return true;
     }
 }
