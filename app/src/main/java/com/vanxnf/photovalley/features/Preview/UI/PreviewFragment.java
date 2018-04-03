@@ -117,7 +117,7 @@ public class PreviewFragment extends BaseFragment implements View.OnClickListene
                     loadingView.startAnim();
                 }
             });
-            //Ali yun 120.79.162.134 本地 http://192.168.4.7:8080/
+            //Ali yun "http://120.79.162.134:80/" 本地 "http://192.168.4.7:80/"
             call = HttpUtil.sendOkHttpRequest("http://120.79.162.134:80/", json, new okhttp3.Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {

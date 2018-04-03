@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
+import com.vanxnf.photovalley.features.Home.Util.FilterUtil;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -55,6 +57,7 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
     @Override
     public void onBindViewHolder(final HomeFilterAdapter.ViewHolder holder, int position) {
         final String uri = mItems.get(position);
+        holder.tv.setText(FilterUtil.FilterNameIds[position]);
         holder.iv.setImageURI(Uri.parse(uri));
     }
 
@@ -65,9 +68,11 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private SimpleDraweeView iv;
+        private TextView tv;
         ViewHolder(View itemView) {
             super(itemView);
             iv = (SimpleDraweeView) itemView.findViewById(R.id.filter_image);
+            tv = (TextView) itemView.findViewById(R.id.filter_name);
         }
     }
 

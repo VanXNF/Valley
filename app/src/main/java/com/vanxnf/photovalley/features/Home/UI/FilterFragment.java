@@ -75,7 +75,7 @@ public class FilterFragment extends BaseFragment {
 
     private void initView(View view) {
         // Init Datas
-        items.addAll(DataUtil.getImageUri(106, 107));
+        items.addAll(DataUtil.getImageUri(106, 108));
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_filter);
         mHFAdapter = new HomeFilterAdapter(_mActivity);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);

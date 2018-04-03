@@ -27,11 +27,14 @@
     <string name="sign_in_success">sign in success</string>
     <string name="error_username">wrong in username</string>
     <string name="confirm_pwd_error">wrong in confirm password</string>
-    <string name="error_pwd">wrong password</string>
+    <string name="error_pwd">wrong in password</string>
     <string name="forgot_your_password">Forgot password?</string>
     <string name="none_account">None Account</string>
     <string name="already_log_out">sign out success</string>
     <!--home filter-->
+    <string name="oil_painting">Oil Painting</string>
+    <string name="golden_time">Golden Time</string>
+    <string name="ocean_heart">Ocean Heart</string>
     <string name="please_login_first">please sign in first</string>
     <string name="members_only">members only</string>
     <!--ExtendedEditText-->

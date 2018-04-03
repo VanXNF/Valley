@@ -25,13 +25,14 @@
                 app:fadeDuration="600"/>
 
             <TextView
+                android:id="@+id/filter_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:text="Filter"
-                android:textSize="80sp" />
+                android:textSize="60sp" />
 
         </FrameLayout>
 

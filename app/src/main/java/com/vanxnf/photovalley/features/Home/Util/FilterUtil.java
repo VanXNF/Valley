@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.vanxnf.photovalley.R;
+
 import java.io.ByteArrayOutputStream;
 
 public class FilterUtil {
@@ -32,7 +34,14 @@ public class FilterUtil {
 
     public static final String[] FilterName = {
             "oil_painting",
-            "golden_time"
+            "golden_time",
+            "ocean_heart"
+    };
+
+    public static final Integer[] FilterNameIds = {
+            R.string.oil_painting,
+            R.string.golden_time,
+            R.string.ocean_heart
     };
 
     public static String getFilterNameByPosition(int position) {
