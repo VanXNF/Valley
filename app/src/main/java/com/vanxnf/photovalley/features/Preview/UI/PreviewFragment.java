@@ -117,7 +117,8 @@ public class PreviewFragment extends BaseFragment implements View.OnClickListene
                     loadingView.startAnim();
                 }
             });
-            call = HttpUtil.sendOkHttpRequest("http://192.168.4.7:8080/", json, new okhttp3.Callback() {
+            //Ali yun 120.79.162.134 本地 http://192.168.4.7:8080/
+            call = HttpUtil.sendOkHttpRequest("http://120.79.162.134:80/", json, new okhttp3.Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     getActivity().runOnUiThread(new Runnable() {
@@ -152,6 +153,7 @@ public class PreviewFragment extends BaseFragment implements View.OnClickListene
         Gson gson = new Gson();
         Download download = gson.fromJson(data, Download.class);
         uri = download.getDownloadUri();
+        call = null;
     }
 
     private void loadPreviewImage(String uri) {
@@ -169,7 +171,11 @@ public class PreviewFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public boolean onBackPressedSupport() {
-        call.cancel();
+        if (call != null) {
+            call.cancel();
+        }  else {
+            pop();
+        }
         return true;
     }
 }

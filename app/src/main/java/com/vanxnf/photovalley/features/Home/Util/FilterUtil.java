@@ -31,13 +31,12 @@ public class FilterUtil {
     }
 
     public static final String[] FilterName = {
-            "wave",
-            "cubist",
-            "oil_painting"
+            "oil_painting",
+            "golden_time"
     };
 
     public static String getFilterNameByPosition(int position) {
-        return FilterName[position % FilterName.length];
+        return FilterName[position];
     }
 
 }

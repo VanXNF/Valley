@@ -59,7 +59,6 @@ public class SquareFragment extends BaseFragment {
                 } else if (view.getId() == R.id.action_like_square) {
                     // TODO: 2018/3/17 收藏图片
                     ((ImageView) view).setImageResource(R.drawable.square_like_red);
-                    Toast.makeText(getContext(), String.valueOf(view.getId()), Toast.LENGTH_SHORT).show();
                 } else if (view.getId() == R.id.action_comment_square) {
 
                 } else if (view.getId() == R.id.action_share_square) {

@@ -13,6 +13,7 @@ public class HttpUtil {
 
     public static Call sendOkHttpRequest(String address, String json , okhttp3.Callback callback) {
 
+        //120.79.162.134
         //MediaType  设置Content-Type 标头中包含的媒体类型值
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"), json);
         //发送JSON数据
