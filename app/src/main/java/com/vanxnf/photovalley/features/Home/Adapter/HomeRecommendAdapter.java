@@ -36,7 +36,7 @@ public class HomeRecommendAdapter extends BaseQuickAdapter<RecommendItem, BaseVi
                 .addOnClickListener(R.id.recommend_image);
         Glide.with(mContext)
                 .load(item.getPictureUri())
-                .transition(withCrossFade(1000))
+                .transition(withCrossFade(1500))
                 .into((ImageView) helper.getView(R.id.recommend_image));
     }
 }

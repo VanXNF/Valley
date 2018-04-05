@@ -5,6 +5,7 @@ public class FilterPreviewItem {
     private Integer thumbnailId;
     private Integer filterNameId;
     private String filterUri;
+    private String bgUri;
 
     public FilterPreviewItem(Integer thumbnailId, Integer filterNameId) {
         this.thumbnailId = thumbnailId;
@@ -39,5 +40,13 @@ public class FilterPreviewItem {
 
     public void setFilterUri(String filterUri) {
         this.filterUri = filterUri;
+    }
+
+    public String getBgUri() {
+        return bgUri;
+    }
+
+    public void setBgUri(String bgUri) {
+        this.bgUri = bgUri;
     }
 }

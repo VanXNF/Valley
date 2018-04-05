@@ -23,7 +23,7 @@ public class FilterPreviewAdapter extends BaseQuickAdapter<FilterPreviewItem, Ba
     protected void convert(BaseViewHolder helper, FilterPreviewItem item) {
         helper.setText(R.id.filter_name, item.getFilterNameId());
         Glide.with(mContext)
-                .load(item.getThumbnailId())
+                .load(item.getThumbnailId() == 0 ? item.getBgUri() : item.getThumbnailId())
                 .into((ImageView) helper.getView(R.id.filter_thumbnail));
     }
 }

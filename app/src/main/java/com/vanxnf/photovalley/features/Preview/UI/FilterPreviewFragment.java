@@ -119,6 +119,7 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
         //获取数据
         filterData = DataUtil.getItemData();
         filterData.get(0).setFilterUri(fileUri);
+        filterData.get(0).setBgUri(fileUri);
         String path = DataUtil.changeUriToPathForFileProvider(Uri.parse(fileUri));
         if (path != null) {
             currentImage = new File(path);

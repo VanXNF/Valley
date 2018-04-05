@@ -46,9 +46,9 @@ public class DataUtil {
         return list;
     }
 
-    //滤镜缩略图
+    //滤镜缩略图 0为空
     public static Integer[] filterPreviewImageIds = {
-            R.drawable.original_image,
+            0,
             R.drawable.oil_painting,
             R.drawable.golden_time,
             R.drawable.ocean_heart
