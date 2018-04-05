@@ -1,22 +1,10 @@
-package com.vanxnf.photovalley.utils;
+package com.vanxnf.photovalley.features.Setting.Util;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.FutureTarget;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.concurrent.ExecutionException;
-
-public class GlideUtil {
+public class ClearUtil {
 
     /**
      * 清除缓存
@@ -50,6 +38,5 @@ public class GlideUtil {
     public static void clearDiskCache(Context context) {
         Glide.get(context).clearDiskCache();
     }
-
 
 }

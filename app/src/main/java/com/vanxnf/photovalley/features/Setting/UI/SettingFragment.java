@@ -1,6 +1,5 @@
 package com.vanxnf.photovalley.features.Setting.UI;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,18 +10,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseMainFragment;
 import com.vanxnf.photovalley.features.Setting.Adapter.SettingAdapter;
-import com.vanxnf.photovalley.features.Setting.Util.SettingDataUtil;
+import com.vanxnf.photovalley.features.Setting.Entity.SettingItem;
+import com.vanxnf.photovalley.features.Setting.Util.ClearUtil;
+import com.vanxnf.photovalley.features.Setting.Util.ItemUtil;
 import com.vanxnf.photovalley.listener.OnItemClickListener;
-import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
+import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
 import com.vanxnf.photovalley.widget.Dialog.SingleChoiceDialogFragment;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,8 +33,7 @@ public class SettingFragment extends BaseMainFragment {
 
     private RecyclerView mRecycler;
     private SettingAdapter mSAdapter;
-    private List<Integer> mIconIds = new ArrayList<>();
-    private List<Integer> mTitleIds = new ArrayList<>();
+    private List<SettingItem> itemData;
     private View view;
 
 
@@ -51,45 +49,39 @@ public class SettingFragment extends BaseMainFragment {
         return view;
     }
 
-    @Override
-    public void onLazyInitView(@Nullable final Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        mSAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, View view) {
-                if (position == 0) {
-                    //主题
-                    showThemeDialog();
-                } else if (position == 1) {
-                    //语言
-                    showLanguageDialog();
-                } else if (position == 2) {
-                    //启动默认显示页
-                    showStartPageDialog();
-                }
-            }
-        });
-        mRecycler.post(new Runnable() {
-            @Override
-            public void run() {
-                Collections.addAll(mIconIds, SettingDataUtil.IconIds);
-                Collections.addAll(mTitleIds, SettingDataUtil.TitleIds);
-                mSAdapter.setData(mIconIds, mTitleIds);
-            }
-        });
-    }
-
     private void initView() {
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.setting);
-//        getActivity().openOptionsMenu();
         initToolbarNav(mToolbar);
 
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_setting);
-        mSAdapter = new SettingAdapter(_mActivity);
         mRecycler.setLayoutManager(new LinearLayoutManager(_mActivity));
+        itemData = ItemUtil.getSettingItemData();
+        mSAdapter = new SettingAdapter(_mActivity, itemData);
+        mSAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (position) {
+                    case 0:
+                        //主题
+                        showThemeDialog();
+                        break;
+                    case 1:
+                        //语言
+                        showLanguageDialog();
+                        break;
+                    case 2:
+                        //启动默认显示页
+                        showStartPageDialog();
+                        break;
+                    case 3:
+                        //清理图片缓存
+                        clearPicCache();
+                        break;
+                }
+            }
+        });
         mRecycler.setAdapter(mSAdapter);
-
     }
 
     private void showThemeDialog() {
@@ -193,5 +185,10 @@ public class SettingFragment extends BaseMainFragment {
 
             }
         }, getFragmentManager());
+    }
+
+    private void clearPicCache() {
+        ClearUtil.clearCache(_mActivity);
+        SnackbarUtils.Short(view, getString(R.string.clear_success)).info().show();
     }
 }

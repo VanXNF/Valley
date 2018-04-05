@@ -47,11 +47,13 @@
     <string name="language">Language</string>
     <string name="theme">Theme</string>
     <string name="start_page">Start Page</string>
+    <string name="clear_pic_cache">Clear Image Cache</string>
     <string name="light_theme">Light Theme</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="auto_language">Follow System</string>
     <string name="en_us">English(US)</string>
     <string name="zh_cn">Simplified Chinese(CN)</string>
+    <string name="clear_success">Clear Success</string>
     <!--about -->
     <string name="app_name">Photo Valley</string>
     <string name="app_develop_date">2018</string>
@@ -69,4 +71,8 @@
     <string name="feedback">Feedback</string>
     <!--preview-->
     <string name="load_failed">Load failed</string>
+    <string name="save_success">Save Success</string>
+    <string name="already_saved">Already Saved</string>
+    <string name="share_to">Share To</string>
+    <string name="pic_not_load">Image not Load</string>
 </resources>
