@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,13 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/recommend_image"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:scaleType="centerCrop"
-            app:placeholderImage="@drawable/square_like_red"
-            app:fadeDuration="800" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/author_name"
@@ -27,7 +24,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:background="@color/name_ng"
-            android:textSize="14sp"
+            android:textSize="17sp"
             android:textColor="@color/white" />
 
         <ImageView
@@ -36,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_marginBottom="5dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="50dp"
             android:src="@drawable/recommend_download"/>
 
         <ImageView
@@ -44,9 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/recommend_border_small"/>
+            android:src="@drawable/recommend_like_border"/>
 
     </FrameLayout>
 

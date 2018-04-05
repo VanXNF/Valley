@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 
 import java.io.File;
 
@@ -279,16 +278,4 @@ public class PathUtils {
   public static boolean isGooglePhotosUri(Uri uri) {
     return "com.google.android.apps.photos.content".equals(uri.getAuthority());
   }
-
-  /**获取文件Uri*/
-  public static Uri getFileUri(Context context, String authority, File file ) {
-    Uri uri;
-    if (Build.VERSION.SDK_INT >= 24) {
-      uri = FileProvider.getUriForFile(context, authority, file);
-    } else {
-      uri = Uri.fromFile(file);
-    }
-    return uri;
-  }
-
 }

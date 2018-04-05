@@ -128,18 +128,19 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String uri = filterData.get(position).getFilterUri();
-                if (uri != null) {
-                    loadPreviewImage(uri);
-                } else {
-                    if (position != 0) {
-                        filterId = position;
-                        json = initJson();
-                        if (json != null) {
-                            loadFilterImage();
+                if (call == null) {
+                    if (uri != null) {
+                        loadPreviewImage(uri);
+                    } else {
+                        if (position != 0) {
+                            filterId = position;
+                            json = initJson();
+                            if (json != null) {
+                                loadFilterImage();
+                            }
                         }
                     }
                 }
-
             }
         });
         mRecycler.setAdapter(adapter);
@@ -255,7 +256,6 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
                 adapter.notifyDataSetChanged();
             }
         });
-
         call = null;
     }
 

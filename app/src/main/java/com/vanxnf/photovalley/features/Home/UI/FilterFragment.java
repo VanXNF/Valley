@@ -13,8 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +25,9 @@ import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.features.Home.Adapter.HomeFilterAdapter;
 import com.vanxnf.photovalley.features.Home.Entity.FilterItem;
 import com.vanxnf.photovalley.features.Home.Util.FileUtil;
-import com.vanxnf.photovalley.features.Home.Util.FilterUtil;
+import com.vanxnf.photovalley.features.Home.Util.ItemUtil;
 import com.vanxnf.photovalley.features.Home.Util.PathUtils;
 import com.vanxnf.photovalley.features.Preview.UI.FilterPreviewFragment;
-import com.vanxnf.photovalley.features.Preview.Util.DataUtil;
 import com.vanxnf.photovalley.utils.Luban.Luban;
 import com.vanxnf.photovalley.utils.Luban.OnCompressListener;
 
@@ -64,7 +61,7 @@ public class FilterFragment extends BaseFragment {
 
     private void initView() {
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_filter);
-        final List<FilterItem> data = FilterUtil.getMultipleItemData();
+        final List<FilterItem> data = ItemUtil.getFilterItemData();
         HomeFilterAdapter adapter = new HomeFilterAdapter(_mActivity, data);
         final GridLayoutManager manager = new GridLayoutManager(_mActivity, 2);
         mRecycler.setLayoutManager(manager);

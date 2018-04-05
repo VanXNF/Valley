@@ -1,86 +1,42 @@
 package com.vanxnf.photovalley.features.Home.Adapter;
 
 import android.content.Context;
-import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.listener.OnItemClickListener;
-import com.vanxnf.photovalley.utils.DataUtil;
+import com.vanxnf.photovalley.features.Home.Entity.RecommendItem;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by VanXN on 2018/3/11.
  */
 
-public class HomeRecommendAdapter extends RecyclerView.Adapter<HomeRecommendAdapter.ViewHolder> {
+public class HomeRecommendAdapter extends BaseQuickAdapter<RecommendItem, BaseViewHolder> {
 
-    private List<String> mItems = new ArrayList<>();
-    private LayoutInflater mInflater;
-    private View view;
-    private OnItemClickListener mClickListener;
-
-
-    public HomeRecommendAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-    }
-
-    public void setData(List<String> uriList) {
-        mItems.clear();
-        mItems.addAll(uriList);
-        notifyDataSetChanged();
+    public HomeRecommendAdapter(Context context, List data) {
+        super(R.layout.home_recommend_item, data);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = mInflater.inflate(R.layout.home_recommend_item, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
-        holder.iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v);
-                }
-            }
-        });
-        return holder;
+    protected void convert(BaseViewHolder helper, RecommendItem item) {
+        helper.setImageResource(R.id.action_like_recommend,
+                item.isLiked() ? R.drawable.recommend_like_red : R.drawable.recommend_like_border)
+                .setImageResource(R.id.action_download_recommend, R.drawable.recommend_download)
+                .setText(R.id.author_name, item.getAuthorName())
+                .addOnClickListener(R.id.action_like_recommend)
+                .addOnClickListener(R.id.action_download_recommend)
+                .addOnClickListener(R.id.recommend_image);
+        Glide.with(mContext)
+                .load(item.getPictureUri())
+                .transition(withCrossFade(1000))
+                .into((ImageView) helper.getView(R.id.recommend_image));
     }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        final String uri = mItems.get(position);
-        holder.tvAuthorName.setText(DataUtil.getRandomName());
-        holder.iv.setImageURI(Uri.parse(uri));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mItems.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private SimpleDraweeView iv;
-        private TextView tvAuthorName;
-        private ImageView ivLikeIcon;
-        ViewHolder(View itemView) {
-            super(itemView);
-            iv = (SimpleDraweeView) itemView.findViewById(R.id.recommend_image);
-            ivLikeIcon = (ImageView) itemView.findViewById(R.id.action_like_recommend);
-            tvAuthorName = (TextView) itemView.findViewById(R.id.author_name);
-        }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
 }
