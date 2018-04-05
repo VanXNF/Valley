@@ -6,76 +6,35 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.listener.OnItemClickListener;
-
+import com.vanxnf.photovalley.features.Collection.Entity.CollectionItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by VanXN on 2018/3/22.
  */
 
-public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.ViewHolder> {
+public class CollectionAdapter extends BaseQuickAdapter<CollectionItem, BaseViewHolder> {
 
-
-    private List<String> mItems = new ArrayList<>();
-    private LayoutInflater mInflater;
-    private View view;
-    private OnItemClickListener mClickListener;
-
-
-    public CollectionAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-    }
-
-    public void setData(List<String> uriList) {
-        mItems.clear();
-        mItems.addAll(uriList);
-        notifyDataSetChanged();
+    public CollectionAdapter(Context context, List data) {
+        super(R.layout.collection_item, data);
     }
 
     @Override
-    public CollectionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = mInflater.inflate(R.layout.collection_item, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
-        holder.mCollectionImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v);
-                }
-            }
-        });
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(final CollectionAdapter.ViewHolder holder, int position) {
-        final String uri = mItems.get(position);
-        holder.mCollectionImg.setImageURI(Uri.parse(uri));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mItems.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private SimpleDraweeView mCollectionImg;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            mCollectionImg = (SimpleDraweeView) itemView.findViewById(R.id.collection_image);
-
-        }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
+    protected void convert(BaseViewHolder helper, CollectionItem item) {
+        Glide.with(mContext)
+                .load(item.getImageUri())
+                .transition(withCrossFade(1000))
+                .into((ImageView) helper.getView(R.id.collection_image));
     }
 }
