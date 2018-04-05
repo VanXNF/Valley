@@ -56,7 +56,7 @@ public class CollectionFragment extends BaseMainFragment {
         mCAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                start(PreviewFragment.newInstance(items.get(position), false));
+                start(PreviewFragment.newInstance(items.get(position)));
             }
         });
 

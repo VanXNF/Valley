@@ -1,83 +1,48 @@
 package com.vanxnf.photovalley.features.Home.Adapter;
 
 import android.content.Context;
-import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.vanxnf.photovalley.R;
+import com.vanxnf.photovalley.features.Home.Entity.FilterItem;
 import com.vanxnf.photovalley.features.Home.Util.FilterUtil;
-import com.vanxnf.photovalley.listener.OnItemClickListener;
+import com.vanxnf.photovalley.utils.DataUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by VanXN on 2018/3/17.
- */
+public class HomeFilterAdapter extends BaseMultiItemQuickAdapter<FilterItem,BaseViewHolder> {
 
-public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.ViewHolder> {
-
-    private List<String> mItems = new ArrayList<>();
-    private LayoutInflater mInflater;
-    private View view;
-    private OnItemClickListener mClickListener;
-
-
-    public HomeFilterAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-    }
-
-    public void setData(List<String> uriList) {
-        mItems.clear();
-        mItems.addAll(uriList);
-        notifyDataSetChanged();
+    public HomeFilterAdapter(Context context, List data) {
+        super(data);
+        addItemType(FilterItem.ACTION, R.layout.home_filter_action_item);
+        addItemType(FilterItem.EVENT, R.layout.home_filter_event_item);
     }
 
     @Override
-    public HomeFilterAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = mInflater.inflate(R.layout.home_filter_item, parent, false);
-        final HomeFilterAdapter.ViewHolder holder = new HomeFilterAdapter.ViewHolder(view);
-        holder.iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v);
-                }
-            }
-        });
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(final HomeFilterAdapter.ViewHolder holder, int position) {
-        final String uri = mItems.get(position);
-        holder.tv.setText(FilterUtil.FilterNameIds[position]);
-        holder.iv.setImageURI(Uri.parse(uri));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mItems.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private SimpleDraweeView iv;
-        private TextView tv;
-        ViewHolder(View itemView) {
-            super(itemView);
-            iv = (SimpleDraweeView) itemView.findViewById(R.id.filter_image);
-            tv = (TextView) itemView.findViewById(R.id.filter_name);
+    protected void convert(BaseViewHolder helper, FilterItem item) {
+        int position = helper.getLayoutPosition();
+        switch (helper.getItemViewType()) {
+            case FilterItem.ACTION:
+                helper.setText(R.id.filter_action_name,
+                        mContext.getString(FilterUtil.getActionTextIdByPosition(position)));
+                Glide.with(mContext)
+                        .load(FilterUtil.getActionIconIdByPosition(position))
+                        .into((ImageView) helper.getView(R.id.filter_action_icon));
+                Glide.with(mContext)
+                        .load(DataUtil.getImageUri(position + 200))
+                        .into((ImageView) helper.getView(R.id.filter_action_image));
+                break;
+            case FilterItem.EVENT:
+                helper.setText(R.id.filter_event_name,
+                        FilterUtil.getFilterNameIdByPosition(position-2));
+                Glide.with(mContext)
+                        .load(DataUtil.getImageUri(position))
+                        .into((ImageView) helper.getView(R.id.filter_event_image));
+                break;
         }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
     }
 
 }

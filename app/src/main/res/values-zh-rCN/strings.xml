@@ -32,6 +32,12 @@
     <string name="none_account">当前未登录账号</string>
     <string name="already_log_out">已退出当前账号</string>
     <!--home filter-->
+    <string name="camera">相机</string>
+    <string name="album">相册</string>
+    <string name="original_image">原图</string>
+    <string name="oil_painting">复古油画</string>
+    <string name="golden_time">金色时光</string>
+    <string name="ocean_heart">海洋之心</string>
     <string name="please_login_first">请登录后使用</string>
     <string name="members_only">本滤镜由会员专享</string>
     <!--ExtendedEditText-->

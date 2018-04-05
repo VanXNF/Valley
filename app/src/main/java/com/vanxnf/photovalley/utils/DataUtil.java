@@ -8,6 +8,10 @@ import java.util.Random;
 
 public class DataUtil {
 
+    public static String getImageUri(int Id) {
+        return uris[Id];
+    }
+
     public static List<String> getImageUri(int startId, int endId) {
         return getImageUri(startId, endId, -1);
     }

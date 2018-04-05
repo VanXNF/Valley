@@ -56,7 +56,7 @@ public class RecommendFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, View view) {
                 if (view instanceof SimpleDraweeView) {
-                    ((HomeFragment) getParentFragment()).start(PreviewFragment.newInstance(items.get(position), false));
+                    ((HomeFragment) getParentFragment()).start(PreviewFragment.newInstance(items.get(position)));
                 }
             }
         });

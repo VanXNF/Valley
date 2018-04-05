@@ -32,6 +32,9 @@
     <string name="none_account">None Account</string>
     <string name="already_log_out">sign out success</string>
     <!--home filter-->
+    <string name="camera">Camera</string>
+    <string name="album">Album</string>
+    <string name="original_image">Original Image</string>
     <string name="oil_painting">Oil Painting</string>
     <string name="golden_time">Golden Time</string>
     <string name="ocean_heart">Ocean Heart</string>

@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -24,6 +25,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import com.vanxnf.photovalley.R;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,34 +45,42 @@ import java.util.Locale;
 public class Utility {
 
     /**实现透明状态栏, 状态栏颜色切换*/
-    public static void setStatusBarTransparent(Window window, int themeTag) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // 5.0 以上全透明状态栏
-            //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏 加下面几句可以去除透明状态栏的灰色阴影,实现纯透明
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            //6.0 以上可以设置状态栏的字体为黑色.使用下面注释的这行打开亮色状态栏模式,实现黑色字体,白底的需求用这句setStatusBarColor(Color.WHITE);
+    public static void setStatusBar(Window window, int themeTag) {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if (Build.VERSION.SDK_INT >= 23) {
             if (themeTag == 0) {
                 window.getDecorView().setSystemUiVisibility(
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                window.setStatusBarColor(Color.parseColor("#FFFFFF"));
+            } else {
+                window.setStatusBarColor(Color.parseColor("#1e1d1d"));
             }
-
-            window.setStatusBarColor(Color.TRANSPARENT);
-
-        }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){//4.4 全透明状态栏
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            window.getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            if (themeTag == 0) {
+                window.setStatusBarColor(Color.parseColor("#9e9e9e"));
+            }
         }
+
     }
 
-    /**使爆炸后的控件复现*/
-    public static void reSetView(View view) {
-        view.setScaleX(1);
-        view.setScaleY(1);
-        view.setAlpha(1.0f);
-        view.setVisibility(View.VISIBLE);
+    /**
+     * 隐藏状态栏
+     */
+    public static void hideStatusBar(Window window) {
+        //隐藏状态栏
+        //定义全屏参数
+        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        //设置当前窗体为全屏显示
+        window.setFlags(flag, flag);
+    }
+    /**
+     * 显示状态栏
+     */
+    public static void showStatusBar(Window window) {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     /**获取图片真实路径*/
@@ -119,48 +130,6 @@ public class Utility {
            uri = Uri.fromFile(file);
         }
         return uri;
-    }
-
-    /**创建相机图片*/
-    public static File createImageFile() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String imageFileName = "IMG_" + timeStamp + ".jpg";
-        Log.d("Time", imageFileName);
-        String path = new String(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()
-              + "/" + imageFileName);
-        Log.d("File_Path", path);
-
-        File file = null;
-        try {
-            file = new File(path);
-            file.getParentFile().mkdirs();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return file;
-    }
-
-    /**判断文件是否为gif*/
-    public static boolean isGifFile(File file) {
-        try {
-            FileInputStream inputStream = new FileInputStream(file);
-            int[] flags = new int[5];
-            flags[0] = inputStream.read();
-            flags[1] = inputStream.read();
-            flags[2] = inputStream.read();
-            flags[3] = inputStream.read();
-            inputStream.skip(inputStream.available() - 1);
-            flags[4] = inputStream.read();
-            inputStream.close();
-            return flags[0] == 71 && flags[1] == 73 && flags[2] == 70 && flags[3] == 56 && flags[4] == 0x3B;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     /**
