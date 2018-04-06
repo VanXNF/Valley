@@ -15,11 +15,9 @@ import com.vanxnf.photovalley.features.Collection.Adapter.CollectionAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
 import com.vanxnf.photovalley.features.Collection.Entity.CollectionItem;
 import com.vanxnf.photovalley.features.Collection.Util.ItemUtil;
-import com.vanxnf.photovalley.listener.OnItemClickListener;
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
-import com.vanxnf.photovalley.utils.DataUtil;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**

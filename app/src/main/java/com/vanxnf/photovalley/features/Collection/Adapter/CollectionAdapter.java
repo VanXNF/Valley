@@ -1,21 +1,15 @@
 package com.vanxnf.photovalley.features.Collection.Adapter;
 
 import android.content.Context;
-import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.Collection.Entity.CollectionItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;

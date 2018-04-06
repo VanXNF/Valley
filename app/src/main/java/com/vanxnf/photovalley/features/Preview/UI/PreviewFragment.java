@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.shizhefei.view.largeimage.LargeImageView;
+import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.utils.Utility;

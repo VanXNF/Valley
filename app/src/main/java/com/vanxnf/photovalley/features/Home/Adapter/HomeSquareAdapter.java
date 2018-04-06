@@ -2,141 +2,51 @@ package com.vanxnf.photovalley.features.Home.Adapter;
 
 
 import android.content.Context;
-import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.listener.OnItemClickListener;
-import com.vanxnf.photovalley.utils.DataUtil;
+import com.vanxnf.photovalley.features.Home.Entity.SquareItem;
+import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
 
-import java.util.ArrayList;
+
 import java.util.List;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by VanXN on 2018/3/12.
  */
 
-public class HomeSquareAdapter extends RecyclerView.Adapter<HomeSquareAdapter.ViewHolder> {
+public class HomeSquareAdapter extends BaseQuickAdapter<SquareItem, BaseViewHolder> {
 
-    private List<String> mItems = new ArrayList<>();
-    private LayoutInflater mInflater;
-    private View view;
-    private Context context;
-    private OnItemClickListener mClickListener;
-
-    public HomeSquareAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-        this.context = context;
-    }
-
-    public void setData(List<String> uriList) {
-        mItems.clear();
-        mItems.addAll(uriList);
-        notifyDataSetChanged();
+    public HomeSquareAdapter(Context context, List data) {
+        super(R.layout.home_square_item, data);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = mInflater.inflate(R.layout.home_square_item, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
-        //为头像设置监听
-        holder.avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v);
-                }
-            }
-        });
-        //为图片设置监听
-        holder.picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v);
-                }
-            }
-        });
-        //为喜欢按钮设置监听
-        holder.likeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v);
-                }
-            }
-        });
-        //为评论设置监听
-        holder.commentIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v);
-                }
-            }
-        });
-        //为分享设置监听
-        holder.shareIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v);
-                }
-            }
-        });
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(final HomeSquareAdapter.ViewHolder holder, final int position) {
-        final String uri = mItems.get(position);
-        // TODO: 2018/3/14 增加获取头像与用户名的数据集
-        holder.name.setText(DataUtil.getRandomName());
-        holder.picture.setImageURI(Uri.parse(uri));
-        holder.avatar.setImageURI(Uri.parse(uri));
-        //展示会员图标
-        if (position % 5 == 1) {
-            holder.memberIcon.setVisibility(View.VISIBLE);
+    protected void convert(BaseViewHolder helper, SquareItem item) {
+        helper.addOnClickListener(R.id.action_like_square)
+                .addOnClickListener(R.id.action_comment_square)
+                .addOnClickListener(R.id.action_share_square)
+                .addOnClickListener(R.id.display_image_square)
+                .addOnClickListener(R.id.avatar_square)
+                .setText(R.id.name_square, item.getAuthorName())
+                .setImageResource(R.id.action_like_square,
+                        item.isLiked() ? R.drawable.square_like_red : R.drawable.square_like_red_border);
+        Glide.with(mContext)
+                .load(item.getAvatarUri())
+                .into((CircleImageView) helper.getView(R.id.avatar_square));
+        Glide.with(mContext)
+                .load(item.getPicUri())
+                .transition(withCrossFade(800))
+                .into((ImageView) helper.getView(R.id.display_image_square));
+        if (item.isMember()) {
+            helper.getView(R.id.member_square).setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return mItems.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private SimpleDraweeView avatar;
-        private TextView name;
-        private SimpleDraweeView picture;
-        private ImageView likeIcon;
-        private ImageView commentIcon;
-        private ImageView shareIcon;
-        private ImageView memberIcon;
-        ViewHolder(View itemView) {
-            super(itemView);
-            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_square);
-            name = (TextView) itemView.findViewById(R.id.name_square);
-            picture = (SimpleDraweeView) itemView.findViewById(R.id.display_image_square);
-            likeIcon = (ImageView) itemView.findViewById(R.id.action_like_square);
-            shareIcon = (ImageView) itemView.findViewById(R.id.action_share_square);
-            commentIcon = (ImageView) itemView.findViewById(R.id.action_comment_square);
-            memberIcon = (ImageView) itemView.findViewById(R.id.member_square);
-        }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
     }
 }

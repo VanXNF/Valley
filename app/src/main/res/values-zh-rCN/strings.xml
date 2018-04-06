@@ -31,6 +31,9 @@
     <string name="forgot_your_password">忘记密码?</string>
     <string name="none_account">当前未登录账号</string>
     <string name="already_log_out">已退出当前账号</string>
+    <!--home recommend-->
+    <string name="download_finish">下载完成</string>
+    <string name="already_download">已下载</string>
     <!--home filter-->
     <string name="camera">相机</string>
     <string name="album">相册</string>

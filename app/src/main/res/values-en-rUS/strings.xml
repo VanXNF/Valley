@@ -31,6 +31,9 @@
     <string name="forgot_your_password">Forgot password?</string>
     <string name="none_account">None Account</string>
     <string name="already_log_out">sign out success</string>
+    <!--home recommend-->
+    <string name="download_finish">Download Finished</string>
+    <string name="already_download">Already Download</string>
     <!--home filter-->
     <string name="camera">Camera</string>
     <string name="album">Album</string>

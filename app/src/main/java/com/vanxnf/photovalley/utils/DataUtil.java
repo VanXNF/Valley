@@ -49,6 +49,10 @@ public class DataUtil {
         return items;
     }
 
+    public static String getName(int id) {
+        return names[id];
+    }
+
     public static String getRandomName() {
         return names[new Random().nextInt(names.length)];
     }
@@ -69,8 +73,11 @@ public class DataUtil {
             "Erica", "Lisa", "Gaia"
     };
 
-    public static final String[] uris = {
+    public static String getRandomUri() {
+        return uris[new Random().nextInt(uris.length)];
+    }
 
+    public static final String[] uris = {
             "https://s1.ax1x.com/2018/04/02/CStfmD.jpg",
             "https://s1.ax1x.com/2018/04/02/CStROO.jpg",
             "https://s1.ax1x.com/2018/04/02/CSt26K.jpg",
