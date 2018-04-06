@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary">
+    android:background="?attr/colorPrimary"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -21,11 +20,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"
-            android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
             android:background="@color/name_ng"
-            android:textSize="17sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="17sp" />
 
         <ImageView
             android:id="@+id/action_download_recommend"
@@ -34,21 +33,18 @@
             android:layout_gravity="end|bottom"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="50dp"
-            android:src="@drawable/recommend_download"/>
+            android:src="@drawable/recommend_download" />
 
         <ImageView
             android:id="@+id/action_like_recommend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/recommend_like_border"/>
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/recommend_like_border" />
 
     </FrameLayout>
 
 
 </LinearLayout>
-
-
-

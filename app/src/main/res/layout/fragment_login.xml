@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        app:cardBackgroundColor="?attr/colorPrimaryDark"
         app:cardCornerRadius="10dp"
-        app:cardElevation="20dp"
-        app:cardBackgroundColor="?attr/colorPrimaryDark">
+        app:cardElevation="20dp">
 
 
         <LinearLayout
@@ -30,12 +30,12 @@
                 <com.vanxnf.photovalley.widget.CircleImageView.CircleImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/pic4"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="10dp"
                     android:elevation="5dp"
+                    android:src="@drawable/pic4"
                     app:border_color="?attr/colorAccent"
-                    app:border_width="0dp"/>
+                    app:border_width="0dp" />
 
             </RelativeLayout>
 
@@ -43,18 +43,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                app:counterTextColor="?attr/colorAccentLight"
+                app:hasClearButton="true"
                 app:labelText="@string/account"
                 app:maxCharacters="10"
-                app:hasClearButton="true"
                 app:primaryColor="?attr/colorAccent"
-                app:secondaryColor="?attr/colorAccentLight"
-                app:counterTextColor="?attr/colorAccentLight">
+                app:secondaryColor="?attr/colorAccentLight">
 
                 <com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText
                     android:id="@+id/et_account"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorAccent"/>
+                    android:textColor="?attr/colorAccent" />
 
             </com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes>
 
@@ -62,19 +62,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                app:counterTextColor="?attr/colorAccentLight"
+                app:hasClearButton="true"
                 app:labelText="@string/password"
                 app:maxCharacters="10"
-                app:hasClearButton="true"
                 app:primaryColor="?attr/colorAccent"
-                app:secondaryColor="?attr/colorAccentLight"
-                app:counterTextColor="?attr/colorAccentLight">
+                app:secondaryColor="?attr/colorAccentLight">
 
                 <com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:textColor="?attr/colorAccent"/>
+                    android:textColor="?attr/colorAccent" />
 
             </com.vanxnf.photovalley.widget.TextEdit.TextFieldBoxes>
 
@@ -88,13 +88,13 @@
                     android:layout_width="160dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginStart="60dp"
                     android:layout_marginEnd="60dp"
-                    app:buttonTextSize="16sp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="10dp"
+                    app:buttonColor="?attr/colorAccent"
                     app:buttonText="@string/login"
-                    app:buttonColor="?attr/colorAccent"/>
+                    app:buttonTextSize="16sp" />
 
             </LinearLayout>
 
@@ -112,17 +112,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:clickable="true"
                         android:text="@string/register"
                         android:textColor="?attr/colorAccent"
-                        android:textSize="14sp"
-                        android:clickable="true"/>
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:textColor="?attr/colorAccent"
                         android:text="@string/forgot_your_password"
+                        android:textColor="?attr/colorAccent"
                         android:textSize="14sp" />
 
                 </LinearLayout>
