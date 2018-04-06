@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 /**
  * Created by VanXN on 2018/3/26.
+ * Edited by VanXN on 2018/4/6.
  */
 
 public class PreviewFragment extends BaseFragment {
@@ -44,6 +46,8 @@ public class PreviewFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_preview, container, false);
         Utility.hideStatusBar(getActivity().getWindow());
+        ((MainActivity) getActivity()).getDrawerLayout()
+                .setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         initView();
         return view;
     }
@@ -77,6 +81,8 @@ public class PreviewFragment extends BaseFragment {
     @Override
     public boolean onBackPressedSupport() {
         Utility.showStatusBar(getActivity().getWindow());
+        ((MainActivity) getActivity())
+                .getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         pop();
         return true;
     }

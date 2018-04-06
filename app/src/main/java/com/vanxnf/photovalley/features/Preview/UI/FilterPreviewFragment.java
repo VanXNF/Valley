@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.shizhefei.view.largeimage.LargeImageView;
+import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.features.Home.Gson.Filter;
@@ -83,6 +85,7 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_filter_preview, container, false);
         Utility.hideStatusBar(getActivity().getWindow());
+        ((MainActivity) getActivity()).getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         isFirstInitJson = true;
         initView();
         return view;
@@ -315,10 +318,14 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
                 public void run() {
                     //清除压缩后图片文件
                     imageView.setImage(R.color.black);
-                    currentImage.delete();
+                    if (currentImage.exists()) {
+                        currentImage.delete();
+                    }
                 }
             });
             Utility.showStatusBar(getActivity().getWindow());
+            ((MainActivity) getActivity())
+                    .getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             pop();
         }
         return true;

@@ -73,12 +73,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mNavigationView.setCheckedItem(R.id.nav_home);
         /**设置MenuItem的字体颜色**/
         Resources resource = (Resources)getBaseContext().getResources();
-        ColorStateList csl;
-        if (ThemeTag == 0) {
-            csl = (ColorStateList) resource.getColorStateList(R.color.navigation_menu_text_color_day);
-        } else {
-            csl = (ColorStateList) resource.getColorStateList(R.color.navigation_menu_text_color_night);
-        }
+        ColorStateList csl = ThemeTag == 0 ? (ColorStateList) resource.getColorStateList(R.color.navigation_menu_text_color_day)
+                : (ColorStateList) resource.getColorStateList(R.color.navigation_menu_text_color_night);
         mNavigationView.setItemTextColor(csl);
         mNavigationView.setItemIconTintList(csl);
         mNavigationView.getMenu().getItem(5).setVisible(isLogin);
@@ -253,4 +249,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mNavigationView.getMenu().getItem(5).setVisible(true);
     }
 
+    public DrawerLayout getDrawerLayout() {
+        return mDrawer;
+    }
 }
