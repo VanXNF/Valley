@@ -81,11 +81,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         mNavigationView.setItemTextColor(csl);
         mNavigationView.setItemIconTintList(csl);
-        if (isLogin) {
-            mNavigationView.getMenu().getItem(5).setVisible(true);
-        } else {
-            mNavigationView.getMenu().getItem(5).setVisible(false);
-        }
+        mNavigationView.getMenu().getItem(5).setVisible(isLogin);
+
         RelativeLayout rlNavHeader = (RelativeLayout) mNavigationView.getHeaderView(0);
         mTvName = (TextView) rlNavHeader.findViewById(R.id.tv_username);
         mImgNav = (CircleImageView) rlNavHeader.findViewById(R.id.civ_nav_avatar);

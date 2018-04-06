@@ -1,106 +1,37 @@
 package com.vanxnf.photovalley.features.About.Adapter;
 
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.listener.OnItemClickListener;
-import com.vanxnf.photovalley.utils.Utility;
-
-import java.util.ArrayList;
+import com.vanxnf.photovalley.features.About.Entity.AboutItem;
 import java.util.List;
 
 /**
  * Created by VanXN on 2018/3/28.
+ * Edited by VanXN on 2018/4/6.
  */
 
-public class AboutItemAdapter extends RecyclerView.Adapter<AboutItemAdapter.ViewHolder> {
+public class AboutItemAdapter extends BaseQuickAdapter<AboutItem, BaseViewHolder> {
 
-    private List<Integer> mImageId = new ArrayList<>();
-    private List<Integer> mMainText = new ArrayList<>();
-    private List<Integer> mDescText = new ArrayList<>();
-    private LayoutInflater mInflater;
-    private View view;
-    private Context context;
-    private OnItemClickListener mClickListener;
-
-    public AboutItemAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-        this.context = context;
-    }
-
-    public void setData(List<Integer> imageId, List<Integer> mainText, List<Integer> DescText) {
-        mImageId.clear();
-        mImageId.addAll(imageId);
-        mMainText.clear();
-        mMainText.addAll(mainText);
-        mDescText.clear();
-        mDescText.addAll(DescText);
-        notifyDataSetChanged();
+    public AboutItemAdapter(List data) {
+        super(R.layout.about_title_item, data);
     }
 
     @Override
-    public AboutItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = mInflater.inflate(R.layout.about_title_item, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, v);
-                }
-            }
-        });
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(AboutItemAdapter.ViewHolder holder, int position) {
-        int mImage = mImageId.get(position);
-        if (mImage != 0) {
-            Glide.with(view).load(mImageId.get(position)).into(holder.ivItem);
+    protected void convert(BaseViewHolder helper, AboutItem item) {
+        if (item.getIconId() != 0) {
+            helper.setImageResource(R.id.item_image, item.getIconId());
         }
-        int mMain = mMainText.get(position);
-        if (mMain == 0) {
-            holder.itemView.setVisibility(View.GONE);
+        if (item.getTitleId() == 0) {
+            helper.getView(R.id.about_title_item).setVisibility(View.GONE);
         } else {
-            holder.tvMainText.setText(mMain);
+            helper.setText(R.id.item_text, item.getTitleId());
         }
-        int mDesc = mDescText.get(position);
-        if (mDesc == 0) {
-            holder.tvDescText.setVisibility(View.GONE);
+        if (item.getDescId() == 0) {
+            helper.getView(R.id.item_desc).setVisibility(View.GONE);
         } else {
-            holder.tvDescText.setText(mDesc);
+            helper.setText(R.id.item_desc, item.getDescId());
         }
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return mMainText.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView ivItem;
-        TextView tvMainText;
-        TextView tvDescText;
-        public ViewHolder(View itemView) {
-            super(itemView);
-            ivItem = (ImageView) itemView.findViewById(R.id.item_image);
-            tvMainText = (TextView) itemView.findViewById(R.id.item_text);
-            tvDescText = (TextView) itemView.findViewById(R.id.item_desc);
-        }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
     }
 }

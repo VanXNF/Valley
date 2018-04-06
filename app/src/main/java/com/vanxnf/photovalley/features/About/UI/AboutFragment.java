@@ -14,7 +14,8 @@ import android.view.ViewGroup;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.About.Adapter.AboutListAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
-import com.vanxnf.photovalley.features.About.Util.AboutDataUtil;
+import com.vanxnf.photovalley.features.About.Entity.AboutCardItem;
+import com.vanxnf.photovalley.features.About.Util.ItemUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +23,7 @@ import java.util.List;
 
 /**
  * Created by VanXN on 2018/3/27.
+ * Edited by VanXN on 2018/4/6.
  */
 
 public class AboutFragment extends BaseMainFragment {
@@ -29,11 +31,6 @@ public class AboutFragment extends BaseMainFragment {
     private View view;
     private RecyclerView mListRecycler;
     private AboutListAdapter mALAdapter;
-
-    private List<Integer> mCardTitle = new ArrayList<>();
-    private List<Integer> mImageId = new ArrayList<>();
-    private List<Integer> mMainTextId = new ArrayList<>();
-    private List<Integer> mDescTextId = new ArrayList<>();
 
     public static AboutFragment newInstance() {
         return new AboutFragment();
@@ -55,19 +52,10 @@ public class AboutFragment extends BaseMainFragment {
         initToolbarNav(mToolbar);
 
         //List view item
+        List<AboutCardItem> itemData = ItemUtil.getAboutCardItem();
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
-        mALAdapter = new AboutListAdapter(_mActivity);
+        mALAdapter = new AboutListAdapter(_mActivity, itemData);
         mListRecycler.setLayoutManager(manager);
         mListRecycler.setAdapter(mALAdapter);
-        mListRecycler.post(new Runnable() {
-            @Override
-            public void run() {
-                Collections.addAll(mCardTitle, AboutDataUtil.cardTitles);
-                Collections.addAll(mImageId, AboutDataUtil.imageIds);
-                Collections.addAll(mMainTextId, AboutDataUtil.mainTextIds);
-                Collections.addAll(mDescTextId, AboutDataUtil.descTextIds);
-                mALAdapter.setData(mCardTitle, mImageId, mMainTextId, mDescTextId);
-            }
-        });
     }
 }
