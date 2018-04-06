@@ -16,16 +16,16 @@ import com.vanxnf.photovalley.base.BaseMainFragment;
 
 public class DownloadFragment extends BaseMainFragment {
 
-    public static DownloadFragment newInstance() {
-        return new DownloadFragment();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_download, container, false);
         initView(view);
         return view;
+    }
+
+    public static DownloadFragment newInstance() {
+        return new DownloadFragment();
     }
 
     private void initView(View view) {

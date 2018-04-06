@@ -32,16 +32,16 @@ public class CollectionFragment extends BaseMainFragment {
     private CollectionAdapter mCAdapter;
     private List<CollectionItem> ItemData;
 
-    public static CollectionFragment newInstance() {
-        return new CollectionFragment();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_collection, container, false);
         initView();
         return view;
+    }
+
+    public static CollectionFragment newInstance() {
+        return new CollectionFragment();
     }
 
     private void initView() {

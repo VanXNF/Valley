@@ -30,14 +30,6 @@ public class PreviewFragment extends BaseFragment {
     private View view;
     private String uri;
 
-    public static PreviewFragment newInstance(String data) {
-        Bundle args = new Bundle();
-        args.putString(DATA_FORM, data);
-        PreviewFragment fragment = new PreviewFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +37,6 @@ public class PreviewFragment extends BaseFragment {
         if (args != null) {
             uri = args.getString(DATA_FORM);
         }
-
-
     }
 
     @Nullable
@@ -58,6 +48,13 @@ public class PreviewFragment extends BaseFragment {
         return view;
     }
 
+    public static PreviewFragment newInstance(String data) {
+        Bundle args = new Bundle();
+        args.putString(DATA_FORM, data);
+        PreviewFragment fragment = new PreviewFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
 
     private void initView() {

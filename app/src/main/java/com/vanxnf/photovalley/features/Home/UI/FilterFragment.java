@@ -47,16 +47,16 @@ public class FilterFragment extends BaseFragment {
     public static final int CHOOSE_PHOTO = 0x11;
     private File mCameraFile = null;
 
-    public static FilterFragment newInstance() {
-        return new FilterFragment();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home_filter, container, false);
         initView();
         return view;
+    }
+
+    public static FilterFragment newInstance() {
+        return new FilterFragment();
     }
 
     private void initView() {

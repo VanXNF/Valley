@@ -69,14 +69,6 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
     private int filterId = 0;
     private Bitmap bitmap;
 
-    public static FilterPreviewFragment newInstance(String data) {
-        Bundle args = new Bundle();
-        args.putString(DATA_FORM, data);
-        FilterPreviewFragment fragment = new FilterPreviewFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +86,14 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
         isFirstInitJson = true;
         initView();
         return view;
+    }
+
+    public static FilterPreviewFragment newInstance(String data) {
+        Bundle args = new Bundle();
+        args.putString(DATA_FORM, data);
+        FilterPreviewFragment fragment = new FilterPreviewFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void initView() {

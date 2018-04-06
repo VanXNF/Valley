@@ -31,19 +31,6 @@ public class BaseFragment extends Fragment implements ISupportFragment {
     private final String KEY_VALLEY_CACHE_ACCOUNT_TAG = "AccountCache_statusTag";
     private final String KEY_VALLEY_CACHE_LANGUAGE_TAG = "ValleyCache_languageTag";
     private final String KEY_VALLEY_CACHE_START_PAGE_TAG = "ValleyCache_start_pageTag";
-    @Override
-    public SupportFragmentDelegate getSupportDelegate() {
-        return mDelegate;
-    }
-
-    /**
-     * Perform some extra transactions.
-     * 额外的事务：自定义Tag，添加SharedElement动画，操作非回退栈Fragment
-     */
-    @Override
-    public ExtraTransaction extraTransaction() {
-        return mDelegate.extraTransaction();
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -59,20 +46,9 @@ public class BaseFragment extends Fragment implements ISupportFragment {
     }
 
     @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return mDelegate.onCreateAnimation(transit, enter, nextAnim);
-    }
-
-    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mDelegate.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mDelegate.onSaveInstanceState(outState);
     }
 
     @Override
@@ -97,6 +73,31 @@ public class BaseFragment extends Fragment implements ISupportFragment {
     public void onDestroy() {
         mDelegate.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public SupportFragmentDelegate getSupportDelegate() {
+        return mDelegate;
+    }
+
+    /**
+     * Perform some extra transactions.
+     * 额外的事务：自定义Tag，添加SharedElement动画，操作非回退栈Fragment
+     */
+    @Override
+    public ExtraTransaction extraTransaction() {
+        return mDelegate.extraTransaction();
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        return mDelegate.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mDelegate.onSaveInstanceState(outState);
     }
 
     @Override

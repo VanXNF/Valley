@@ -37,16 +37,16 @@ public class SettingFragment extends BaseMainFragment {
     private View view;
 
 
-    public static SettingFragment newInstance() {
-        return new SettingFragment();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_setting, container, false);
         initView();
         return view;
+    }
+
+    public static SettingFragment newInstance() {
+        return new SettingFragment();
     }
 
     private void initView() {

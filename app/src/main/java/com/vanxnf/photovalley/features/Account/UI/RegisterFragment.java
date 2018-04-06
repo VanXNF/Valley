@@ -26,15 +26,6 @@ public class RegisterFragment extends BaseFragment {
     private boolean isRegisterSuccess;
     private LoginFragment.OnLoginSuccessListener mOnLoginSuccessListener;
 
-    public static RegisterFragment newInstance() {
-
-        Bundle args = new Bundle();
-
-        RegisterFragment fragment = new RegisterFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -53,6 +44,21 @@ public class RegisterFragment extends BaseFragment {
         initView(view);
         isRegisterSuccess = false;
         return view;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mOnLoginSuccessListener = null;
+    }
+
+    public static RegisterFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        RegisterFragment fragment = new RegisterFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void initView(View view) {
@@ -107,9 +113,4 @@ public class RegisterFragment extends BaseFragment {
         hideSoftInput();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mOnLoginSuccessListener = null;
-    }
 }

@@ -27,12 +27,6 @@ public class LoginFragment extends BaseFragment {
     private TextView mTvRegister;
     private boolean isLoginSuccess;
     private OnLoginSuccessListener mOnLoginSuccessListener;
-    public static LoginFragment newInstance() {
-        Bundle args = new Bundle();
-        LoginFragment fragment = new LoginFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -52,6 +46,19 @@ public class LoginFragment extends BaseFragment {
         initView(view);
         isLoginSuccess = false;
         return view;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mOnLoginSuccessListener = null;
+    }
+
+    public static LoginFragment newInstance() {
+        Bundle args = new Bundle();
+        LoginFragment fragment = new LoginFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void initView(final View view) {
@@ -98,12 +105,6 @@ public class LoginFragment extends BaseFragment {
                 start(RegisterFragment.newInstance());
             }
         });
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mOnLoginSuccessListener = null;
     }
 
     public interface OnLoginSuccessListener {

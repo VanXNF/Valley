@@ -32,16 +32,16 @@ public class AboutFragment extends BaseMainFragment {
     private RecyclerView mListRecycler;
     private AboutListAdapter mALAdapter;
 
-    public static AboutFragment newInstance() {
-        return new AboutFragment();
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_about, container, false);
         initView();
         return view;
+    }
+
+    public static AboutFragment newInstance() {
+        return new AboutFragment();
     }
 
     private void initView() {

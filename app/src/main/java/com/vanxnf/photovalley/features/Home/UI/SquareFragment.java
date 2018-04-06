@@ -38,16 +38,16 @@ public class SquareFragment extends BaseFragment {
     private List<SquareItem> itemData = new ArrayList<>();
     private View view;
 
-    public static SquareFragment newInstance() {
-        return new SquareFragment();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home_square, container, false);
         initView();
         return view;
+    }
+
+    public static SquareFragment newInstance() {
+        return new SquareFragment();
     }
 
     //轻量级初始化

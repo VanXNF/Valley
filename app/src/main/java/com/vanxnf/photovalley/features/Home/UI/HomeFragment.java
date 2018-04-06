@@ -23,16 +23,17 @@ import com.vanxnf.photovalley.widget.SlideTablayout.SlideTabLayout;
 
 public class HomeFragment extends BaseMainFragment {
 
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
-    }
-    private View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         return view;
     }
+
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
+    }
+    private View view;
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {

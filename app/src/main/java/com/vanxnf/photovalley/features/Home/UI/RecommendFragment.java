@@ -35,16 +35,16 @@ public class RecommendFragment extends BaseFragment {
     private HomeRecommendAdapter mHRAdapter;
     private List<RecommendItem> itemData;
 
-    public static RecommendFragment newInstance() {
-        return new RecommendFragment();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home_recommend, container, false);
         initView(view);
         return view;
+    }
+
+    public static RecommendFragment newInstance() {
+        return new RecommendFragment();
     }
 
     //初始化

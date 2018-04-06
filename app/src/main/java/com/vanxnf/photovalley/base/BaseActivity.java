@@ -38,6 +38,20 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
     private final String KEY_VALLEY_CACHE_LANGUAGE_TAG = "ValleyCache_languageTag";
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        loadingCurrentTheme();
+        loadingCurrentLanguage();
+        super.onCreate(savedInstanceState);
+        mDelegate.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mDelegate.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
     public SupportActivityDelegate getSupportDelegate() {
         return mDelegate;
     }
@@ -52,14 +66,6 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        loadingCurrentTheme();
-        loadingCurrentLanguage();
-        super.onCreate(savedInstanceState);
-        mDelegate.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(String name, Context context, AttributeSet attrs) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         return super.onCreateView(name, context, attrs);
@@ -69,12 +75,6 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDelegate.onPostCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void onDestroy() {
-        mDelegate.onDestroy();
-        super.onDestroy();
     }
 
     /**

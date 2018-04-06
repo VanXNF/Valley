@@ -16,6 +16,23 @@ public class BaseMainFragment extends BaseFragment {
 
     protected OnFragmentOpenDrawerListener mOpenDrawerListener;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentOpenDrawerListener) {
+            mOpenDrawerListener = (OnFragmentOpenDrawerListener) context;
+        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentOpenDrawerListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mOpenDrawerListener = null;
+    }
+
     protected void initToolbarNav(Toolbar toolbar) {
         initToolbarNav(toolbar, false);
     }
@@ -35,23 +52,6 @@ public class BaseMainFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentOpenDrawerListener) {
-            mOpenDrawerListener = (OnFragmentOpenDrawerListener) context;
-        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentOpenDrawerListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mOpenDrawerListener = null;
     }
 
     public interface OnFragmentOpenDrawerListener {
