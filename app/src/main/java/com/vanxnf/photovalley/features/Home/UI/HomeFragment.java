@@ -47,11 +47,7 @@ public class HomeFragment extends BaseMainFragment {
         ParallaxViewPager mViewPager = (ParallaxViewPager) view.findViewById(R.id.view_pager);
         mToolbar.setTitle(R.string.home);
         mToolbar.inflateMenu(R.menu.toolbar_menu);
-        if (getThemeTag() == 1) {
-            mToolbar.getMenu().findItem(R.id.action_switch_light).getIcon().setTint(Color.WHITE);
-        } else {
-            mToolbar.getMenu().findItem(R.id.action_switch_light).getIcon().setTint(Color.BLACK);
-        }
+        mToolbar.getMenu().findItem(R.id.action_switch_light).getIcon().setTint(getThemeTag() == 1 ? Color.WHITE : Color.BLACK);
         /** Toolbar Menu Item 点击事件*/
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -75,7 +71,6 @@ public class HomeFragment extends BaseMainFragment {
                 return true;
             }
         });
-//        getActivity().openOptionsMenu();
         initToolbarNav(mToolbar);
 
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.square));

@@ -13,7 +13,7 @@ import com.vanxnf.photovalley.utils.DataUtil;
 
 import java.util.List;
 
-public class HomeFilterAdapter extends BaseMultiItemQuickAdapter<FilterItem,BaseViewHolder> {
+public class HomeFilterAdapter extends BaseMultiItemQuickAdapter<FilterItem, BaseViewHolder> {
 
     public HomeFilterAdapter(Context context, List data) {
         super(data);

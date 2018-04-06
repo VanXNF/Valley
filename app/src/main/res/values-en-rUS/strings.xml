@@ -15,7 +15,7 @@
     <string name="quit">Sign out</string>
     <!--tab title string-->
     <string name="square">Square</string>
-    <string name="recommend">Collection</string>
+    <string name="recommend">Recommend</string>
     <string name="filter">Filter</string>
     <!--login & register-->
     <string name="account">Account</string>

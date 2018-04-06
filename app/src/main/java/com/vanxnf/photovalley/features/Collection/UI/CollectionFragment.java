@@ -61,7 +61,6 @@ public class CollectionFragment extends BaseMainFragment {
             }
         });
         mCAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
-        mCAdapter.isFirstOnly(false);
         mRecycler.setAdapter(mCAdapter);
     }
 }

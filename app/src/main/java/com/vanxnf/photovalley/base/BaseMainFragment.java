@@ -39,11 +39,7 @@ public class BaseMainFragment extends BaseFragment {
 
     protected void initToolbarNav(Toolbar toolbar, boolean isHome) {
         toolbar.setNavigationIcon(R.drawable.toolbar_menu);
-        if (getThemeTag() == 0) {
-            toolbar.getNavigationIcon().setTint(Color.BLACK);
-        } else {
-            toolbar.getNavigationIcon().setTint(Color.WHITE);
-        }
+        toolbar.getNavigationIcon().setTint(getThemeTag() == 0 ? Color.BLACK : Color.WHITE);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -8,7 +8,7 @@
     <string name="search">搜索</string>
     <!--nav menu string-->
     <string name="home">主页</string>
-    <string name="collection">收藏</string>
+    <string name="collection">精选</string>
     <string name="download">下载</string>
     <string name="setting">设置</string>
     <string name="about">关于</string>

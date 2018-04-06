@@ -28,6 +28,7 @@ import com.vanxnf.photovalley.features.Collection.UI.CollectionFragment;
 import com.vanxnf.photovalley.features.Download.UI.DownloadFragment;
 import com.vanxnf.photovalley.features.Home.UI.HomeFragment;
 import com.vanxnf.photovalley.features.Setting.UI.SettingFragment;
+import com.vanxnf.photovalley.features.UserProfile.UI.UserFragment;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
 import com.vanxnf.photovalley.utils.Utility;
 import com.vanxnf.photovalley.widget.CircleImageView.CircleImageView;
@@ -118,13 +119,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     finish();
                 } else {
                     TOUCH_TIME = System.currentTimeMillis();
-                    if (ThemeTag == 0) {
-                        SnackbarUtils.Short(mDrawer, getString(R.string.press_again_exit))
-                                .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
-                    } else {
-                        SnackbarUtils.Short(mDrawer, getString(R.string.press_again_exit))
-                                .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
-                    }
+
+                    SnackbarUtils.Short(mDrawer, getString(R.string.press_again_exit))
+                            .messageCenter().backColor(ThemeTag == 0 ? Color.WHITE : Color.BLACK)
+                            .messageColor(ThemeTag == 0 ? Color.BLACK : Color.WHITE).show();
+
                 }
             }
         }
@@ -195,13 +194,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void goLogin() {
         if (getAccountStatus()) {
-            if (ThemeTag == 0) {
-                SnackbarUtils.Short(mDrawer, getString(R.string.already_login))
-                        .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
-            } else {
-                SnackbarUtils.Short(mDrawer, getString(R.string.already_login))
-                        .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
-            }
+            start(UserFragment.newInstance());
+//            SnackbarUtils.Short(mDrawer, getString(R.string.already_login))
+//                    .messageCenter().backColor(ThemeTag == 0 ? Color.WHITE : Color.BLACK)
+//                    .messageColor(ThemeTag == 0 ? Color.BLACK : Color.WHITE).show();
         } else {
             start(LoginFragment.newInstance());
         }
@@ -213,22 +209,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             setAccountName(getString(R.string.app_name));
             mTvName.setText(R.string.app_name);
 
-            if (ThemeTag == 0) {
-                SnackbarUtils.Short(mDrawer, getString(R.string.already_log_out))
-                        .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
-            } else {
-                SnackbarUtils.Short(mDrawer, getString(R.string.already_log_out))
-                        .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
-            }
-//        } else {
-//            if (ThemeTag == 1) {
-//                SnackbarUtils.Short(mDrawer, getString(R.string.none_account))
-//                        .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
-//            } else {
-//                SnackbarUtils.Short(mDrawer, getString(R.string.none_account))
-//                        .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
-//            }
-//
+            SnackbarUtils.Short(mDrawer, getString(R.string.already_log_out))
+                    .messageCenter().backColor(ThemeTag == 0 ? Color.WHITE : Color.BLACK)
+                    .messageColor(ThemeTag == 0 ? Color.BLACK : Color.WHITE).show();
         }
     }
 
@@ -238,13 +221,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setAccountName(account);
         // TODO: 2018/3/29 头像选择 
 //        mImgNav.setImageResource(R.drawable.pic1);
-        if (ThemeTag == 0) {
-            SnackbarUtils.Short(mDrawer, account +  " " + getString(R.string.sign_in_success))
-                    .messageCenter().backColor(Color.WHITE).messageColor(Color.BLACK).show();
-        } else {
-            SnackbarUtils.Short(mDrawer, account +  " " + getString(R.string.sign_in_success))
-                    .messageCenter().backColor(Color.BLACK).messageColor(Color.WHITE).show();
-        }
+
+        SnackbarUtils.Short(mDrawer, account +  " " + getString(R.string.sign_in_success))
+                .messageCenter().backColor(ThemeTag == 0 ? Color.WHITE : Color.BLACK)
+                .messageColor(ThemeTag == 0 ? Color.BLACK : Color.WHITE).show();
+
         //使Sign out 可见
         mNavigationView.getMenu().getItem(5).setVisible(true);
     }

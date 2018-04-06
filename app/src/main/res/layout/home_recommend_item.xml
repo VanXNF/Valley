@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
+    android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical">
 
     <FrameLayout
@@ -24,7 +25,7 @@
             android:layout_marginStart="5dp"
             android:background="@color/name_ng"
             android:textColor="@color/white"
-            android:textSize="17sp" />
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/action_download_recommend"
