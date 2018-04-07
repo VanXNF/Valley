@@ -16,6 +16,16 @@
         app:border_color="#00000000"
         app:border_width="0dp" />
 
+    <ImageView
+        android:id="@+id/member_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/medal"
+        android:layout_alignBottom="@id/civ_nav_avatar"
+        android:layout_alignEnd="@id/civ_nav_avatar"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"

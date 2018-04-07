@@ -1,7 +1,5 @@
 package com.vanxnf.photovalley.widget.LovelyDialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
@@ -23,6 +21,7 @@ import java.util.List;
 
 /**
  * Created by yarolegovich on 16.04.2016.
+ * Edited by VanXN on 2018/4/7.
  */
 public class LovelyChoiceDialog extends AbsLovelyDialog<LovelyChoiceDialog> {
 

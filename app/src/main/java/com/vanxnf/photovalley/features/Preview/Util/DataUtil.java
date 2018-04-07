@@ -40,7 +40,7 @@ public class DataUtil {
 
     public static List<FilterPreviewItem> getItemData() {
         List<FilterPreviewItem> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < filterPreviewTextIds.length; i++) {
             list.add(new FilterPreviewItem(filterPreviewImageIds[i], filterPreviewTextIds[i]));
         }
         return list;
@@ -49,23 +49,47 @@ public class DataUtil {
     //滤镜缩略图 0为空
     public static Integer[] filterPreviewImageIds = {
             0,
+            R.drawable.engraving_art,
             R.drawable.oil_painting,
             R.drawable.golden_time,
-            R.drawable.ocean_heart
+            R.drawable.nature,
+            R.drawable.ocean_heart,
+            R.drawable.old_photo,
+            R.drawable.wave,
+            R.drawable.cubist,
+            R.drawable.feathers,
+            R.drawable.mosaic,
+            R.drawable.starry_night
     };
     //滤镜名称
     public static Integer[] filterPreviewTextIds = {
             R.string.original_image,
+            R.string.engraving_art,
             R.string.oil_painting,
             R.string.golden_time,
-            R.string.ocean_heart
+            R.string.nature,
+            R.string.ocean_heart,
+            R.string.old_photo,
+            R.string.wave,
+            R.string.cubist,
+            R.string.feathers,
+            R.string.mosaic,
+            R.string.starry_night
     };
 
     public static final String[] FilterName = {
             "original_image",
+            "engraving_art",
             "oil_painting",
             "golden_time",
-            "ocean_heart"
+            "nature",
+            "ocean_heart",
+            "old_photo",
+            "wave",
+            "cubist",
+            "feathers",
+            "mosaic",
+            "starry_night"
     };
 
     public static String getFilterNameByPosition(int position) {

@@ -4,12 +4,14 @@ package com.vanxnf.photovalley.features.Account.UI;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.widget.SubmitButton.SubmitButton;
@@ -24,6 +26,7 @@ public class RegisterFragment extends BaseFragment {
     private ExtendedEditText mEtRepeatPwd;
     private SubmitButton mBtnRegister;
     private boolean isRegisterSuccess;
+    private DrawerLayout parentDrawerLayout;
     private LoginFragment.OnLoginSuccessListener mOnLoginSuccessListener;
 
     @Override
@@ -42,6 +45,8 @@ public class RegisterFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         initView(view);
+        parentDrawerLayout = ((MainActivity) getActivity()).getDrawerLayout();
+        parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         isRegisterSuccess = false;
         return view;
     }
@@ -53,9 +58,7 @@ public class RegisterFragment extends BaseFragment {
     }
 
     public static RegisterFragment newInstance() {
-
         Bundle args = new Bundle();
-
         RegisterFragment fragment = new RegisterFragment();
         fragment.setArguments(args);
         return fragment;
@@ -101,6 +104,7 @@ public class RegisterFragment extends BaseFragment {
             @Override
             public void onResultEnd() {
                 if (isRegisterSuccess) {
+                    parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     popTo(LoginFragment.class, true);
                 }
             }
@@ -113,4 +117,10 @@ public class RegisterFragment extends BaseFragment {
         hideSoftInput();
     }
 
+    @Override
+    public boolean onBackPressedSupport() {
+        parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        pop();
+        return true;
+    }
 }

@@ -34,7 +34,7 @@ public class SharedPreferencesUtil {
     /**
      * 获取语言标记
      */
-    public int getLanguageTag(Context context) {
+    public static int getLanguageTag(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
         return preferences.getInt("ValleyCache_languageTag", 0);//0为跟随系统
     }
@@ -42,8 +42,16 @@ public class SharedPreferencesUtil {
     /**
      * 获取语言标记
      */
-    public int getStartPageTag(Context context) {
+    public static int getStartPageTag(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
         return preferences.getInt("ValleyCache_start_pageTag", 1);
+    }
+
+    /**
+     * 获取会员标记
+     */
+    public static boolean getMemberStatus(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getBoolean("AccountCache_memberTag", false);
     }
 }

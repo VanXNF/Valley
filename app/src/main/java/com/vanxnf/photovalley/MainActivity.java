@@ -27,6 +27,7 @@ import com.vanxnf.photovalley.features.Account.UI.LoginFragment;
 import com.vanxnf.photovalley.features.Collection.UI.CollectionFragment;
 import com.vanxnf.photovalley.features.Download.UI.DownloadFragment;
 import com.vanxnf.photovalley.features.Home.UI.HomeFragment;
+import com.vanxnf.photovalley.features.Preview.Gson.Download;
 import com.vanxnf.photovalley.features.Setting.UI.SettingFragment;
 import com.vanxnf.photovalley.features.UserProfile.UI.UserFragment;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
@@ -85,6 +86,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mImgNav = (CircleImageView) rlNavHeader.findViewById(R.id.civ_nav_avatar);
         if (isLogin) {
             mTvName.setText(getAccountName());
+        }
+        if (getMemberStatus()) {
+            rlNavHeader.findViewById(R.id.member_nav).setVisibility(View.VISIBLE);
         }
         mImgNav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +189,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                 } else if (id == R.id.nav_quit_login) {
                     goLogout();
+                    if (topFragment instanceof HomeFragment) {
+                        mNavigationView.setCheckedItem(R.id.nav_home);
+                    } else if (topFragment instanceof CollectionFragment) {
+                        mNavigationView.setCheckedItem(R.id.nav_collection);
+                    } else if (topFragment instanceof DownloadFragment) {
+                        mNavigationView.setCheckedItem(R.id.nav_download);
+                    } else if (topFragment instanceof SettingFragment) {
+                        mNavigationView.setCheckedItem(R.id.nav_setting);
+                    } else if (topFragment instanceof AboutFragment) {
+                        mNavigationView.setCheckedItem(R.id.nav_about);
+                    }
                     item.setVisible(false);
                 }
             }
@@ -195,9 +210,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void goLogin() {
         if (getAccountStatus()) {
             start(UserFragment.newInstance());
-//            SnackbarUtils.Short(mDrawer, getString(R.string.already_login))
-//                    .messageCenter().backColor(ThemeTag == 0 ? Color.WHITE : Color.BLACK)
-//                    .messageColor(ThemeTag == 0 ? Color.BLACK : Color.WHITE).show();
         } else {
             start(LoginFragment.newInstance());
         }
@@ -206,9 +218,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void goLogout() {
         if (getAccountStatus()) {
             setAccountStatus(false);
+            setMemberStatus(false);
             setAccountName(getString(R.string.app_name));
             mTvName.setText(R.string.app_name);
-
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    mNavigationView.findViewById(R.id.member_nav).setVisibility(View.GONE);
+                }
+            });
             SnackbarUtils.Short(mDrawer, getString(R.string.already_log_out))
                     .messageCenter().backColor(ThemeTag == 0 ? Color.WHITE : Color.BLACK)
                     .messageColor(ThemeTag == 0 ? Color.BLACK : Color.WHITE).show();
@@ -219,7 +237,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onLoginSuccess(String account) {
         mTvName.setText(account);
         setAccountName(account);
-        // TODO: 2018/3/29 头像选择 
 //        mImgNav.setImageResource(R.drawable.pic1);
 
         SnackbarUtils.Short(mDrawer, account +  " " + getString(R.string.sign_in_success))

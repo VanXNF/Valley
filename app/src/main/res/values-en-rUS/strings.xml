@@ -38,14 +38,19 @@
     <string name="camera">Camera</string>
     <string name="album">Album</string>
     <string name="original_image">Original Image</string>
+    <string name="engraving_art">Engraving Art</string>
     <string name="oil_painting">Oil Painting</string>
     <string name="golden_time">Golden Time</string>
+    <string name="nature">Nature</string>
     <string name="ocean_heart">Ocean Heart</string>
+    <string name="old_photo">Old Photo</string>
+    <string name="wave">Wave</string>
+    <string name="cubist">Cubist</string>
+    <string name="feathers">Feathers</string>
+    <string name="mosaic">Mosaic</string>
+    <string name="starry_night">Starry Night</string>
     <string name="please_login_first">please sign in first</string>
     <string name="members_only">members only</string>
-    <!--ExtendedEditText-->
-    <string name="icon">icon</string>
-    <string name="counter_label_text_constructor" formatted="false">%s%s%s%s</string>
     <!--setting-->
     <string name="language">Language</string>
     <string name="theme">Theme</string>
@@ -59,9 +64,9 @@
     <string name="clear_success">Clear Success</string>
     <!--about -->
     <string name="app_name">Photo Valley</string>
-    <string name="app_develop_date">2018</string>
+    <string name="app_develop_date">2018/4/7</string>
     <string name="version">Version</string>
-    <string name="version_code">1.0.0</string>
+    <string name="version_code">1.0.1</string>
     <string name="author">Author</string>
     <string name="author_name">VanXNF</string>
     <string name="author_place">China</string>
@@ -78,4 +83,14 @@
     <string name="already_saved">Already Saved</string>
     <string name="share_to">Share To</string>
     <string name="pic_not_load">Image not Load</string>
+    <!--subscribe-->
+    <string name="subscribe">Subscribe For</string>
+    <string name="subscribe_for">HD-Processing and Remove Ads</string>
+    <string name="subscribe_success">Subscribe Success</string>
+    <string name="per_month">Per Month</string>
+    <string name="per_quarter">Per Quarter</string>
+    <string name="per_year">Per Year</string>
+    <string name="per_month_pay">$2</string>
+    <string name="per_quarter_pay">$5.5</string>
+    <string name="per_year_pay">$22</string>
 </resources>

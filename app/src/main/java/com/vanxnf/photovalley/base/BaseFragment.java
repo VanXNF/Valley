@@ -29,6 +29,7 @@ public class BaseFragment extends Fragment implements ISupportFragment {
 
     private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
     private final String KEY_VALLEY_CACHE_ACCOUNT_TAG = "AccountCache_statusTag";
+    private final String KEY_VALLEY_CACHE_MEMBER_TAG = "AccountCache_memberTag";
     private final String KEY_VALLEY_CACHE_LANGUAGE_TAG = "ValleyCache_languageTag";
     private final String KEY_VALLEY_CACHE_START_PAGE_TAG = "ValleyCache_start_pageTag";
 
@@ -435,4 +436,24 @@ public class BaseFragment extends Fragment implements ISupportFragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("ValleyCache", Context.MODE_PRIVATE);
         return preferences.getInt(KEY_VALLEY_CACHE_START_PAGE_TAG, 1);
     }
+
+    /**
+     * 获取会员标记
+     */
+    public boolean getMemberStatus() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getBoolean(KEY_VALLEY_CACHE_MEMBER_TAG, false);
+    }
+
+    /**
+     * 设置会员标记
+     */
+    public void setMemberStatus(boolean tag) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putBoolean(KEY_VALLEY_CACHE_MEMBER_TAG, tag);
+        edit.commit();
+    }
+
+
 }

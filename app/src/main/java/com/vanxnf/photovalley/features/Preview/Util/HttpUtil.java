@@ -18,9 +18,9 @@ public class HttpUtil {
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"), json);
         //发送JSON数据
         OkHttpClient client  = new OkHttpClient.Builder()
-                .connectTimeout(100, TimeUnit.SECONDS)
-                .writeTimeout(100,TimeUnit.SECONDS)
-                .readTimeout(200, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10,TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
                 .build();
 
         Request request = new Request.Builder()

@@ -34,6 +34,16 @@
             app:border_color="@android:color/transparent"
             app:border_width="0dp" />
 
+        <ImageView
+            android:id="@+id/member_user_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/medal"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/user_declaration_text"
             android:layout_width="wrap_content"

@@ -38,14 +38,19 @@
     <string name="camera">相机</string>
     <string name="album">相册</string>
     <string name="original_image">原图</string>
+    <string name="engraving_art">版画艺术</string>
     <string name="oil_painting">复古油画</string>
     <string name="golden_time">金色时光</string>
+    <string name="nature">自然</string>
     <string name="ocean_heart">海洋之心</string>
+    <string name="old_photo">旧相片</string>
+    <string name="wave">波浪</string>
+    <string name="cubist">立体主义</string>
+    <string name="feathers">纷飞羽毛</string>
+    <string name="mosaic">马赛克</string>
+    <string name="starry_night">星月夜</string>
     <string name="please_login_first">请登录后使用</string>
     <string name="members_only">本滤镜由会员专享</string>
-    <!--ExtendedEditText-->
-    <string name="icon">图标</string>
-    <string name="counter_label_text_constructor" formatted="false">%s%s%s%s</string>
     <!--download-->
 
     <!--setting-->
@@ -80,8 +85,14 @@
     <string name="already_saved">图片已保存</string>
     <string name="share_to">分享到</string>
     <string name="pic_not_load">图片未加载</string>
-    <!--lovely dialog-->
-    <string name="dont_show_again">Don\'t show again</string>
-    <string name="ex_msg_dialog_choice_confirm">Confirm button is only for multi choice lists. You must call setMultiChoiceItems first</string>
-    <string name="ex_msg_dialog_view_not_set">You must call method setView before calling configureView.</string>
+    <!--subscribe-->
+    <string name="subscribe">订阅我们</string>
+    <string name="subscribe_for">将获得 高清图片处理 和 移除广告</string>
+    <string name="subscribe_success">订阅成功</string>
+    <string name="per_month">每月</string>
+    <string name="per_quarter">每季度</string>
+    <string name="per_year">每年</string>
+    <string name="per_month_pay">￥10</string>
+    <string name="per_quarter_pay">￥28</string>
+    <string name="per_year_pay">￥110</string>
 </resources>

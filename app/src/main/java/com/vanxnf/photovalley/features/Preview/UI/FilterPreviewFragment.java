@@ -65,6 +65,7 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
     private Filter filter;
     private FilterPreviewAdapter adapter;
     private List<FilterPreviewItem> filterData;
+    private DrawerLayout parentDrawerLayout;
     private boolean isFirstInitJson;
     private File currentImage;
     private String json = null;
@@ -85,7 +86,8 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_filter_preview, container, false);
         Utility.hideStatusBar(getActivity().getWindow());
-        ((MainActivity) getActivity()).getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        parentDrawerLayout = ((MainActivity) getActivity()).getDrawerLayout();
+        parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         isFirstInitJson = true;
         initView();
         return view;
@@ -212,15 +214,14 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
             }
         });
 
-        //Ali yun "http://120.79.162.134:80/" 本地 "http://192.168.4.73:80/"
-        call = HttpUtil.sendOkHttpRequest("http://120.79.162.134:80/", json, new okhttp3.Callback() {
+        //Ali yun "http://120.79.162.134:80/api" 本地 "http://192.168.4.73:80/api"
+        call = HttpUtil.sendOkHttpRequest("http://120.79.162.134:80/api", json, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        loadingView.stopAnim();
-                        SnackbarUtils.Short(view, getString(R.string.load_failed)).danger().show();
+                        callFailed();
                     }
                 });
             }
@@ -239,6 +240,12 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
                 });
             }
         });
+    }
+
+    private void callFailed (){
+        call = null;
+        loadingView.stopAnim();
+        SnackbarUtils.Short(view, getString(R.string.load_failed)).danger().show();
     }
 
     private void getJsonByGSON(String data) {
@@ -324,8 +331,7 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
                 }
             });
             Utility.showStatusBar(getActivity().getWindow());
-            ((MainActivity) getActivity())
-                    .getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             pop();
         }
         return true;

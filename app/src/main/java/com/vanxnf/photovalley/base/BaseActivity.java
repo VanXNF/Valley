@@ -34,6 +34,7 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
     private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
     private final String KEY_VALLEY_CACHE_ACCOUNT_TAG = "AccountCache_statusTag";
+    private final String KEY_VALLEY_CACHE_MEMBER_TAG = "AccountCache_memberTag";
     private final String KEY_VALLEY_CACHE_ACCOUNT_NAME_TAG = "AccountCache_nameTag";
     private final String KEY_VALLEY_CACHE_LANGUAGE_TAG = "ValleyCache_languageTag";
 
@@ -321,6 +322,24 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
         SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.putString(KEY_VALLEY_CACHE_ACCOUNT_NAME_TAG, name);
+        edit.commit();
+    }
+
+    /**
+     * 获取会员标记
+     */
+    public boolean getMemberStatus() {
+        SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getBoolean(KEY_VALLEY_CACHE_MEMBER_TAG, false);
+    }
+
+    /**
+     * 设置会员标记
+     */
+    public void setMemberStatus(boolean tag) {
+        SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putBoolean(KEY_VALLEY_CACHE_MEMBER_TAG, tag);
         edit.commit();
     }
 }

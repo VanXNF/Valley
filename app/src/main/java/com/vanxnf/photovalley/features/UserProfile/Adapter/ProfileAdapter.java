@@ -1,6 +1,7 @@
 package com.vanxnf.photovalley.features.UserProfile.Adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -8,6 +9,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.UserProfile.Entity.ProfileItem;
+import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
 
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class ProfileAdapter extends BaseMultiItemQuickAdapter<ProfileItem, BaseV
                 helper.addOnClickListener(R.id.user_avatar_image)
                         .addOnClickListener(R.id.user_declaration_text)
                         .addOnClickListener(R.id.user_bg_image);
-                // TODO: 2018/4/6 设置图片
+                helper.getView(R.id.member_user_profile)
+                        .setVisibility(SharedPreferencesUtil.getMemberStatus(mContext) ? View.VISIBLE : View.GONE);
                 break;
         }
 

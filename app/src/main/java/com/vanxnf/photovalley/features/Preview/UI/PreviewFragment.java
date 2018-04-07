@@ -23,12 +23,14 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 /**
  * Created by VanXN on 2018/3/26.
  * Edited by VanXN on 2018/4/6.
+ * Edited by VanXN on 2018/4/7.
  */
 
 public class PreviewFragment extends BaseFragment {
 
     private static final String DATA_FORM = "data_form";
     private LargeImageView imageView;
+    private DrawerLayout parentDrawerLayout;
     private View view;
     private String uri;
 
@@ -46,8 +48,8 @@ public class PreviewFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_preview, container, false);
         Utility.hideStatusBar(getActivity().getWindow());
-        ((MainActivity) getActivity()).getDrawerLayout()
-                .setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        parentDrawerLayout = ((MainActivity) getActivity()).getDrawerLayout();
+        parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         initView();
         return view;
     }
@@ -81,8 +83,7 @@ public class PreviewFragment extends BaseFragment {
     @Override
     public boolean onBackPressedSupport() {
         Utility.showStatusBar(getActivity().getWindow());
-        ((MainActivity) getActivity())
-                .getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         pop();
         return true;
     }

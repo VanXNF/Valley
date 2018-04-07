@@ -7,27 +7,27 @@ package com.vanxnf.photovalley.features.UserProfile.Entity;
 
 public class SubscribeItem {
 
-    private String description;
-    private String amount;
+    private Integer description;
+    private Integer amount;
 
-    public SubscribeItem(String description, String amount) {
-        this.amount = amount;
+    public SubscribeItem(Integer description, Integer amount) {
         this.description = description;
+        this.amount = amount;
     }
 
-    public String getDescription() {
+    public Integer getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(Integer description) {
         this.description = description;
     }
 
-    public String getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 }

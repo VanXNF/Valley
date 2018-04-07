@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--ExtendedEditText-->
+    <string name="icon">图标</string>
+    <string name="counter_label_text_constructor" formatted="false">%s%s%s%s</string>
+</resources>

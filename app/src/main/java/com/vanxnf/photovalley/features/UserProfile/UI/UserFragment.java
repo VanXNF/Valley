@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 
 import android.support.v7.widget.RecyclerView;
@@ -11,23 +12,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 
+import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
 
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
 import com.vanxnf.photovalley.features.UserProfile.Adapter.ProfileAdapter;
 
+import com.vanxnf.photovalley.features.UserProfile.Adapter.SubscribeAdapter;
 import com.vanxnf.photovalley.features.UserProfile.Entity.ProfileItem;
 
+import com.vanxnf.photovalley.features.UserProfile.Entity.SubscribeItem;
 import com.vanxnf.photovalley.features.UserProfile.Util.ItemUtil;
 import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
-
+import com.vanxnf.photovalley.utils.Utility;
+import com.vanxnf.photovalley.widget.LovelyDialog.LovelyChoiceDialog;
 
 
 import java.util.List;
@@ -39,13 +45,14 @@ public class UserFragment extends BaseFragment {
     private ProfileAdapter mPAdapter;
     private RecyclerView mRecycler;
     private List<ProfileItem> itemData;
-
-
+    private DrawerLayout drawerLayout;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        drawerLayout = ((MainActivity) getActivity()).getDrawerLayout();
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         initView();
         return view;
     }
@@ -68,6 +75,7 @@ public class UserFragment extends BaseFragment {
         mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_user_profile);
         GridLayoutManager manager = new GridLayoutManager(_mActivity, 2);
         mRecycler.setLayoutManager(manager);
+        mRecycler.getItemAnimator().setChangeDuration(0);
         itemData = ItemUtil.getProfileItem();
         mPAdapter = new ProfileAdapter(_mActivity, itemData);
         mPAdapter.openLoadAnimation();
@@ -112,10 +120,40 @@ public class UserFragment extends BaseFragment {
 
     }
     private void showSubscribeDialog(View view) {
-//Please subscribe for HD-processing and Remove ads
+        List<SubscribeItem>  items = ItemUtil.getSubscribeItem();
+        ArrayAdapter<SubscribeItem> adapter = new SubscribeAdapter(_mActivity, items);
+        new LovelyChoiceDialog(_mActivity)
+                .setTopColorRes(R.color.grey)
+                .setTitle(R.string.subscribe)
+                .setIcon(R.drawable.subscribe)
+                .setMessage(R.string.subscribe_for)
+                .setItems(adapter, new LovelyChoiceDialog.OnItemSelectedListener<SubscribeItem>() {
+                    @Override
+                    public void onItemSelected(int position, SubscribeItem item) {
+                        if (!getMemberStatus()) {
+                            setMemberStatus(true);
+                            post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mPAdapter.notifyItemChanged(0);
+                                    drawerLayout.findViewById(R.id.member_nav)
+                                            .setVisibility(View.VISIBLE);
+                                }
+                            });
+                        }
+                        SnackbarUtils.Short(view, getString(R.string.subscribe_success))
+                                .info().show();
+                    }
+                })
+                .show();
 
+    }
 
-
-        SnackbarUtils.Short(view, "充值失败").info().show();
+    @Override
+    public boolean onBackPressedSupport() {
+        Utility.showStatusBar(getActivity().getWindow());
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        pop();
+        return true;
     }
 }
