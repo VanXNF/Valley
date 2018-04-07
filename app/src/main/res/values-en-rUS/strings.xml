@@ -55,6 +55,9 @@
     <!--download-->
     <string name="refresh">Refresh</string>
     <string name="refresh_success">Refresh Success</string>
+    <string name="confirm_deletion">Confirm Deletion?</string>
+    <string name="delete_success">Delete Success</string>
+    <string name="attention_Text">Note: The picture file will be deleted. This operation is irreversible</string>
     <!--setting-->
     <string name="language">Language</string>
     <string name="theme">Theme</string>

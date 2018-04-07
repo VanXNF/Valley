@@ -55,6 +55,9 @@
     <!--download-->
     <string name="refresh">刷新</string>
     <string name="refresh_success">刷新成功</string>
+    <string name="confirm_deletion">确认删除？</string>
+    <string name="delete_success">删除成功</string>
+    <string name="attention_Text">注意：将删除图片文件，此次操作不可逆</string>
     <!--setting-->
     <string name="language">语言</string>
     <string name="theme">主题</string>

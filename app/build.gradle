@@ -20,8 +20,8 @@ android {
         main {
             res.srcDirs =
                     [
-                            'src/main/res/layouts',
                             'src/main/res',
+                            'src/main/res/layouts',
                             'src/main/res/layouts/main',
                             'src/main/res/layouts/about',
                             'src/main/res/layouts/home',

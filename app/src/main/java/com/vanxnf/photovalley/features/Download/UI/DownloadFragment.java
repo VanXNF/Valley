@@ -26,6 +26,7 @@ import com.vanxnf.photovalley.features.Download.Adapter.DownloadAdapter;
 import com.vanxnf.photovalley.features.Download.Entity.DownloadItem;
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
+import com.vanxnf.photovalley.widget.LovelyDialog.LovelyStandardDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -100,7 +101,6 @@ public class DownloadFragment extends BaseMainFragment {
         mRecycler = view.findViewById(R.id.recycler_view_download);
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL);
-//        GridLayoutManager manager = new GridLayoutManager(_mActivity, 2);
         mRecycler.setLayoutManager(manager);
         mRecycler.getItemAnimator().setChangeDuration(0);
         mDAdapter.setDuration(800);
@@ -110,6 +110,45 @@ public class DownloadFragment extends BaseMainFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 DownloadItem item = downloadItems.get(position);
                 start(PreviewFragment.newInstance(item.getUri()));
+            }
+        });
+        mDAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                new LovelyStandardDialog(_mActivity, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
+                        .setTopColorRes(R.color.grey)
+                        .setButtonsColorRes(R.color.grey)
+                        .setIcon(R.drawable.download_warning)
+                        .setTitle(R.string.confirm_deletion)
+                        .setMessage(R.string.attention_Text)
+                        .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                File file = new File(downloadItems.get(position).getUri());
+                                if (file.exists()) {
+                                    file.delete();
+                                }
+                                post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        downloadItems = getImagePathFromDir();
+                                        mDAdapter.setNewData(downloadItems);
+                                        mDAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                                SnackbarUtils.Short(view, getString(R.string.delete_success)).info()
+                                        .show();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                SnackbarUtils.Short(view, getString(android.R.string.cancel)).info()
+                                        .show();
+                            }
+                        })
+                        .show();
+                return false;
             }
         });
         mRecycler.setAdapter(mDAdapter);
