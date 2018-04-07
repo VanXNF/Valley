@@ -16,7 +16,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.vanxnf.photovalley.R;
@@ -30,6 +29,7 @@ import com.vanxnf.photovalley.features.Home.Util.PathUtils;
 import com.vanxnf.photovalley.features.Preview.UI.FilterPreviewFragment;
 import com.vanxnf.photovalley.utils.Luban.Luban;
 import com.vanxnf.photovalley.utils.Luban.OnCompressListener;
+import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
 
 import java.io.File;
 import java.util.List;
@@ -76,9 +76,18 @@ public class FilterFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (position == 0) {
-                    checkPermissionAndOpenCamera();
+                    if (getAccountStatus()) {
+                        checkPermissionAndOpenCamera();
+                    } else {
+                        SnackbarUtils.Short(view, getString(R.string.please_login_first)).info().show();
+                    }
                 } else if (position == 1) {
-                    checkPermissionAndOpenAlbum();
+                    if (getAccountStatus()) {
+                        checkPermissionAndOpenAlbum();
+                    } else {
+                        SnackbarUtils.Short(view, getString(R.string.please_login_first)).info().show();
+                    }
+
                 }
             }
         });
@@ -91,13 +100,13 @@ public class FilterFragment extends BaseFragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
             } else {
-                Toast.makeText(getContext(), "You denied the permission", Toast.LENGTH_SHORT).show();
+                SnackbarUtils.Short(view, getString(R.string.please_grant_permission)).info().show();
             }
         } else if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openAlbum();
             } else {
-                Toast.makeText(getContext(), "You denied the permission", Toast.LENGTH_SHORT).show();
+                SnackbarUtils.Short(view, getString(R.string.please_grant_permission)).info().show();
             }
         }
     }

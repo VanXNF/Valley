@@ -49,6 +49,7 @@
     <string name="feathers">Feathers</string>
     <string name="mosaic">Mosaic</string>
     <string name="starry_night">Starry Night</string>
+    <string name="please_grant_permission">Please grant permission</string>
     <string name="please_login_first">please sign in first</string>
     <string name="members_only">members only</string>
     <!--setting-->

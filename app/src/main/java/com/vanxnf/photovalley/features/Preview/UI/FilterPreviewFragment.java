@@ -1,15 +1,18 @@
 package com.vanxnf.photovalley.features.Preview.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +34,7 @@ import com.vanxnf.photovalley.features.Preview.Adapter.FilterPreviewAdapter;
 import com.vanxnf.photovalley.features.Preview.Entity.FilterPreviewItem;
 import com.vanxnf.photovalley.features.Preview.Gson.Download;
 import com.vanxnf.photovalley.features.Preview.Util.DataUtil;
+import com.vanxnf.photovalley.features.Preview.Util.FileUtil;
 import com.vanxnf.photovalley.features.Preview.Util.HttpUtil;
 import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
@@ -117,7 +121,12 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
         filterData = DataUtil.getItemData();
         filterData.get(0).setFilterUri(fileUri);
         filterData.get(0).setBgUri(fileUri);
-        String path = DataUtil.changeUriToPathForFileProvider(Uri.parse(fileUri));
+        String path;
+        if (Build.VERSION.SDK_INT >= 24) {
+            path = DataUtil.changeUriToPathForFileProvider(Uri.parse(fileUri));
+        } else {
+            path = FileUtil.getFilePathByUri(_mActivity, Uri.parse(fileUri));
+        }
         if (path != null) {
             currentImage = new File(path);
         }
@@ -175,7 +184,12 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
     private String initJson() {
         Gson filterRequest = new Gson();
         if (currentImage == null) {
-            String path = DataUtil.changeUriToPathForFileProvider(Uri.parse(fileUri));
+            String path;
+            if (Build.VERSION.SDK_INT >= 24) {
+                path = DataUtil.changeUriToPathForFileProvider(Uri.parse(fileUri));
+            } else {
+                path = FileUtil.getFilePathByUri(_mActivity, Uri.parse(fileUri));
+            }
             if (path != null) {
                 currentImage = new File(path);
             }
