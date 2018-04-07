@@ -49,6 +49,7 @@
     <string name="feathers">纷飞羽毛</string>
     <string name="mosaic">马赛克</string>
     <string name="starry_night">星月夜</string>
+    <string name="please_grant_permission">请授予所需权限</string>
     <string name="please_login_first">请登录后使用</string>
     <string name="members_only">本滤镜由会员专享</string>
     <!--download-->
