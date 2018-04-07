@@ -53,7 +53,8 @@
     <string name="please_login_first">请登录后使用</string>
     <string name="members_only">本滤镜由会员专享</string>
     <!--download-->
-
+    <string name="refresh">刷新</string>
+    <string name="refresh_success">刷新成功</string>
     <!--setting-->
     <string name="language">语言</string>
     <string name="theme">主题</string>
