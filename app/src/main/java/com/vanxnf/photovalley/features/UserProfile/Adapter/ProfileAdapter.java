@@ -11,6 +11,12 @@ import com.vanxnf.photovalley.features.UserProfile.Entity.ProfileItem;
 
 import java.util.List;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
+/**
+ * Created by VanXN 2018/4/6
+ */
+
 public class ProfileAdapter extends BaseMultiItemQuickAdapter<ProfileItem, BaseViewHolder> {
 
     @Override
@@ -21,6 +27,7 @@ public class ProfileAdapter extends BaseMultiItemQuickAdapter<ProfileItem, BaseV
                 helper.addOnClickListener(R.id.user_profile_image);
                 Glide.with(mContext)
                         .load(item.getPicUri())
+                        .transition(withCrossFade(800))
                         .into((ImageView) helper.getView(R.id.user_profile_image));
                 break;
             case ProfileItem.TITLE:

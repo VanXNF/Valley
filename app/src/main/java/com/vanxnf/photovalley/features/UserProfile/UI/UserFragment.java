@@ -3,30 +3,35 @@ package com.vanxnf.photovalley.features.UserProfile.UI;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
+
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+
+
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
 
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
 import com.vanxnf.photovalley.features.UserProfile.Adapter.ProfileAdapter;
+
 import com.vanxnf.photovalley.features.UserProfile.Entity.ProfileItem;
+
 import com.vanxnf.photovalley.features.UserProfile.Util.ItemUtil;
 import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
 
+
+
 import java.util.List;
+
 
 public class UserFragment extends BaseFragment {
 
@@ -34,6 +39,8 @@ public class UserFragment extends BaseFragment {
     private ProfileAdapter mPAdapter;
     private RecyclerView mRecycler;
     private List<ProfileItem> itemData;
+
+
 
     @Nullable
     @Override
@@ -63,6 +70,8 @@ public class UserFragment extends BaseFragment {
         mRecycler.setLayoutManager(manager);
         itemData = ItemUtil.getProfileItem();
         mPAdapter = new ProfileAdapter(_mActivity, itemData);
+        mPAdapter.openLoadAnimation();
+        mPAdapter.setDuration(800);
         mPAdapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
             @Override
             public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
@@ -97,9 +106,16 @@ public class UserFragment extends BaseFragment {
         faBtnMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 2018/4/6 充值页
-                SnackbarUtils.Short(view, "请充值信仰").info().show();
+                showSubscribeDialog(v);
             }
         });
+
+    }
+    private void showSubscribeDialog(View view) {
+//Please subscribe for HD-processing and Remove ads
+
+
+
+        SnackbarUtils.Short(view, "充值失败").info().show();
     }
 }

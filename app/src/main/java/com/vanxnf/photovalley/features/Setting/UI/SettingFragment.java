@@ -18,11 +18,9 @@ import com.vanxnf.photovalley.features.Setting.Adapter.SettingAdapter;
 import com.vanxnf.photovalley.features.Setting.Entity.SettingItem;
 import com.vanxnf.photovalley.features.Setting.Util.ClearUtil;
 import com.vanxnf.photovalley.features.Setting.Util.ItemUtil;
-import com.vanxnf.photovalley.listener.OnItemClickListener;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
 import com.vanxnf.photovalley.widget.Dialog.SingleChoiceDialogFragment;
 
-import java.util.Collections;
 import java.util.List;
 
 /**

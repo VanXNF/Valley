@@ -25,4 +25,6 @@
     <color name="per10white">#0affffff</color>
     <!--recommend name bg-->
     <color name="name_ng">#108e8e8e</color>
+    <!--lovely dialog-->
+    <color name="ld_textInputError">#F44336</color>
 </resources>

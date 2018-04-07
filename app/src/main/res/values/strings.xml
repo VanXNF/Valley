@@ -80,4 +80,8 @@
     <string name="already_saved">图片已保存</string>
     <string name="share_to">分享到</string>
     <string name="pic_not_load">图片未加载</string>
+    <!--lovely dialog-->
+    <string name="dont_show_again">Don\'t show again</string>
+    <string name="ex_msg_dialog_choice_confirm">Confirm button is only for multi choice lists. You must call setMultiChoiceItems first</string>
+    <string name="ex_msg_dialog_view_not_set">You must call method setView before calling configureView.</string>
 </resources>

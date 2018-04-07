@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="18dp"
-                    android:src="@drawable/square_medal"
+                    android:src="@drawable/medal"
                     android:visibility="gone" />
 
             </LinearLayout>
