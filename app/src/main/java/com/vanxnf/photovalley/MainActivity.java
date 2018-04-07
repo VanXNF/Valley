@@ -123,11 +123,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     finish();
                 } else {
                     TOUCH_TIME = System.currentTimeMillis();
-
                     SnackbarUtils.Short(mDrawer, getString(R.string.press_again_exit))
                             .messageCenter().backColor(ThemeTag == 0 ? Color.WHITE : Color.BLACK)
                             .messageColor(ThemeTag == 0 ? Color.BLACK : Color.WHITE).show();
-
                 }
             }
         }

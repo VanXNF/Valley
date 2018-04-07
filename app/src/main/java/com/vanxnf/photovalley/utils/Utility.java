@@ -44,7 +44,7 @@ import java.util.Locale;
 
 public class Utility {
 
-    /**实现透明状态栏, 状态栏颜色切换*/
+    /**状态栏颜色切换*/
     public static void setStatusBar(Window window, int themeTag) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -81,55 +81,6 @@ public class Utility {
      */
     public static void showStatusBar(Window window) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    }
-
-    /**获取图片真实路径*/
-    public static String handleImage(Intent data, Context context) {
-        String imagePath = null;
-        Uri uri = data.getData();
-        if (DocumentsContract.isDocumentUri(context, uri)) {
-            // 如果是document类型的Uri，则通过document id处理
-            String docId = DocumentsContract.getDocumentId(uri);
-            if("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                String id = docId.split(":")[1]; // 解析出数字格式的id
-                String selection = MediaStore.Images.Media._ID + "=" + id;
-                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection, context);
-            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
-                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
-                imagePath = getImagePath(contentUri, null, context);
-            }
-        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            // 如果是content类型的Uri，则使用普通方式处理
-            imagePath = getImagePath(uri, null, context);
-        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            // 如果是file类型的Uri，直接获取图片路径即可
-            imagePath = uri.getPath();
-        }
-        return imagePath; // 根据图片路径显示图片
-    }
-
-    public static String getImagePath(Uri uri, String selection, Context context) {
-        String path = null;
-        // 通过Uri和selection来获取真实的图片路径
-        Cursor cursor = context.getContentResolver().query(uri, null, selection, null, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }
-            cursor.close();
-        }
-        return path;
-    }
-
-    /**获取文件Uri*/
-    public static Uri getFileUri(Context context, String authority, File file ) {
-        Uri uri;
-        if (Build.VERSION.SDK_INT >= 24) {
-           uri = FileProvider.getUriForFile(context, authority, file);
-        } else {
-           uri = Uri.fromFile(file);
-        }
-        return uri;
     }
 
     /**
