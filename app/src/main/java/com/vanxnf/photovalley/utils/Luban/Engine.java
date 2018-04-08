@@ -45,21 +45,19 @@ class Engine {
     //图片比例
     float scale = ((float) shortSide / longSide);
     if (scale <= 1 && scale > 0.5625) {
-      if (longSide < 832) {
+      if (longSide <= 960) {
+        return 1;
+      } else if (longSide > 960 && longSide <= 2880) {
         return 2;
-      } else if (longSide < 1664 && longSide >= 832) {
-        return 4;
-      } else if (longSide >= 1664 && longSide < 4990) {
-        return 8;
-      } else if (longSide > 4990 && longSide < 10240) {
-        return 16;
+      } else if (longSide > 2880 && longSide <= 5760) {
+        return 5;
       } else {
-        return longSide / 320 == 0 ? 1 : longSide / 320;
+        return longSide / 960 == 0 ? 1 : longSide / 960;
       }
     } else if (scale <= 0.5625 && scale > 0.5) {
-      return longSide / 160 == 0 ? 1 : longSide / 160;
+      return longSide / 720 == 0 ? 1 : longSide / 720;
     } else {
-      return (int) Math.ceil(longSide / (80.0 / scale));
+      return (int) Math.ceil(longSide / (160.0 / scale));
     }
   }
 
