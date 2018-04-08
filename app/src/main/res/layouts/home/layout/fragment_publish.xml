@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/share_to"
+                android:text="@string/publish_to"
                 android:textColor="?attr/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -30,7 +30,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:elevation="8dp">
 
             <ToggleButton
                 android:id="@+id/tbFollowers"
@@ -41,7 +42,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/switch_publish_followers"
                 android:checked="true"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:textOff="@string/follower"
                 android:textOn="@string/follower" />
 
@@ -53,7 +54,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/switch_publish_direct"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:textOff="@string/direct"
                 android:textOn="@string/direct" />
         </LinearLayout>
@@ -65,6 +66,7 @@
             android:layout_gravity="center"
             android:layout_margin="12dp"
             app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardElevation="12dp"
             app:cardCornerRadius="4dp">
 
             <LinearLayout
@@ -83,7 +85,8 @@
                         android:layout_width="96dp"
                         android:layout_height="96dp"
                         android:layout_marginEnd="16dp"
-                        android:background="?attr/colorAccentLight" />
+                        android:backgroundTint="?attr/colorAccentLight"
+                        android:background="@drawable/publish_add_more" />
 
                     <EditText
                         android:id="@+id/publish_description"
@@ -121,7 +124,7 @@
             android:tint="?attr/colorAccent"
             app:backgroundTint="?attr/colorPrimary"
             app:borderWidth="0dp"
-            app:elevation="10dp"
+            app:elevation="12dp"
             app:pressedTranslationZ="12dp" />
 
     </LinearLayout>
