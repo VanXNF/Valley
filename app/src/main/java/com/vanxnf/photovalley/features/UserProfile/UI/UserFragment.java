@@ -151,7 +151,6 @@ public class UserFragment extends BaseFragment {
 
     @Override
     public boolean onBackPressedSupport() {
-        Utility.showStatusBar(getActivity().getWindow());
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         pop();
         return true;

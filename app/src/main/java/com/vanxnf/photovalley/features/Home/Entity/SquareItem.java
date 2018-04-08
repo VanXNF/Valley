@@ -8,11 +8,13 @@ public class SquareItem {
 
     private String authorName;
 
+    private String description;
+
     private boolean isMember;
 
     private boolean isLiked;
 
-    private boolean isCommented;
+    private int likeNum;
 
     public SquareItem(String avatarUri, String picUri, String authorName) {
         this.avatarUri = avatarUri;
@@ -24,6 +26,31 @@ public class SquareItem {
         this.avatarUri = avatarUri;
         this.picUri = picUri;
         this.authorName = authorName;
+        this.isMember = isMember;
+    }
+
+    public SquareItem(String avatarUri, String picUri, String authorName, String description, boolean isMember, int likeNum) {
+        this.avatarUri = avatarUri;
+        this.picUri = picUri;
+        this.authorName = authorName;
+        this.description = description;
+        this.isMember = isMember;
+        this.likeNum = likeNum;
+    }
+
+    public SquareItem(String avatarUri, String picUri, String authorName, boolean isMember, int likeNum) {
+        this.avatarUri = avatarUri;
+        this.picUri = picUri;
+        this.authorName = authorName;
+        this.isMember = isMember;
+        this.likeNum = likeNum;
+    }
+
+    public SquareItem(String avatarUri, String picUri, String authorName, String description, boolean isMember) {
+        this.avatarUri = avatarUri;
+        this.picUri = picUri;
+        this.authorName = authorName;
+        this.description = description;
         this.isMember = isMember;
     }
 
@@ -67,11 +94,19 @@ public class SquareItem {
         isLiked = liked;
     }
 
-    public boolean isCommented() {
-        return isCommented;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCommented(boolean commented) {
-        isCommented = commented;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(int likeNum) {
+        this.likeNum = likeNum;
     }
 }

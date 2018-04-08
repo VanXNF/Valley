@@ -15,7 +15,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/ValleyTheme.Day">
+        android:theme="@style/ValleyTheme.Day"
+        android:screenOrientation="portrait">
         <activity android:name=".MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
@@ -24,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PhotoPickerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.vanxnf.photovalley.fileProvider"

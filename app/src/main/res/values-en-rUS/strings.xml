@@ -31,9 +31,14 @@
     <string name="forgot_your_password">Forgot password?</string>
     <string name="none_account">None Account</string>
     <string name="already_log_out">sign out success</string>
+    <!--home square-->
+    <string name="untitled">Untitled</string>
+    <string name="like">Likes</string>
+    <string name="send">SEND</string>
     <!--home recommend-->
     <string name="download_finish">Download Finished</string>
     <string name="already_download">Already Download</string>
+    <string name="type_here">Type here</string>
     <!--home filter-->
     <string name="camera">Camera</string>
     <string name="album">Album</string>
@@ -100,4 +105,12 @@
     <string name="per_month_pay">$2</string>
     <string name="per_quarter_pay">$5.5</string>
     <string name="per_year_pay">$22</string>
+    <!--photo picker-->
+    <string name="gallery">Gallery</string>
+    <string name="all_photo_dir_name">All Photo</string>
+    <string name="please_select_at_least_one_picture">Please select at least one picture</string>
+    <string name="please_choose_photo">Please select photo</string>
+    <string name="open_camera_fail">Open Camera Fail</string>
+    <string name="photo_save_fail">Photo Save Fail</string>
+    <string name="max_options">Max Options</string>
 </resources>

@@ -35,6 +35,11 @@ public class HomeSquareAdapter extends BaseQuickAdapter<SquareItem, BaseViewHold
                 .addOnClickListener(R.id.action_share_square)
                 .addOnClickListener(R.id.display_image_square)
                 .addOnClickListener(R.id.avatar_square)
+                .setText(R.id.square_name_text, item.getAuthorName())
+                .setText(R.id.like_num, String.valueOf(item.getLikeNum()))
+                .setText(R.id.square_description_text,
+                        item.getDescription() != null ?
+                                item.getDescription() : mContext.getString(R.string.untitled))
                 .setText(R.id.name_square, item.getAuthorName())
                 .setImageResource(R.id.action_like_square,
                         item.isLiked() ? R.drawable.square_like_red : R.drawable.square_like_red_border);

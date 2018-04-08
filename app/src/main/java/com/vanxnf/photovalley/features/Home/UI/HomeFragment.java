@@ -9,17 +9,27 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.Home.Adapter.HomeFragmentAdapter;
 import com.vanxnf.photovalley.base.BaseMainFragment;
+import com.vanxnf.photovalley.features.Home.Adapter.HomeSquareAdapter;
+import com.vanxnf.photovalley.features.Home.Entity.SquareItem;
+import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
 import com.vanxnf.photovalley.widget.ParallaxViewPager.ParallaxViewPager;
 import com.vanxnf.photovalley.widget.SlideTablayout.SlideTabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by VanXN on 2018/3/14.
  */
 
 public class HomeFragment extends BaseMainFragment {
+
+    private View view;
 
     @Nullable
     @Override
@@ -31,7 +41,6 @@ public class HomeFragment extends BaseMainFragment {
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
-    private View view;
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
@@ -43,7 +52,7 @@ public class HomeFragment extends BaseMainFragment {
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         SlideTabLayout mTabLayout = (SlideTabLayout) view.findViewById(R.id.tab_layout);
         ParallaxViewPager mViewPager = (ParallaxViewPager) view.findViewById(R.id.view_pager);
-        mToolbar.setTitle(R.string.home);
+        mToolbar.setTitle(R.string.app_name);
         mToolbar.inflateMenu(R.menu.home_toolbar_menu);
         mToolbar.getMenu().findItem(R.id.action_switch_light).getIcon().setTint(getThemeTag() == 1 ? Color.WHITE : Color.BLACK);
         /** Toolbar Menu Item 点击事件*/
@@ -83,6 +92,17 @@ public class HomeFragment extends BaseMainFragment {
         mTabLayout.getTabAt(getStartPageTag()).select();//默认显示推荐页
     }
 
-
-
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        if (requestCode == SquareFragment.REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            String uri = data.getString("PhotoUri");
+            String desc = data.getString("PhotoDescription");
+            SquareFragment fragment = findChildFragment(SquareFragment.class);
+            List<SquareItem> itemData = new ArrayList<>();
+            itemData.add(new SquareItem("https://s1.ax1x.com/2018/04/08/CPq9xg.png",
+                    uri, getAccountName(), desc, getMemberStatus(), 0));
+            itemData.addAll(fragment.getItemData());
+            fragment.setItemData(itemData);
+        }
+    }
 }

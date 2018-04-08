@@ -20,8 +20,7 @@
             android:id="@+id/user_bg_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/pic4" />
+            android:scaleType="fitXY" />
 
         <com.vanxnf.photovalley.widget.CircleImageView.CircleImageView
             android:id="@+id/user_avatar_image"
@@ -30,7 +29,7 @@
             android:layout_gravity="end|bottom"
             android:layout_marginBottom="30dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/pic3"
+            android:src="@mipmap/ic_launcher_round"
             app:border_color="@android:color/transparent"
             app:border_width="0dp" />
 

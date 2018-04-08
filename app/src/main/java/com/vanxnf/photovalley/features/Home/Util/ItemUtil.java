@@ -7,6 +7,7 @@ import com.vanxnf.photovalley.utils.DataUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ItemUtil {
 
@@ -14,7 +15,10 @@ public class ItemUtil {
         List<SquareItem> list = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             list.add(new SquareItem(DataUtil.getImageUri(i + 200),
-                    DataUtil.getImageUri(i + 100), DataUtil.getRandomName(), i % 5 == 0));
+                    DataUtil.getImageUri(i + 100),
+                    DataUtil.getRandomName(),
+                    false,
+                    getRandomNum()));
         }
         return list;
     }
@@ -35,5 +39,10 @@ public class ItemUtil {
             list.add(new FilterItem(FilterItem.EVENT, FilterItem.ITEM_SPAN_SIZE));
         }
         return list;
+    }
+
+    public static int getRandomNum() {
+        Random rand = new Random();
+        return rand.nextInt(1500);
     }
 }

@@ -33,7 +33,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_margin="10dp"
                     android:elevation="5dp"
-                    android:src="@drawable/pic4"
+                    android:src="@mipmap/ic_launcher_round"
                     app:border_color="?attr/colorAccent"
                     app:border_width="0dp" />
 

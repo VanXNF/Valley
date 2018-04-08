@@ -30,6 +30,7 @@ public class BaseFragment extends Fragment implements ISupportFragment {
     private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
     private final String KEY_VALLEY_CACHE_ACCOUNT_TAG = "AccountCache_statusTag";
     private final String KEY_VALLEY_CACHE_MEMBER_TAG = "AccountCache_memberTag";
+    private final String KEY_VALLEY_CACHE_ACCOUNT_NAME_TAG = "AccountCache_nameTag";
     private final String KEY_VALLEY_CACHE_LANGUAGE_TAG = "ValleyCache_languageTag";
     private final String KEY_VALLEY_CACHE_START_PAGE_TAG = "ValleyCache_start_pageTag";
 
@@ -455,5 +456,22 @@ public class BaseFragment extends Fragment implements ISupportFragment {
         edit.commit();
     }
 
+    /**
+     * 获取用户名
+     */
+    public String getAccountName() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getString(KEY_VALLEY_CACHE_ACCOUNT_NAME_TAG, getActivity().getString(R.string.app_name));
+    }
+
+    /**
+     *设置用户名标记
+     */
+    public void setAccountName(String name) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString(KEY_VALLEY_CACHE_ACCOUNT_NAME_TAG, name);
+        edit.commit();
+    }
 
 }

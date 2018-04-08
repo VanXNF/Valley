@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.UserProfile.Entity.ProfileItem;
+import com.vanxnf.photovalley.utils.DataUtil;
 import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class ProfileAdapter extends BaseMultiItemQuickAdapter<ProfileItem, BaseV
                         .addOnClickListener(R.id.user_bg_image);
                 helper.getView(R.id.member_user_profile)
                         .setVisibility(SharedPreferencesUtil.getMemberStatus(mContext) ? View.VISIBLE : View.GONE);
+                Glide.with(mContext).load(DataUtil.getImageUri(199)).into((ImageView) helper.getView(R.id.user_bg_image));
                 break;
         }
 
