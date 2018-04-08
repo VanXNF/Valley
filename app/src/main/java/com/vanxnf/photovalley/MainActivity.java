@@ -165,7 +165,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         myHome.start(fragment, BaseFragment.SINGLETASK);
                     }
                 } else if (id == R.id.nav_download) {
-                    // TODO: 2018/3/15 下载界面
                     DownloadFragment fragment = findFragment(DownloadFragment.class);
                     if (fragment == null) {
                         myHome.startWithPopTo(DownloadFragment.newInstance(), HomeFragment.class, false);

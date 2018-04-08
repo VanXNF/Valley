@@ -22,6 +22,7 @@ import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
 
 import com.vanxnf.photovalley.features.Home.Adapter.HomeFilterAdapter;
+import com.vanxnf.photovalley.features.Home.Entity.EventItem;
 import com.vanxnf.photovalley.features.Home.Entity.FilterItem;
 import com.vanxnf.photovalley.features.Home.Util.FileUtil;
 import com.vanxnf.photovalley.features.Home.Util.ItemUtil;
@@ -75,6 +76,7 @@ public class FilterFragment extends BaseFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                FilterItem item = data.get(position);
                 if (position == 0) {
                     if (getAccountStatus()) {
                         checkPermissionAndOpenCamera();
@@ -88,6 +90,8 @@ public class FilterFragment extends BaseFragment {
                         SnackbarUtils.Short(view, getString(R.string.please_login_first)).info().show();
                     }
 
+                } else {
+                    ((HomeFragment) getParentFragment()).start(EventFragment.newInstance(item.getUri(), getString(item.getEventName())));
                 }
             }
         });

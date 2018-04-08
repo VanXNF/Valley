@@ -1,5 +1,6 @@
 package com.vanxnf.photovalley.features.Home.Util;
 
+import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.Home.Entity.FilterItem;
 import com.vanxnf.photovalley.features.Home.Entity.RecommendItem;
 import com.vanxnf.photovalley.features.Home.Entity.SquareItem;
@@ -35,11 +36,21 @@ public class ItemUtil {
         List<FilterItem> list = new ArrayList<>();
         list.add(new FilterItem(FilterItem.ACTION, FilterItem.ITEM_SPAN_SIZE_MIN));
         list.add(new FilterItem(FilterItem.ACTION, FilterItem.ITEM_SPAN_SIZE_MIN));
-        for (int i = 0; i < 3; i++) {
-            list.add(new FilterItem(FilterItem.EVENT, FilterItem.ITEM_SPAN_SIZE));
+        for (int i = 0; i < eventNames.length; i++) {
+            list.add(new FilterItem(FilterItem.EVENT, FilterItem.ITEM_SPAN_SIZE, DataUtil.getRandomUri(), eventNames[i]));
         }
         return list;
     }
+
+//    public static List<EventItem> getEventItemData() {
+//        List<EventItem> list = new ArrayList<>();
+//        return list;
+//    }
+    public static Integer[] eventNames = {
+        R.string.event_spring_story,
+        R.string.event_food_spree,
+        R.string.event_school_life
+};
 
     public static int getRandomNum() {
         Random rand = new Random();

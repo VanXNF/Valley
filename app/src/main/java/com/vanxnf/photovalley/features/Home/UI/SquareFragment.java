@@ -87,7 +87,7 @@ public class SquareFragment extends BaseFragment {
                     }
                     isNeedUpdate = true;
                 } else if (id == R.id.action_comment_square) {
-                    ((HomeFragment) getParentFragment()).start(CommentFragment.newInstance());
+                    ((HomeFragment) getParentFragment()).start(CommentFragment.newInstance(item.getPicUri()));
                 } else if (id == R.id.action_share_square) {
                     Intent shareIntent = new Intent();
                     shareIntent.setAction(Intent.ACTION_SEND);

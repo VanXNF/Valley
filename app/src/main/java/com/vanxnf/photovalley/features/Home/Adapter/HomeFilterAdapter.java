@@ -36,10 +36,9 @@ public class HomeFilterAdapter extends BaseMultiItemQuickAdapter<FilterItem, Bas
                         .into((ImageView) helper.getView(R.id.filter_action_image));
                 break;
             case FilterItem.EVENT:
-                helper.setText(R.id.filter_event_name,
-                        FilterUtil.getFilterNameIdByPosition(position-2));
+                helper.setText(R.id.filter_event_name, item.getEventName());
                 Glide.with(mContext)
-                        .load(DataUtil.getImageUri(position))
+                        .load(item.getUri())
                         .into((ImageView) helper.getView(R.id.filter_event_image));
                 break;
         }

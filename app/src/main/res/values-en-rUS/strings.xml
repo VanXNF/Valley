@@ -57,6 +57,11 @@
     <string name="please_grant_permission">Please grant permission</string>
     <string name="please_login_first">please sign in first</string>
     <string name="members_only">members only</string>
+    <string name="event_description">Description</string>
+    <string name="event_description_text">Post pictures in the square to participate in the event, we will select the best picture of the theme of the event, giving generous bonuses!</string>
+    <string name="event_spring_story">Spring Story</string>
+    <string name="event_food_spree">Food Spree</string>
+    <string name="event_school_life">School Life</string>
     <!--download-->
     <string name="refresh">Refresh</string>
     <string name="refresh_success">Refresh Success</string>
@@ -109,8 +114,12 @@
     <string name="gallery">Gallery</string>
     <string name="all_photo_dir_name">All Photo</string>
     <string name="please_select_at_least_one_picture">Please select at least one picture</string>
-    <string name="please_choose_photo">Please select photo</string>
     <string name="open_camera_fail">Open Camera Fail</string>
     <string name="photo_save_fail">Photo Save Fail</string>
     <string name="max_options">Max Options</string>
+    <!--publish page-->
+    <string name="please_choose_photo">Please select photo</string>
+    <string name="follower">FOLLOWERS</string>
+    <string name="direct">DIRECT</string>
+    <string name="add_to_photo_map">ADD TO PHOTO MAP</string>
 </resources>

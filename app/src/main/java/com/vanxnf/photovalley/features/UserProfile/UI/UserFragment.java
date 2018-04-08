@@ -94,13 +94,13 @@ public class UserFragment extends BaseFragment {
                 if (position == 0) {
                     if (id == R.id.user_bg_image) {
                         // TODO: 2018/4/6 选择背景
-                        SnackbarUtils.Short(view, "选择背景").info().show();
+//                        SnackbarUtils.Short(view, "选择背景").info().show();
                     } else if (id == R.id.user_avatar_image) {
                         // TODO: 2018/4/6 选择头像
-                        SnackbarUtils.Short(view, "选择头像").info().show();
+//                        SnackbarUtils.Short(view, "选择头像").info().show();
                     } else if (id == R.id.user_declaration_text) {
                         // TODO: 2018/4/6 编辑个性签名
-                        SnackbarUtils.Short(view, "编辑个性签名").info().show();
+//                        SnackbarUtils.Short(view, "编辑个性签名").info().show();
                     }
                 } else {
                     if (id == R.id.user_profile_image) {

@@ -9,12 +9,15 @@ public class FilterItem implements MultiItemEntity {
     public static final int ITEM_SPAN_SIZE_MIN = 1; //尺寸 Grid中占1个空间
     private int itemType;
     private int spanSize;
-    private String content;
+    private String uri;
+    private Integer eventName;
 
-    public FilterItem(int itemType, int spanSize, String content) {
+
+    public FilterItem(int itemType, int spanSize, String uri, Integer eventName) {
         this.itemType = itemType;
         this.spanSize = spanSize;
-        this.content = content;
+        this.uri = uri;
+        this.eventName = eventName;
     }
 
     public FilterItem(int itemType, int spanSize) {
@@ -30,12 +33,20 @@ public class FilterItem implements MultiItemEntity {
         this.spanSize = spanSize;
     }
 
-    public String getContent() {
-        return content;
+    public String getUri() {
+        return uri;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public Integer getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(Integer eventName) {
+        this.eventName = eventName;
     }
 
     @Override

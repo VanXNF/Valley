@@ -57,6 +57,11 @@
     <string name="please_grant_permission">请授予所需权限</string>
     <string name="please_login_first">请登录后使用</string>
     <string name="members_only">本滤镜由会员专享</string>
+    <string name="event_description">详情</string>
+    <string name="event_description_text">在广场发布图片参与活动，我们将评选出最符合活动主题的图片，赠送丰厚奖金！</string>
+    <string name="event_spring_story">春天的故事</string>
+    <string name="event_food_spree">美食狂欢节</string>
+    <string name="event_school_life">校园时代</string>
     <!--download-->
     <string name="refresh">刷新</string>
     <string name="refresh_success">刷新成功</string>
