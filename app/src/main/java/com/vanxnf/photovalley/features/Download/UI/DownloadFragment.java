@@ -114,7 +114,7 @@ public class DownloadFragment extends BaseMainFragment {
         });
         mDAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+            public boolean onItemLongClick(BaseQuickAdapter adapter, final View view, final int position) {
                 new LovelyStandardDialog(_mActivity, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
                         .setTopColorRes(R.color.grey)
                         .setButtonsColorRes(R.color.grey)

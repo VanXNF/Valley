@@ -32,7 +32,7 @@ public class HomeFilterAdapter extends BaseMultiItemQuickAdapter<FilterItem, Bas
                         .load(FilterUtil.getActionIconIdByPosition(position))
                         .into((ImageView) helper.getView(R.id.filter_action_icon));
                 Glide.with(mContext)
-                        .load(DataUtil.getRandomUri())
+                        .load(item.getUri())
                         .into((ImageView) helper.getView(R.id.filter_action_image));
                 break;
             case FilterItem.EVENT:

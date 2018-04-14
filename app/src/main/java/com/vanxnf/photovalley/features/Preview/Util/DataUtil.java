@@ -49,6 +49,9 @@ public class DataUtil {
     //滤镜缩略图 0为空
     public static Integer[] filterPreviewImageIds = {
             0,
+            R.drawable.sunshine,
+            R.drawable.twilight,
+            R.drawable.candy_town,
             R.drawable.engraving_art,
             R.drawable.oil_painting,
             R.drawable.golden_time,
@@ -64,6 +67,9 @@ public class DataUtil {
     //滤镜名称
     public static Integer[] filterPreviewTextIds = {
             R.string.original_image,
+            R.string.sunshine,
+            R.string.twilight,
+            R.string.candy_town,
             R.string.engraving_art,
             R.string.oil_painting,
             R.string.golden_time,
@@ -79,6 +85,9 @@ public class DataUtil {
 
     public static final String[] FilterName = {
             "original_image",
+            "sunshine",
+            "twilight",
+            "candy_town",
             "engraving_art",
             "oil_painting",
             "golden_time",

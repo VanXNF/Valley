@@ -20,9 +20,10 @@ public class FilterItem implements MultiItemEntity {
         this.eventName = eventName;
     }
 
-    public FilterItem(int itemType, int spanSize) {
+    public FilterItem(int itemType, int spanSize, String uri) {
         this.itemType = itemType;
         this.spanSize = spanSize;
+        this.uri = uri;
     }
 
     public int getSpanSize() {

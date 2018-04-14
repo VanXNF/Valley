@@ -15,7 +15,7 @@ public class ItemUtil {
         List<ProfileItem> list = new ArrayList<>();
         list.add(new ProfileItem(ProfileItem.TITLE, ProfileItem.TITLE_SPAN_SIZE));
         for (int i = 0; i < 10; i++) {
-            list.add(new ProfileItem(DataUtil.getImageUri(i + 180)));
+            list.add(new ProfileItem(DataUtil.getRandomUri()));
         }
         return list;
     }

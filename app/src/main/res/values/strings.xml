@@ -44,6 +44,9 @@
     <string name="camera">相机</string>
     <string name="album">相册</string>
     <string name="original_image">原图</string>
+    <string name="sunshine">午后暖阳</string>
+    <string name="twilight">暮色</string>
+    <string name="candy_town">糖果小镇</string>
     <string name="engraving_art">版画艺术</string>
     <string name="oil_painting">复古油画</string>
     <string name="golden_time">金色时光</string>
@@ -60,9 +63,9 @@
     <string name="members_only">本滤镜由会员专享</string>
     <string name="event_description">详情</string>
     <string name="event_description_text">在广场发布图片参与活动，我们将评选出最符合活动主题的图片，赠送丰厚奖金！</string>
-    <string name="event_spring_story">春天的故事</string>
+    <string name="event_spring_story">春日物语</string>
     <string name="event_food_spree">美食狂欢节</string>
-    <string name="event_school_life">校园时代</string>
+    <string name="event_succulent">多肉联萌</string>
     <!--download-->
     <string name="refresh">刷新</string>
     <string name="refresh_success">刷新成功</string>
@@ -84,7 +87,7 @@
     <string name="app_name">Photo Valley</string>
     <string name="app_develop_date">2018</string>
     <string name="version">版本</string>
-    <string name="version_code">1.1.0</string>
+    <string name="version_code">1.1.1</string>
     <string name="author">开发者</string>
     <string name="author_name">VanXNF</string>
     <string name="author_place">中国</string>

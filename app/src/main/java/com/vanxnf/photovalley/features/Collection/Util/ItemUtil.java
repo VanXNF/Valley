@@ -11,7 +11,7 @@ public class ItemUtil {
     public static List<CollectionItem> getCollectionItemData() {
         List<CollectionItem> list = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            list.add(new CollectionItem(DataUtil.getImageUri(i)));
+            list.add(new CollectionItem(DataUtil.getRandomUri()));
         }
         return list;
     }

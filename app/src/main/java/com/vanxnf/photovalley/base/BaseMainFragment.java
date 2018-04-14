@@ -6,8 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
-import com.vanxnf.photovalley.utils.Utility;
 
 /**
  * Created by YoKeyword on 16/2/3.

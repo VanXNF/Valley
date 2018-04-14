@@ -59,7 +59,7 @@
                 android:layout_height="280dp"
                 android:layout_below="@id/linear_layout"
                 android:layout_marginTop="5dp"
-                android:scaleType="fitXY" />
+                android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:id="@+id/square_description_layout"

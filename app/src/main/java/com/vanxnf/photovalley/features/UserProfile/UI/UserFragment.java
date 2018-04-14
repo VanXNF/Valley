@@ -119,7 +119,7 @@ public class UserFragment extends BaseFragment {
         });
 
     }
-    private void showSubscribeDialog(View view) {
+    private void showSubscribeDialog(final View view) {
         List<SubscribeItem>  items = ItemUtil.getSubscribeItem();
         ArrayAdapter<SubscribeItem> adapter = new SubscribeAdapter(_mActivity, items);
         new LovelyChoiceDialog(_mActivity)

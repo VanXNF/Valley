@@ -33,6 +33,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:shadowColor="@color/black"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="50"
                 android:textColor="@color/white"
                 android:textSize="60sp" />
 
@@ -52,6 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:textColor="?attr/colorAccentLight"
             android:textSize="14sp" />
     </LinearLayout>

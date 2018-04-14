@@ -59,6 +59,21 @@ class Engine {
     } else {
       return (int) Math.ceil(longSide / (160.0 / scale));
     }
+//    if (scale <= 1 && scale > 0.5625) {
+//      if (longSide < 960) {
+//        return 2;
+//      } else if (longSide > 960 && longSide < 2880) {
+//        return 3;
+//      } else if (longSide > 2880 && longSide < 5760) {
+//        return 6;
+//      } else {
+//        return longSide / 480 == 0 ? 1 : longSide / 480;
+//      }
+//    } else if (scale <= 0.5625 && scale > 0.5) {
+//      return longSide / 480 == 0 ? 1 : longSide / 480;
+//    } else {
+//      return (int) Math.ceil(longSide / (160.0 / scale));
+//    }
   }
 
   private Bitmap rotatingImage(Bitmap bitmap) {

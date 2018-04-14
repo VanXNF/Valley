@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_event_filter"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="250dp"
     android:layout_gravity="center"
     android:layout_marginEnd="1dp"
     android:layout_marginStart="1dp"
@@ -20,14 +20,19 @@
         <ImageView
             android:id="@+id/filter_event_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop" />
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+
 
         <TextView
             android:id="@+id/filter_event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowRadius="50"
+            android:shadowDx="0"
+            android:shadowDy="0"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="60sp" />

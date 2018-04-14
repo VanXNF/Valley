@@ -122,7 +122,7 @@ public class SquareFragment extends BaseFragment {
         return itemData;
     }
 
-    public void setItemData(List<SquareItem> itemData) {
+    public void setItemData(final List<SquareItem> itemData) {
         this.itemData = itemData;
         post(new Runnable() {
             @Override

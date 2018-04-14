@@ -22,14 +22,4 @@ public class FilterUtil {
             R.string.album
     };
 
-    public static Integer getFilterNameIdByPosition(int position) {
-            return FilterNameIds[position];
-    }
-
-
-    public static final Integer[] FilterNameIds = {
-            R.string.oil_painting,
-            R.string.golden_time,
-            R.string.ocean_heart
-    };
 }

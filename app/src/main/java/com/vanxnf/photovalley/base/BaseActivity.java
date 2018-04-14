@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.utils.Utility;
 
 import java.util.Locale;
 

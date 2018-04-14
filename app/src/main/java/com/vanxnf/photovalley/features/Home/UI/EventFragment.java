@@ -17,10 +17,12 @@ import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.features.Home.Adapter.EventAdapter;
 import com.vanxnf.photovalley.features.Home.Entity.EventItem;
+import com.vanxnf.photovalley.features.Home.Util.ItemUtil;
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
 import com.vanxnf.photovalley.utils.DataUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EventFragment extends BaseFragment {
@@ -71,9 +73,20 @@ public class EventFragment extends BaseFragment {
         mRecycler.setLayoutManager(manager);
         mRecycler.getItemAnimator().setChangeDuration(0);
         itemData = new ArrayList<>();
-        itemData.add(new EventItem(EventItem.TITLE, EventItem.ITEM_SPAN_SIZE, title, getString(R.string.event_description_text), uri));
+        itemData.add(new EventItem(EventItem.TITLE, EventItem.ITEM_SPAN_SIZE, title,
+                getString(R.string.event_description_text), uri));
+        String[] itemUris;
+        if (title.equals(getString(R.string.event_spring_story))) {
+            itemUris = ItemUtil.springUris;
+        } else if (title.equals(getString(R.string.event_food_spree))) {
+            itemUris = ItemUtil.FoodUris;
+        } else if (title.equals(getString(R.string.event_succulent))) {
+            itemUris = ItemUtil.succulentUris;
+        } else {
+            itemUris = DataUtil.uris;
+        }
         for (int i = 0; i< 12; i++) {
-            itemData.add(new EventItem(EventItem.IMG, EventItem.ITEM_SPAN_SIZE_MIN, DataUtil.getRandomUri()));
+            itemData.add(new EventItem(EventItem.IMG, EventItem.ITEM_SPAN_SIZE_MIN, itemUris[i]));
         }
         mEAdapter = new EventAdapter(itemData);
         mEAdapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
