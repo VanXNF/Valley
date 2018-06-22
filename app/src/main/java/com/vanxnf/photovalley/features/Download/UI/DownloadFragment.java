@@ -180,11 +180,13 @@ public class DownloadFragment extends BaseMainFragment {
         // 得到该路径文件夹下所有的文件
         File fileAll = new File(filePath);
         File[] files = fileAll.listFiles();
-        // 将所有的文件存入ArrayList中,并过滤所有图片格式的文件
-        for (int i = 0; i < files.length; i++) {
-            File file = files[i];
-            if (checkIsImageFile(file.getPath())) {
-                itemList.add(new DownloadItem(file.getPath()));
+        if (files != null) {
+            // 将所有的文件存入ArrayList中,并过滤所有图片格式的文件
+            for (int i = 0; i < files.length; i++) {
+                File file = files[i];
+                if (checkIsImageFile(file.getPath())) {
+                    itemList.add(new DownloadItem(file.getPath()));
+                }
             }
         }
         // 返回得到的图片列表
