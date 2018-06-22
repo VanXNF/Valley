@@ -54,4 +54,12 @@ public class SharedPreferencesUtil {
         SharedPreferences preferences = context.getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
         return preferences.getBoolean("AccountCache_memberTag", false);
     }
+
+    /**
+     * 获取Token
+     */
+    public static String getToken(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getString("ValleyCache_tokenTag", null);
+    }
 }

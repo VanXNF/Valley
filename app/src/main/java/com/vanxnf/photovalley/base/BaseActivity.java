@@ -31,6 +31,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public class BaseActivity extends AppCompatActivity implements ISupportActivity{
 
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
+    private final String KEY_VALLEY_CACHE_TOKEN_TAG = "ValleyCache_tokenTag";
     private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
     private final String KEY_VALLEY_CACHE_ACCOUNT_TAG = "AccountCache_statusTag";
     private final String KEY_VALLEY_CACHE_MEMBER_TAG = "AccountCache_memberTag";
@@ -339,6 +340,24 @@ public class BaseActivity extends AppCompatActivity implements ISupportActivity{
         SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.putBoolean(KEY_VALLEY_CACHE_MEMBER_TAG, tag);
+        edit.commit();
+    }
+
+    /**
+     * 获取Token
+     */
+    public String getToken() {
+        SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getString(KEY_VALLEY_CACHE_TOKEN_TAG, null);
+    }
+
+    /**
+     *设置Token标记
+     */
+    public void setToken(String token) {
+        SharedPreferences preferences = getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString(KEY_VALLEY_CACHE_TOKEN_TAG, token);
         edit.commit();
     }
 }

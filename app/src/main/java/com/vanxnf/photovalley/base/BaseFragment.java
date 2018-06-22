@@ -27,6 +27,7 @@ public class BaseFragment extends Fragment implements ISupportFragment {
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity;
 
+    private final String KEY_VALLEY_CACHE_TOKEN_TAG = "ValleyCache_tokenTag";
     private final String KEY_VALLEY_CACHE_THEME_TAG = "ValleyCache_themeTag";
     private final String KEY_VALLEY_CACHE_ACCOUNT_TAG = "AccountCache_statusTag";
     private final String KEY_VALLEY_CACHE_MEMBER_TAG = "AccountCache_memberTag";
@@ -471,6 +472,24 @@ public class BaseFragment extends Fragment implements ISupportFragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.putString(KEY_VALLEY_CACHE_ACCOUNT_NAME_TAG, name);
+        edit.commit();
+    }
+
+    /**
+     * 获取Token
+     */
+    public String getToken() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        return preferences.getString(KEY_VALLEY_CACHE_TOKEN_TAG, null);
+    }
+
+    /**
+     *设置Token标记
+     */
+    public void setToken(String token) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("AccountCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString(KEY_VALLEY_CACHE_TOKEN_TAG, token);
         edit.commit();
     }
 

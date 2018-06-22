@@ -19,7 +19,7 @@ import android.view.animation.AccelerateInterpolator;
 import com.vanxnf.photovalley.R;
 
 /**
- * Created by Unstoppable on 2016/12/31.
+ * Created by VanXN on 2017/02/28.
  */
 
 public class SubmitButton extends View {

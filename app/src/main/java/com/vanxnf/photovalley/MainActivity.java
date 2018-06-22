@@ -218,6 +218,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             setAccountStatus(false);
             setMemberStatus(false);
             setAccountName(getString(R.string.app_name));
+            setToken(null);
             mTvName.setText(R.string.app_name);
             post(new Runnable() {
                 @Override

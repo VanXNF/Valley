@@ -11,11 +11,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
+import com.vanxnf.photovalley.features.Account.Entity.Account;
+
+import com.vanxnf.photovalley.features.Account.Util.HttpUtil;
 import com.vanxnf.photovalley.widget.SubmitButton.SubmitButton;
 import com.vanxnf.photovalley.widget.TextEdit.ExtendedEditText;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 /**
@@ -30,6 +41,9 @@ public class LoginFragment extends BaseFragment {
     private boolean isLoginSuccess;
     private DrawerLayout parentDrawerLayout;
     private OnLoginSuccessListener mOnLoginSuccessListener;
+    private Account account;
+    private Call callForLogin;
+    private String token = null;
 
     @Override
     public void onAttach(Context context) {
@@ -87,11 +101,64 @@ public class LoginFragment extends BaseFragment {
                     mBtnLogin.reset();
                     return;
                 }
-                // 登录成功
-                isLoginSuccess = true;
-                mBtnLogin.doResult(true);
-                setAccountStatus(true);
-                mOnLoginSuccessListener.onLoginSuccess(strAccount);
+
+                account = new Account(strAccount, strPassword);
+
+                //Ali yun "http://120.79.162.134:80/api" 本地 "http://192.168.4.73:80/api"
+                callForLogin = HttpUtil.sendOkHttpRequest("login", account, new okhttp3.Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mBtnLogin.reset();
+                                Toast.makeText(_mActivity, "登录失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        //获取服务器返回的Json数据
+                        Gson gson = new Gson();
+
+                        String status = null;
+                        Map<String, String> map = gson.fromJson(responseData, HashMap.class);
+
+                        for (String key : map.keySet()) {
+                            if (key.equals("status")) {
+                                status = new String(map.get(key));
+                            }
+                            if (key.equals("token")) {
+                                token = new String(map.get(key));
+                            }
+                        }
+
+                        if (status.equals("OK")) {
+                            post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setToken(token);
+                                    isLoginSuccess = true;
+                                    mBtnLogin.doResult(true);
+                                    setAccountStatus(true);
+                                    mOnLoginSuccessListener.onLoginSuccess(account.getUserName());
+                                    Toast.makeText(_mActivity, token, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else if (status.equals("Error Username or Password")) {
+
+                            post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mBtnLogin.reset();
+                                    Toast.makeText(_mActivity, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                });
 
             }
         });
@@ -125,8 +192,13 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     public boolean onBackPressedSupport() {
-        parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        pop();
+        if (callForLogin != null) {
+            callForLogin.cancel();
+            callForLogin = null;
+        } else {
+            parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            pop();
+        }
         return true;
     }
 }

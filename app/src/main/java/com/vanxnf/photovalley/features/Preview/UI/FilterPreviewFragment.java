@@ -229,7 +229,7 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
         });
 
         //Ali yun "http://120.79.162.134:80/api" 本地 "http://192.168.4.73:80/api"
-        call = HttpUtil.sendOkHttpRequest("http://192.168.43.5:80/api", json, new okhttp3.Callback() {
+        call = HttpUtil.sendOkHttpRequest("http://192.168.4.73:80/api", json, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 getActivity().runOnUiThread(new Runnable() {
