@@ -8,6 +8,7 @@ public class Recommend {
      * image : https://s1.ax1x.com/2018/04/13/CViHtP.jpg
      * status : 0
      */
+    //0 为不点赞 1为点赞
 
     private int id;
     private String username;

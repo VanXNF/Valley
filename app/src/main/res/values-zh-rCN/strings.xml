@@ -44,6 +44,8 @@
     <!--home recommend-->
     <string name="download_finish">下载完成</string>
     <string name="already_download">已下载</string>
+    <string name="load_success">加载完成</string>
+    <string name="refresh_failed">刷新失败</string>
     <string name="recommend_list_error">推荐列表加载失败，请重试</string>
     <!--home filter-->
     <string name="camera">相机</string>
@@ -131,4 +133,6 @@
     <string name="follower">通知关注者</string>
     <string name="direct">直接发布</string>
     <string name="add_to_photo_map">加入图片集</string>
+    <string name="publish_success">发布成功</string>
+    <string name="publish_failed">发布失败</string>
 </resources>

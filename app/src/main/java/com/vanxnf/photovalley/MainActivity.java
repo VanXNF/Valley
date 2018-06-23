@@ -79,11 +79,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         RelativeLayout rlNavHeader = (RelativeLayout) mNavigationView.getHeaderView(0);
         mTvName = (TextView) rlNavHeader.findViewById(R.id.tv_username);
         mImgNav = (CircleImageView) rlNavHeader.findViewById(R.id.civ_nav_avatar);
-        if (isLogin) {
-            mTvName.setText(getAccountName());
-        }
         if (getMemberStatus()) {
             rlNavHeader.findViewById(R.id.member_nav).setVisibility(View.VISIBLE);
+        }
+        if (isLogin) {
+            mTvName.setText(getAccountName());
         }
         mImgNav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,19 +180,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         start(fragment, BaseFragment.SINGLETASK);
                     }
                 } else if (id == R.id.nav_quit_login) {
-                    goLogout();
-                    if (topFragment instanceof HomeFragment) {
-                        mNavigationView.setCheckedItem(R.id.nav_home);
-                    } else if (topFragment instanceof CollectionFragment) {
-                        mNavigationView.setCheckedItem(R.id.nav_collection);
-                    } else if (topFragment instanceof DownloadFragment) {
-                        mNavigationView.setCheckedItem(R.id.nav_download);
-                    } else if (topFragment instanceof SettingFragment) {
-                        mNavigationView.setCheckedItem(R.id.nav_setting);
-                    } else if (topFragment instanceof AboutFragment) {
-                        mNavigationView.setCheckedItem(R.id.nav_about);
-                    }
-                    item.setVisible(false);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            goLogout();
+                            if (topFragment instanceof HomeFragment) {
+                                mNavigationView.setCheckedItem(R.id.nav_home);
+                            } else if (topFragment instanceof CollectionFragment) {
+                                mNavigationView.setCheckedItem(R.id.nav_collection);
+                            } else if (topFragment instanceof DownloadFragment) {
+                                mNavigationView.setCheckedItem(R.id.nav_download);
+                            } else if (topFragment instanceof SettingFragment) {
+                                mNavigationView.setCheckedItem(R.id.nav_setting);
+                            } else if (topFragment instanceof AboutFragment) {
+                                mNavigationView.setCheckedItem(R.id.nav_about);
+                            }
+                            item.setVisible(false);
+                        }
+                    });
                 }
             }
         });
@@ -230,7 +235,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onLoginSuccess(String account) {
         mTvName.setText(account);
         setAccountName(account);
-//        mImgNav.setImageResource(R.drawable.pic1);
 
         SnackbarUtils.Short(mDrawer, account +  " " + getString(R.string.sign_in_success))
                 .messageCenter().backColor(ThemeTag == 0 ? Color.WHITE : Color.BLACK)

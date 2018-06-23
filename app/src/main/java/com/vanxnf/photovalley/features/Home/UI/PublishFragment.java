@@ -18,11 +18,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.PhotoPickerActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
+import com.vanxnf.photovalley.features.Home.Util.HttpUtil;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class PublishFragment extends BaseFragment {
 

@@ -66,6 +66,12 @@ public class PreviewFragment extends BaseFragment {
     private void initView() {
         imageView = view.findViewById(R.id.preview_image);
         loadPreviewImage(uri);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressedSupport();
+            }
+        });
     }
 
     private void loadPreviewImage(String uri) {

@@ -14,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
     private String filterUri;
     private FilterPreviewAdapter adapter;
     private ArrayList<Filter> filters;
-    private ArrayList<String> filterUris;
+    private Map<String, String> filterUris;
     private DrawerLayout parentDrawerLayout;
     private File currentImage;
     private int filterId = 0;//当前滤镜
@@ -127,8 +128,8 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
 
         //获取数据
         //原图数据
-        filterUris = new ArrayList<>();
-        filterUris.add(0, fileUri);
+        filterUris = new HashMap<>();
+        filterUris.put("0", fileUri);
         //请求滤镜列表
         filterListCall = HttpUtil.sendGetRequest("filter", getToken(), new okhttp3.Callback() {
             @Override
@@ -149,7 +150,7 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
                     Gson gson = new Gson();
                     filters = gson.fromJson(responseData, new TypeToken<ArrayList<Filter>>(){}.getType());
                 } catch (Exception e) {
-                    filters = new ArrayList<Filter>();
+                    filters = new ArrayList();
                 }
                 Filter origin = new Filter();
                 origin.setChinese_name(getString(R.string.original_image));
@@ -166,7 +167,12 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
                         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                String uri = filterUris.get(position);
+                                String uri;
+                                try {
+                                    uri = filterUris.get(String.valueOf(position));
+                                } catch (IndexOutOfBoundsException e) {
+                                    uri = null;
+                                }
                                 if (filterCall == null) {
                                     if (uri != null) {
                                         loadPreviewImage(uri);
@@ -298,12 +304,13 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
 
     private void getJsonByGSON(String data) {
 
+        Log.d("data", data);
         Map<String, String> map = new Gson().fromJson(data, HashMap.class);
 
         for (String key : map.keySet()) {
             if (key.equals("download_path")) {
                 filterUri = new String(map.get(key));
-                filterUris.add(filterId, filterUri);
+                filterUris.put(String.valueOf(filterId), filterUri);
                 filterCall = null;
             }
         }

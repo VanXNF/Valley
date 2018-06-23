@@ -44,8 +44,9 @@
     <!--home recommend-->
     <string name="download_finish">Download Finished</string>
     <string name="already_download">Already Download</string>
-
-    <string name="recommend_list_error">推荐列表加载失败，请重试</string>
+    <string name="load_success">Load Finish</string>
+    <string name="refresh_failed">Refresh Failed</string>
+    <string name="recommend_list_error">Recommend List Load Error</string>
     <!--home filter-->
     <string name="camera">Camera</string>
     <string name="album">Album</string>
@@ -132,4 +133,6 @@
     <string name="follower">FOLLOWERS</string>
     <string name="direct">DIRECT</string>
     <string name="add_to_photo_map">ADD TO PHOTO MAP</string>
+    <string name="publish_success">Publish Success</string>
+    <string name="publish_failed">Publish Failed</string>
 </resources>
