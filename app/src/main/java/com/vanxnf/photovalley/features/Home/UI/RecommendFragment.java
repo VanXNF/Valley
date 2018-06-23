@@ -9,18 +9,24 @@ import android.view.ViewGroup;
 
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.features.Home.Adapter.HomeRecommendAdapter;
 import com.vanxnf.photovalley.base.BaseFragment;
-import com.vanxnf.photovalley.features.Home.Entity.RecommendItem;
-import com.vanxnf.photovalley.features.Home.Util.ItemUtil;
+import com.vanxnf.photovalley.features.Home.Gson.Recommend;
+import com.vanxnf.photovalley.features.Home.Util.HttpUtil;
+
 
 import com.vanxnf.photovalley.features.Preview.UI.PreviewFragment;
 
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.ArrayList;
 
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 /**
@@ -33,7 +39,8 @@ public class RecommendFragment extends BaseFragment {
     private View view;
     private RecyclerView mRecycler;
     private HomeRecommendAdapter mHRAdapter;
-    private List<RecommendItem> itemData;
+    private ArrayList<Recommend> itemData;
+    private Call recommendCall;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,51 +55,81 @@ public class RecommendFragment extends BaseFragment {
     }
 
     //初始化
-    private void initView(View view) {
-        itemData = ItemUtil.getRecommendItemData();
-        mHRAdapter = new HomeRecommendAdapter(_mActivity, itemData);
+    private void initView(final View view) {
         mRecycler = view.findViewById(R.id.recycler_view_recommend);
-        mRecycler.getItemAnimator().setChangeDuration(0);
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
+        mRecycler.getItemAnimator().setChangeDuration(0);
         mRecycler.setLayoutManager(manager);
-        mHRAdapter.openLoadAnimation();
-        mHRAdapter.setDuration(800);
-        mHRAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        recommendCall = HttpUtil.sendGetRequest("recommend", getToken(), new okhttp3.Callback() {
+
             @Override
-            public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
-                Integer id = view.getId();
-                RecommendItem item = itemData.get(position);
-                if (id == R.id.recommend_image) {
-                    ((HomeFragment)getParentFragment()).start(PreviewFragment.newInstance(item.getPictureUri()));
-                } else {
-                    boolean isNeedUpdate = false;
-                    if (id == R.id.action_like_recommend) {
-                        if (item.isLiked()) {
-                            item.setLiked(false);
-                        } else {
-                            item.setLiked(true);
-                        }
-                        isNeedUpdate = true;
-                    } else if (id == R.id.action_download_recommend) {
-                        if (item.isDownload()) {
-                            SnackbarUtils.Short(view, getString(R.string.download_finish)).info().show();
-                        } else {
-                            SnackbarUtils.Short(view, getString(R.string.already_download)).info().show();
-                            item.setDownload(true);
-                            isNeedUpdate = true;
-                        }
+            public void onFailure(okhttp3.Call call, IOException e) {
+
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        SnackbarUtils.Short(view, getString(R.string.recommend_list_error)).danger().show();
                     }
-                    if (isNeedUpdate) {
-                        post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mHRAdapter.notifyItemChanged(position);
-                            }
-                        });
-                    }
+                });
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                try {
+                    Gson gson = new Gson();
+                    itemData = gson.fromJson(responseData, new TypeToken<ArrayList<Recommend>>(){}.getType());
+                } catch (Exception e) {
+                    itemData = new ArrayList<>();
                 }
+                mHRAdapter = new HomeRecommendAdapter(_mActivity, itemData);
+                mHRAdapter.openLoadAnimation();
+                mHRAdapter.setDuration(800);
+                mHRAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
+                        Integer id = view.getId();
+                        Recommend item = itemData.get(position);
+                        if (id == R.id.recommend_image) {
+                            ((HomeFragment)getParentFragment()).start(PreviewFragment.newInstance(item.getImage()));
+                        } else {
+                            boolean isNeedUpdate = false;
+                            if (id == R.id.action_like_recommend) {
+                                if (item.getStatus() == 1) {
+                                    item.setStatus(0);
+                                } else {
+                                    item.setStatus(1);
+                                }
+                                isNeedUpdate = true;
+                            }
+//                              else if (id == R.id.action_download_recommend) {
+//                                if (item.isDownload()) {
+//                                    SnackbarUtils.Short(view, getString(R.string.download_finish)).info().show();
+//                                } else {
+//                                    SnackbarUtils.Short(view, getString(R.string.already_download)).info().show();
+//                                    item.setDownload(true);
+//                                    isNeedUpdate = true;
+//                                }
+//                            }
+                            if (isNeedUpdate) {
+                                post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mHRAdapter.notifyItemChanged(position);
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRecycler.setAdapter(mHRAdapter);
+                    }
+                });
+
             }
         });
-        mRecycler.setAdapter(mHRAdapter);
     }
 }

@@ -39,11 +39,13 @@
     <string name="untitled">Untitled</string>
     <string name="like">Likes</string>
     <string name="send">SEND</string>
+    <string name="type_here">Type here</string>
     <string name="publish_to">Publish</string>
     <!--home recommend-->
     <string name="download_finish">Download Finished</string>
     <string name="already_download">Already Download</string>
-    <string name="type_here">Type here</string>
+
+    <string name="recommend_list_error">推荐列表加载失败，请重试</string>
     <!--home filter-->
     <string name="camera">Camera</string>
     <string name="album">Album</string>

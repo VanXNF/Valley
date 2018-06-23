@@ -44,6 +44,7 @@
     <!--home recommend-->
     <string name="download_finish">下载完成</string>
     <string name="already_download">已下载</string>
+    <string name="recommend_list_error">推荐列表加载失败，请重试</string>
     <!--home filter-->
     <string name="camera">相机</string>
     <string name="album">相册</string>

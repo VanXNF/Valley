@@ -1,4 +1,4 @@
-package com.vanxnf.photovalley.features.Preview.Util;
+package com.vanxnf.photovalley.features.Home.Util;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +12,7 @@ import okhttp3.RequestBody;
 
 public class HttpUtil {
 
-    public static Call sendGetRequest(String api, String token , okhttp3.Callback callback) {
+    public static Call sendGetRequest(String api, String token, okhttp3.Callback callback) {
 
         OkHttpClient client  = new OkHttpClient.Builder()
                 .connectTimeout(20, TimeUnit.SECONDS)
