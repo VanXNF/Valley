@@ -31,6 +31,10 @@
     <string name="forgot_your_password">Forgot password?</string>
     <string name="none_account">None Account</string>
     <string name="already_log_out">sign out success</string>
+    <string name="sign_in_failed">sign in failed</string>
+    <string name="wrong_in_name_or_pwd">Wrong in Account or Password</string>
+    <string name="register_failed">Register Failed</string>
+    <string name="already_register">Account already exists</string>
     <!--home square-->
     <string name="untitled">Untitled</string>
     <string name="like">Likes</string>
@@ -66,6 +70,7 @@
     <string name="event_spring_story">Spring Story</string>
     <string name="event_food_spree">Food Spree</string>
     <string name="event_succulent">Succulent</string>
+    <string name="filter_list_error">Sorry, Something Wrong In FilterList</string>
     <!--download-->
     <string name="refresh">Refresh</string>
     <string name="refresh_success">Refresh Success</string>

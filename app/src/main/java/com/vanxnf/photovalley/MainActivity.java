@@ -12,14 +12,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.vanxnf.photovalley.base.BaseActivity;
 import com.vanxnf.photovalley.base.BaseFragment;
 import com.vanxnf.photovalley.base.BaseMainFragment;
@@ -28,7 +23,6 @@ import com.vanxnf.photovalley.features.Account.UI.LoginFragment;
 import com.vanxnf.photovalley.features.Collection.UI.CollectionFragment;
 import com.vanxnf.photovalley.features.Download.UI.DownloadFragment;
 import com.vanxnf.photovalley.features.Home.UI.HomeFragment;
-import com.vanxnf.photovalley.features.Preview.Gson.Download;
 import com.vanxnf.photovalley.features.Setting.UI.SettingFragment;
 import com.vanxnf.photovalley.features.UserProfile.UI.UserFragment;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;

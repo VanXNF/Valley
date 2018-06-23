@@ -81,10 +81,10 @@ public class LoginFragment extends BaseFragment {
     }
 
     private void initView(final View view) {
-        mEtAccount = (ExtendedEditText) view.findViewById(R.id.et_account);
-        mEtPassword = (ExtendedEditText) view.findViewById(R.id.et_password);
-        mBtnLogin = (SubmitButton) view.findViewById(R.id.btn_login);
-        mTvRegister = (TextView) view.findViewById(R.id.tv_register);
+        mEtAccount = view.findViewById(R.id.et_account);
+        mEtPassword = view.findViewById(R.id.et_password);
+        mBtnLogin = view.findViewById(R.id.btn_login);
+        mTvRegister = view.findViewById(R.id.tv_register);
 
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +112,7 @@ public class LoginFragment extends BaseFragment {
                             @Override
                             public void run() {
                                 mBtnLogin.reset();
-                                Toast.makeText(_mActivity, "登录失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(_mActivity, getString(R.string.sign_in_failed), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -144,7 +144,6 @@ public class LoginFragment extends BaseFragment {
                                     mBtnLogin.doResult(true);
                                     setAccountStatus(true);
                                     mOnLoginSuccessListener.onLoginSuccess(account.getUserName());
-                                    Toast.makeText(_mActivity, token, Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else if (status.equals("Error Username or Password")) {
@@ -153,7 +152,7 @@ public class LoginFragment extends BaseFragment {
                                 @Override
                                 public void run() {
                                     mBtnLogin.reset();
-                                    Toast.makeText(_mActivity, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(_mActivity, getString(R.string.wrong_in_name_or_pwd), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

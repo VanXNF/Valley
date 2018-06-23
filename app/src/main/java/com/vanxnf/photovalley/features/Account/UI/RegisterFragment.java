@@ -30,6 +30,7 @@ import okhttp3.Response;
 
 /**
  * Created by VanXN on 18/3/22.
+ * Edited by VanXN on 18/6/23.
  */
 public class RegisterFragment extends BaseFragment {
     private ExtendedEditText mEtAccount;
@@ -79,10 +80,10 @@ public class RegisterFragment extends BaseFragment {
     }
 
     private void initView(View view) {
-        mEtAccount = (ExtendedEditText) view.findViewById(R.id.et_account);
-        mEtPassword = (ExtendedEditText) view.findViewById(R.id.et_password);
-        mEtRepeatPwd = (ExtendedEditText) view.findViewById(R.id.et_repeat_password);
-        mBtnRegister = (SubmitButton) view.findViewById(R.id.btn_register);
+        mEtAccount = view.findViewById(R.id.et_account);
+        mEtPassword = view.findViewById(R.id.et_password);
+        mEtRepeatPwd = view.findViewById(R.id.et_repeat_password);
+        mBtnRegister = view.findViewById(R.id.btn_register);
         showSoftInput(mEtAccount);
 
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +117,7 @@ public class RegisterFragment extends BaseFragment {
                             @Override
                             public void run() {
                                 mBtnRegister.reset();
-                                Toast.makeText(_mActivity, "注册失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(_mActivity, getString(R.string.register_failed), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -158,7 +159,7 @@ public class RegisterFragment extends BaseFragment {
                                 @Override
                                 public void run() {
                                     mBtnRegister.reset();
-                                    Toast.makeText(_mActivity, "用户名已存在，请登录", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(_mActivity, getString(R.string.already_register), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

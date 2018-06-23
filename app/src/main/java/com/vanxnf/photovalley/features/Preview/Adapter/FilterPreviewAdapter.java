@@ -4,26 +4,31 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.vanxnf.photovalley.R;
-import com.vanxnf.photovalley.features.Preview.Entity.FilterPreviewItem;
-import com.vanxnf.photovalley.utils.DataUtil;
+import com.vanxnf.photovalley.features.Preview.Gson.Filter;
+import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class FilterPreviewAdapter extends BaseQuickAdapter<FilterPreviewItem, BaseViewHolder> {
+public class FilterPreviewAdapter extends BaseQuickAdapter<Filter, BaseViewHolder> {
 
-    public FilterPreviewAdapter (Context context, List data) {
+    public FilterPreviewAdapter (Context context, ArrayList data) {
         super(R.layout.filter_preview_item, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, FilterPreviewItem item) {
-        helper.setText(R.id.filter_name, item.getFilterNameId());
+    protected void convert(BaseViewHolder helper, Filter item) {
+        String name = item.getChinese_name();
+        if (SharedPreferencesUtil.getLanguageTag(mContext) == 1) {
+            name = item.getChinese_name();
+        } else if (SharedPreferencesUtil.getLanguageTag(mContext) == 2) {
+            name = item.getEnglish_name();
+        }
+        helper.setText(R.id.filter_name, name);
         Glide.with(mContext)
-                .load(item.getThumbnailId() == 0 ? item.getBgUri() : item.getThumbnailId())
+                .load(item.getCover_image())
                 .into((ImageView) helper.getView(R.id.filter_thumbnail));
     }
 }

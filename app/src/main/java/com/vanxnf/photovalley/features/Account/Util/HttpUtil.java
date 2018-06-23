@@ -12,7 +12,7 @@ import okhttp3.RequestBody;
 
 public class HttpUtil {
 
-    public static Call sendOkHttpRequest(String address, Account account, okhttp3.Callback callback) {
+    public static Call sendOkHttpRequest(String api, Account account, okhttp3.Callback callback) {
 
         OkHttpClient client  = new OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)
@@ -27,7 +27,7 @@ public class HttpUtil {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://192.168.4.128:8080/api/" + address)
+                .url("http://192.168.4.128:8080/api/" + api)
                 .post(requestBody)
                 .build();
 

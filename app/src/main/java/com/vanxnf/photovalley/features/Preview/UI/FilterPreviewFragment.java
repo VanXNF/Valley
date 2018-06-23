@@ -1,9 +1,8 @@
 package com.vanxnf.photovalley.features.Preview.UI;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -12,7 +11,6 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,18 +23,17 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shizhefei.view.largeimage.LargeImageView;
 import com.vanxnf.photovalley.MainActivity;
 import com.vanxnf.photovalley.R;
 import com.vanxnf.photovalley.base.BaseFragment;
-import com.vanxnf.photovalley.features.Home.Gson.Filter;
 import com.vanxnf.photovalley.features.Preview.Adapter.FilterPreviewAdapter;
-import com.vanxnf.photovalley.features.Preview.Entity.FilterPreviewItem;
-import com.vanxnf.photovalley.features.Preview.Gson.Download;
+
+import com.vanxnf.photovalley.features.Preview.Gson.Filter;
 import com.vanxnf.photovalley.features.Preview.Util.DataUtil;
 import com.vanxnf.photovalley.features.Preview.Util.FileUtil;
 import com.vanxnf.photovalley.features.Preview.Util.HttpUtil;
-import com.vanxnf.photovalley.utils.SharedPreferences.SharedPreferencesUtil;
 import com.vanxnf.photovalley.utils.SnackBar.SnackbarUtils;
 import com.vanxnf.photovalley.utils.Utility;
 import com.vanxnf.photovalley.widget.LoadingView.LoadingView;
@@ -45,15 +42,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Response;
 
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by VanXN on 2018/3/26.
+ * Edited by VanXN on 2018/6/22.
  */
 
 public class FilterPreviewFragment extends BaseFragment implements View.OnClickListener {
@@ -62,19 +61,18 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
     private RecyclerView mRecycler;
     private LoadingView loadingView;
     private LargeImageView imageView;
-    private Call call;
+    private Call filterCall;
     private View view;
     private String fileUri;
     private String filterUri;
-    private Filter filter;
     private FilterPreviewAdapter adapter;
-    private List<FilterPreviewItem> filterData;
+    private ArrayList<Filter> filters;
+    private ArrayList<String> filterUris;
     private DrawerLayout parentDrawerLayout;
-    private boolean isFirstInitJson;
     private File currentImage;
-    private String json = null;
-    private int filterId = 0;
+    private int filterId = 0;//当前滤镜
     private Bitmap bitmap;
+    private Call filterListCall;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +90,6 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
         Utility.hideStatusBar(getActivity().getWindow());
         parentDrawerLayout = ((MainActivity) getActivity()).getDrawerLayout();
         parentDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        isFirstInitJson = true;
         initView();
         return view;
     }
@@ -109,18 +106,15 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
         imageView = view.findViewById(R.id.preview_filter_image);
         FloatingActionButton btnSave = view.findViewById(R.id.preview_filter_save);
         FloatingActionButton btnShare = view.findViewById(R.id.preview_filter_share);
-        loadingView = (LoadingView) view.findViewById(R.id.loading_view_preview_filter);
-        mRecycler = (RecyclerView) view.findViewById(R.id.recycler_view_preview_filter);
+        loadingView = view.findViewById(R.id.loading_view_preview_filter);
+        mRecycler = view.findViewById(R.id.recycler_view_preview_filter);
         btnSave.setOnClickListener(this);
         btnShare.setOnClickListener(this);
         //recyclerView横向滚动
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecycler.setLayoutManager(manager);
-        //获取数据
-        filterData = DataUtil.getItemData();
-        filterData.get(0).setFilterUri(fileUri);
-        filterData.get(0).setBgUri(fileUri);
+        //获取文件
         String path;
         if (Build.VERSION.SDK_INT >= 24) {
             path = DataUtil.changeUriToPathForFileProvider(Uri.parse(fileUri));
@@ -130,27 +124,68 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
         if (path != null) {
             currentImage = new File(path);
         }
-        adapter = new FilterPreviewAdapter(_mActivity, filterData);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+
+        //获取数据
+        //原图数据
+        filterUris = new ArrayList<>();
+        filterUris.add(0, fileUri);
+        //请求滤镜列表
+        filterListCall = HttpUtil.sendGetRequest("filter", getToken(), new okhttp3.Callback() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String uri = filterData.get(position).getFilterUri();
-                if (call == null) {
-                    if (uri != null) {
-                        loadPreviewImage(uri);
-                    } else {
-                        if (position != 0) {
-                            filterId = position;
-                            json = initJson();
-                            if (json != null) {
-                                loadFilterImage();
-                            }
-                        }
+            public void onFailure(Call call, IOException e) {
+                //滤镜列表加载失败
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        SnackbarUtils.Short(view, getString(R.string.filter_list_error)).danger().show();
                     }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                try {
+                    Gson gson = new Gson();
+                    filters = gson.fromJson(responseData, new TypeToken<ArrayList<Filter>>(){}.getType());
+                } catch (Exception e) {
+                    filters = new ArrayList<Filter>();
                 }
+                Filter origin = new Filter();
+                origin.setChinese_name(getString(R.string.original_image));
+                origin.setEnglish_name(getString(R.string.original_image));
+                origin.setId(0);
+                origin.setPubdate("");
+                origin.setVIP_only(false);
+                origin.setCover_image(fileUri);
+                filters.add(0, origin);
+                adapter = new FilterPreviewAdapter(_mActivity, filters);
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                String uri = filterUris.get(position);
+                                if (filterCall == null) {
+                                    if (uri != null) {
+                                        loadPreviewImage(uri);
+                                    } else {
+                                        if (position != 0) {
+                                            filterId = position;
+                                            loadFilterImage();
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        mRecycler.setAdapter(adapter);
+                    }
+                });
+
             }
         });
-        mRecycler.setAdapter(adapter);
+
         loadPreviewImage(fileUri);
     }
 
@@ -181,41 +216,41 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
     }
 
     /**获取服务器所需要的json数据*/
-    private String initJson() {
-        Gson filterRequest = new Gson();
-        if (currentImage == null) {
-            String path;
-            if (Build.VERSION.SDK_INT >= 24) {
-                path = DataUtil.changeUriToPathForFileProvider(Uri.parse(fileUri));
-            } else {
-                path = FileUtil.getFilePathByUri(_mActivity, Uri.parse(fileUri));
-            }
-            if (path != null) {
-                currentImage = new File(path);
-            }
-        }
-        if (isFirstInitJson) {
-            //获取图片宽高(不加载)
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            Bitmap bitmap = BitmapFactory.decodeFile(currentImage.getAbsolutePath(), options);
-            int width = options.outWidth;
-            int height = options.outHeight;
-            String type = options.outMimeType;
-            //创建JSON数据
-            filter = new Filter();
-            filter.setFilterName(DataUtil.getFilterNameByPosition(filterId));
-            filter.setUserName(SharedPreferencesUtil.getAccountName(getContext()));
-            filter.setImageWidth(String.valueOf(width));
-            filter.setImageHeight(String.valueOf(height));
-            filter.setImageBase64(DataUtil.encode(currentImage.getAbsolutePath(), type.substring(6, type.length())));
-            isFirstInitJson = false;
-        } else {
-            filter.setFilterName(DataUtil.getFilterNameByPosition(filterId));
-        }
-        json = filterRequest.toJson(filter);
-        return json;
-    }
+//    private String initJson() {
+//        Gson filterRequest = new Gson();
+//        if (currentImage == null) {
+//            String path;
+//            if (Build.VERSION.SDK_INT >= 24) {
+//                path = DataUtil.changeUriToPathForFileProvider(Uri.parse(fileUri));
+//            } else {
+//                path = FileUtil.getFilePathByUri(_mActivity, Uri.parse(fileUri));
+//            }
+//            if (path != null) {
+//                currentImage = new File(path);
+//            }
+//        }
+//        if (isFirstInitJson) {
+//            //获取图片宽高(不加载)
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inJustDecodeBounds = true;
+//            Bitmap bitmap = BitmapFactory.decodeFile(currentImage.getAbsolutePath(), options);
+//            int width = options.outWidth;
+//            int height = options.outHeight;
+//            String type = options.outMimeType;
+//            //创建JSON数据
+//            filter = new Filter();
+//            filter.setFilterName(DataUtil.getFilterNameByPosition(filterId));
+//            filter.setUserName(SharedPreferencesUtil.getAccountName(getContext()));
+//            filter.setImageWidth(String.valueOf(width));
+//            filter.setImageHeight(String.valueOf(height));
+//            filter.setImageBase64(DataUtil.encode(currentImage.getAbsolutePath(), type.substring(6, type.length())));
+//            isFirstInitJson = false;
+//        } else {
+//            filter.setChinese_name(DataUtil.getFilterNameByPosition(filterId));
+//        }
+//        json = filterRequest.toJson(filter);
+//        return json;
+//    }
 
     /**加载滤镜*/
     private void loadFilterImage() {
@@ -228,8 +263,7 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
             }
         });
 
-        //Ali yun "http://120.79.162.134:80/api" 本地 "http://192.168.4.73:80/api"
-        call = HttpUtil.sendOkHttpRequest("http://192.168.4.73:80/api", json, new okhttp3.Callback() {
+        filterCall = HttpUtil.sendPostRequest("filter", getToken(), currentImage, filterId, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 getActivity().runOnUiThread(new Runnable() {
@@ -256,24 +290,23 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
         });
     }
 
-    private void callFailed (){
-        call = null;
+    private void callFailed () {
+        filterCall = null;
         loadingView.stopAnim();
         SnackbarUtils.Short(view, getString(R.string.load_failed)).danger().show();
     }
 
     private void getJsonByGSON(String data) {
-        Gson gson = new Gson();
-        Download download = gson.fromJson(data, Download.class);
-        filterUri = download.getDownloadUri();
-        filterData.get(filterId).setFilterUri(filterUri);
-        post(new Runnable() {
-            @Override
-            public void run() {
-                adapter.notifyDataSetChanged();
+
+        Map<String, String> map = new Gson().fromJson(data, HashMap.class);
+
+        for (String key : map.keySet()) {
+            if (key.equals("download_path")) {
+                filterUri = new String(map.get(key));
+                filterUris.add(filterId, filterUri);
+                filterCall = null;
             }
-        });
-        call = null;
+        }
     }
 
     private void loadPreviewImage(String uri) {
@@ -330,9 +363,13 @@ public class FilterPreviewFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public boolean onBackPressedSupport() {
-        if (call != null) {
-            call.cancel();
-            call = null;
+        if (filterListCall != null) {
+            filterListCall.cancel();
+            filterListCall = null;
+        }
+        if (filterCall != null) {
+            filterCall.cancel();
+            filterCall = null;
         }  else {
             post(new Runnable() {
                 @Override
